@@ -1,0 +1,69 @@
+package costas.albert.popmessage.entity;
+
+import java.util.HashMap;
+import java.util.Map;
+import com.fasterxml.jackson.annotation.JsonAnyGetter;
+import com.fasterxml.jackson.annotation.JsonAnySetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonPropertyOrder({
+        "messageID",
+        "userID",
+        "type"
+})
+public class Vote {
+
+    @JsonProperty("messageID")
+    private Id messageID;
+    @JsonProperty("userID")
+    private Id userID;
+    @JsonProperty("type")
+    private Object type;
+    @JsonIgnore
+    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+
+    @JsonProperty("messageID")
+    public Id getMessageID() {
+        return messageID;
+    }
+
+    @JsonProperty("messageID")
+    public void setMessageID(Id messageID) {
+        this.messageID = messageID;
+    }
+
+    @JsonProperty("userID")
+    public Id getUserID() {
+        return userID;
+    }
+
+    @JsonProperty("userID")
+    public void setUserID(Id userID) {
+        this.userID = userID;
+    }
+
+    @JsonProperty("type")
+    public Object getType() {
+        return type;
+    }
+
+    @JsonProperty("type")
+    public void setType(Object type) {
+        this.type = type;
+    }
+
+    @JsonAnyGetter
+    public Map<String, Object> getAdditionalProperties() {
+        return this.additionalProperties;
+    }
+
+    @JsonAnySetter
+    public void setAdditionalProperty(String name, Object value) {
+        this.additionalProperties.put(name, value);
+    }
+
+}
