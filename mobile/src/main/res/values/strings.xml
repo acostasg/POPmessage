@@ -13,4 +13,12 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
+    <string name="create_account_for_new_users">Create account for new users</string>
+    <string name="submit">Submit</string>
+    <string name="name">Name</string>
+    <string name="year">Year</string>
+    <string name="mounth">Mounth</string>
+    <string name="day">Day</string>
+    <string name="accept_privacy_policy">I accept the privacy policy</string>
+    <string name="password">Password</string>
 </resources>

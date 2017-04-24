@@ -1,4 +1,5 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -11,6 +12,13 @@
     tools:context="costas.albert.popmessage.LoginActivity">
 
     <!-- Login progress -->
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:srcCompat="@mipmap/login_icon" />
+
     <ProgressBar
         android:id="@+id/login_progress"
         style="?android:attr/progressBarStyleLarge"
@@ -28,7 +36,8 @@
             android:id="@+id/email_login_form"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:weightSum="1">
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
@@ -71,6 +80,21 @@
                 android:layout_marginTop="16dp"
                 android:text="@string/action_sign_in"
                 android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/createAccoutLink"
+                android:layout_width="354dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="100dp"
+                android:autoLink="web"
+                android:clickable="true"
+                android:contentDescription="@string/create_account_for_new_users"
+                android:cursorVisible="true"
+                android:text="create new account"
+                android:textAlignment="center"
+                android:textColor="@color/colorPrimaryDark"
+                android:textStyle="bold"
+                android:visibility="visible" />
 
         </LinearLayout>
     </ScrollView>
