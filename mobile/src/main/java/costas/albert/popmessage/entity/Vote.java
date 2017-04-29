@@ -22,7 +22,7 @@ public class Vote {
     @JsonProperty("userID")
     private Id userID;
     @JsonProperty("type")
-    private Object type;
+    private Type type;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
@@ -47,12 +47,12 @@ public class Vote {
     }
 
     @JsonProperty("type")
-    public Object getType() {
+    public Type getType() {
         return type;
     }
 
     @JsonProperty("type")
-    public void setType(Object type) {
+    public void setType(Type type) {
         this.type = type;
     }
 

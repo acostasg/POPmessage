@@ -20,7 +20,7 @@ public class Location {
     @JsonProperty("lat")
     private String lat;
     @JsonProperty("lon")
-    private Integer lon;
+    private String lon;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
@@ -35,12 +35,12 @@ public class Location {
     }
 
     @JsonProperty("lon")
-    public Integer getLon() {
+    public String getLon() {
         return lon;
     }
 
     @JsonProperty("lon")
-    public void setLon(Integer lon) {
+    public void setLon(String lon) {
         this.lon = lon;
     }
 

@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -30,7 +31,7 @@ public class Message {
     @JsonProperty("location")
     private Location location;
     @JsonProperty("votes")
-    private Vote votes;
+    private List<Vote> votes;
     @JsonProperty("status")
     private Status status;
     @JsonIgnore
@@ -77,12 +78,12 @@ public class Message {
     }
 
     @JsonProperty("votes")
-    public Vote getVotes() {
+    public List<Vote> getVotes() {
         return votes;
     }
 
     @JsonProperty("votes")
-    public void setVotes(Vote votes) {
+    public void setVotes(List<Vote> votes) {
         this.votes = votes;
     }
 
