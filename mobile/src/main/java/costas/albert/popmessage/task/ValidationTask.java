@@ -2,6 +2,7 @@ package costas.albert.popmessage.task;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.widget.CheckedTextView;
 
 import com.loopj.android.http.AsyncHttpResponseHandler;
 

@@ -151,6 +151,7 @@
                         android:layout_marginTop="48dp"
                         android:checkMark="?android:attr/listChoiceIndicatorMultiple"
                         android:clickable="true"
+                        android:checked="false"
                         android:gravity="center"
                         android:linksClickable="true"
                         android:text="@string/accept_privacy_policy"

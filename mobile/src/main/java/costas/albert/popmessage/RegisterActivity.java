@@ -9,12 +9,17 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
+import costas.albert.popmessage.Listener.PolicyCheckedListener;
+
 public class RegisterActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
+
+    private final PolicyCheckedListener policyCheckedListener = new PolicyCheckedListener(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+        policyCheckedListener.policyCheckedListener();
     }
 
     @Override
