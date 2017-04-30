@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
+import costas.albert.popmessage.entity.Token;
+
 public class Session {
 
     private SharedPreferences prefs;
@@ -12,14 +14,14 @@ public class Session {
         prefs = PreferenceManager.getDefaultSharedPreferences(context);
     }
 
-    public String getToken() {
+    public Token getToken() {
         String token;
         token = prefs.getString("token", "");
-        return token;
+        return new Token(token);
     }
 
-    public void setToken(String hash) {
-        final boolean token = prefs.edit().putString("token", hash).commit();
+    public void setToken(Token token) {
+        boolean result = prefs.edit().putString("token", token.hash()).commit();
     }
 
     public void resetToken() {

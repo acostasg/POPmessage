@@ -1,11 +1,13 @@
 package costas.albert.popmessage.task;
 
 import android.app.ProgressDialog;
-import android.content.Context;
-import android.widget.CheckedTextView;
 
 import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 
+import costas.albert.popmessage.LoginActivity;
+import costas.albert.popmessage.api.ApiValues;
+import costas.albert.popmessage.api.RestClient;
 import costas.albert.popmessage.entity.Token;
 import costas.albert.popmessage.session.Session;
 import cz.msebera.android.httpclient.Header;
@@ -14,10 +16,12 @@ import cz.msebera.android.httpclient.Header;
 public class ValidationTask extends AsyncHttpResponseHandler {
 
     private ProgressDialog dialog;
-    private Context mContext;
+    private LoginActivity mContext;
+    private Session session;
 
-    public ValidationTask(Context mContext) {
+    public ValidationTask(LoginActivity mContext) {
         this.mContext = mContext;
+        this.session = new Session(this.mContext);
     }
 
     public void onStart() {
@@ -27,18 +31,30 @@ public class ValidationTask extends AsyncHttpResponseHandler {
         this.dialog.show();
     }
 
+    public static void execute(LoginActivity loginActivity) {
+        Token token = new Session(loginActivity).getToken();
+        if (!token.isEmpty()) {
+            RestClient.get(
+                    ApiValues.TOKEN_VALIDATION_END_POINT,
+                    new RequestParams(),
+                    new ValidationTask(loginActivity),
+                    token
+            );
+        }
+    }
+
     @Override
     public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-        this.dialog.hide();
-
-        Session session = new Session(this.mContext);
-
+        this.dialog.setMessage(responseBody.toString());
         Token token = new Token(responseBody.toString());
         if (!token.isEmpty()) {
-            session.setToken(token.hash());
+            this.session.setToken(token);
+            this.mContext.finish();
+            this.mContext.sendMessagesView();
         } else {
             session.resetToken();
         }
+        this.dialog.hide();
     }
 
     @Override

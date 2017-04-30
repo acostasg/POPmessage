@@ -40,5 +40,6 @@ public class RegisterActivity extends AppCompatActivity implements LoaderManager
     public void sendLogin(View view) {
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
+        this.finish();
     }
 }
