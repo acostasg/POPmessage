@@ -29,6 +29,11 @@
             android:label="@string/register"
             android:screenOrientation="portrait" >
         </activity>
+        <activity
+            android:name=".MessagesActivity"
+            android:label="@string/register"
+            android:screenOrientation="portrait" >
+        </activity>
     </application>
 
 </manifest>
