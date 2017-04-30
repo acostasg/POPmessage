@@ -17,6 +17,7 @@
         android:id="@+id/imageView4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:contentDescription="@string/login"
         app:srcCompat="@mipmap/login_icon" />
 
     <ProgressBar
@@ -36,8 +37,8 @@
             android:id="@+id/email_login_form"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:weightSum="1">
+            android:weightSum="1"
+            android:orientation="vertical">
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
@@ -49,8 +50,7 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/prompt_email"
                     android:inputType="textEmailAddress"
-                    android:maxLines="1"
-                    android:singleLine="true" />
+                    android:maxLines="1" />
 
             </android.support.design.widget.TextInputLayout>
 
@@ -67,8 +67,7 @@
                     android:imeActionLabel="@string/action_sign_in_short"
                     android:imeOptions="actionUnspecified"
                     android:inputType="textPassword"
-                    android:maxLines="1"
-                    android:singleLine="true" />
+                    android:maxLines="1" />
 
             </android.support.design.widget.TextInputLayout>
 
@@ -90,11 +89,13 @@
                 android:clickable="true"
                 android:contentDescription="@string/create_account_for_new_users"
                 android:cursorVisible="true"
-                android:text="create new account"
+                android:onClick="sendRegister"
+                android:text="@string/create_new_account"
                 android:textAlignment="center"
                 android:textColor="@color/colorPrimaryDark"
                 android:textStyle="bold"
-                android:visibility="visible" />
+                android:visibility="visible"
+                tools:ignore="TextViewEdits" />
 
         </LinearLayout>
     </ScrollView>

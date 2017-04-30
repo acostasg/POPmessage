@@ -54,8 +54,7 @@
                         android:layout_height="wrap_content"
                         android:hint="@string/name"
                         android:inputType="text"
-                        android:maxLines="1"
-                        android:singleLine="true" />
+                        android:maxLines="1" />
 
                 </android.support.design.widget.TextInputLayout>
 
@@ -73,8 +72,7 @@
                         android:imeActionLabel="@string/action_sign_in_short"
                         android:imeOptions="actionUnspecified"
                         android:inputType="text"
-                        android:maxLines="1"
-                        android:singleLine="true" />
+                        android:maxLines="1" />
 
                 </android.support.design.widget.TextInputLayout>
 
@@ -141,25 +139,22 @@
                     android:imeActionLabel="@string/action_sign_in_short"
                     android:imeOptions="actionUnspecified"
                     android:inputType="textPassword"
-                    android:maxLines="1"
-                    android:singleLine="true" />
+                    android:maxLines="1" />
 
                 </android.support.design.widget.TextInputLayout>
 
-                <CheckedTextView
-                    android:id="@+id/hasPrivacyPolicy"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="80dp"
-                    android:layout_marginTop="15dp"
-                    android:checkMark="@android:drawable/checkbox_off_background"
-                    android:checkMarkTint="@android:drawable/checkbox_on_background"
-                    android:checked="false"
-                    android:clickable="true"
-                    android:linksClickable="true"
-                    android:singleLine="false"
-                    android:text="@string/accept_privacy_policy"
-                    android:textAlignment="center" />
+
+                    <CheckedTextView
+                        android:id="@+id/hasPrivacyPolicy"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="48dp"
+                        android:checkMark="?android:attr/listChoiceIndicatorMultiple"
+                        android:clickable="true"
+                        android:gravity="center"
+                        android:linksClickable="true"
+                        android:text="@string/accept_privacy_policy"
+                         />
 
                 <Button
                     android:id="@+id/email_sign_in_button"
@@ -169,6 +164,13 @@
                     android:layout_marginTop="16dp"
                     android:text="@string/submit"
                     android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/cancel_action"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:onClick="sendLogin"
+                    android:text="@string/cancel" />
 
             </LinearLayout>
         </ScrollView>
