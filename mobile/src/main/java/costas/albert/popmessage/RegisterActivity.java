@@ -9,7 +9,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
-import costas.albert.popmessage.Listener.PolicyCheckedListener;
+import costas.albert.popmessage.listener.PolicyCheckedListener;
 
 public class RegisterActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 

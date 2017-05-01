@@ -1,4 +1,4 @@
-package costas.albert.popmessage.Listener;
+package costas.albert.popmessage.listener;
 
 import android.support.annotation.NonNull;
 import android.view.View;

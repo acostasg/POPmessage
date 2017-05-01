@@ -26,8 +26,8 @@ import android.widget.EditText;
 import java.util.ArrayList;
 import java.util.List;
 
-import costas.albert.popmessage.Listener.EditorActionListener;
-import costas.albert.popmessage.Listener.EmailSignButtonListener;
+import costas.albert.popmessage.listener.EditorActionListener;
+import costas.albert.popmessage.listener.EmailSignButtonListener;
 import costas.albert.popmessage.task.UserLoginTask;
 import costas.albert.popmessage.task.ValidationTask;
 

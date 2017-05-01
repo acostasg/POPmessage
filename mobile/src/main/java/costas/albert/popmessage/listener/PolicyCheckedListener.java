@@ -1,4 +1,4 @@
-package costas.albert.popmessage.Listener;
+package costas.albert.popmessage.listener;
 
 import android.view.View;
 import android.widget.CheckedTextView;
