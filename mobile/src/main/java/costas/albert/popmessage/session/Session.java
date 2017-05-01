@@ -8,6 +8,7 @@ import costas.albert.popmessage.entity.Token;
 
 public class Session {
 
+    private static final String TOKEN = "token";
     private SharedPreferences prefs;
 
     public Session(Context context) {
@@ -15,15 +16,21 @@ public class Session {
     }
 
     public Token getToken() {
-        String tokenString = prefs.getString("token", null);
+        String tokenString = prefs.getString(TOKEN, null);
         return new Token(tokenString);
     }
 
-    public void setToken(Token token) {
-        boolean result = prefs.edit().putString("token", token.hash()).commit();
+    public boolean setToken(Token token) {
+        final boolean result;
+        if (prefs.edit().putString(TOKEN, token.hash()).commit()) result = true;
+        else result = false;
+        return result;
     }
 
-    public void resetToken() {
-        final boolean token = prefs.edit().remove("token").commit();
+    public boolean resetToken() {
+        final boolean result;
+        if (prefs.edit().remove(TOKEN).commit()) result = true;
+        else result = false;
+        return result;
     }
 }

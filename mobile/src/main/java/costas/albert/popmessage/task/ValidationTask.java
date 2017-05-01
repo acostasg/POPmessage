@@ -1,6 +1,7 @@
 package costas.albert.popmessage.task;
 
 import android.app.ProgressDialog;
+import android.util.Log;
 
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;

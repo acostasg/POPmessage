@@ -70,15 +70,18 @@ public class UserLoginTask extends AsyncHttpResponseHandler {
     public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
         this.mContext.showProgress(false);
         String message;
-        if (statusCode == 401) {
-            invalidCredentials();
-            return;
-        } else if (statusCode == 404) {
-            message = this.mContext.getString(R.string.requested_not_found);
-        } else if (statusCode == 500) {
-            message = this.mContext.getString(R.string.wrong_server_end);
-        } else {
-            message = this.mContext.getString(R.string.unexpected_error);
+        switch (statusCode){
+            case 401:
+                invalidCredentials();
+                return;
+            case 404:
+                message = this.mContext.getString(R.string.requested_not_found);
+                break;
+            case 500:
+                message = this.mContext.getString(R.string.wrong_server_end);
+                break;
+            default:
+                message = this.mContext.getString(R.string.unexpected_error);
         }
         popAlertConnection(message);
     }

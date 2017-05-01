@@ -2,7 +2,6 @@ package costas.albert.popmessage.api;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
-import com.loopj.android.http.RequestHandle;
 import com.loopj.android.http.RequestParams;
 
 import java.net.URLEncoder;
@@ -20,7 +19,7 @@ public final class RestClient {
 
     public static void get(String url, RequestParams params, AsyncHttpResponseHandler responseHandler, Token token) {
         client.addHeader(ApiValues.AUTHORIZATION, ApiValues.APP_KEY);
-        params.add("token", token.hash());
+        params.add(ApiValues.TOKEN, token.hash());
         client.get(getAbsoluteUrl(url), params, responseHandler);
     }
 
@@ -40,7 +39,7 @@ public final class RestClient {
 
     private static String getAbsoluteUrl(String relativeUrl, Token token) {
         try {
-            return ApiValues.BASE_URL + relativeUrl + "&" + URLEncoder.encode(token.hash(), "UTF-8");
+            return ApiValues.BASE_URL + relativeUrl + "&" + ApiValues.TOKEN + '=' + URLEncoder.encode(token.hash(), "UTF-8");
         } catch (java.io.UnsupportedEncodingException exception) {
             return null;
         }
