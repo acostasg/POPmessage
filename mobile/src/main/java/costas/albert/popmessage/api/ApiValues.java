@@ -1,9 +1,12 @@
 package costas.albert.popmessage.api;
 
+/**
+ * https://developer.android.com/studio/run/emulator-commandline.html#networkaddresses
+ */
 public class ApiValues {
 
     //only scope api package
-    protected static final String BASE_URL = "http://127.0.0.1:8080/";
+    protected static final String BASE_URL = "http://10.0.2.2:8080/"; //android simulator to pc
     protected static final String APP_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9";
     protected static final String AUTHORIZATION = "Authorization";
 

@@ -1,5 +1,8 @@
 package costas.albert.popmessage.task;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
@@ -24,9 +27,9 @@ public class UserLoginTask extends AsyncHttpResponseHandler {
     public static void execute(LoginActivity mContext, String email, String password) {
         RequestParams requestParams = new RequestParams();
         requestParams.add(ApiValues.USERNAME, email);
-        requestParams.add(ApiValues.USERNAME, password);
+        requestParams.add(ApiValues.PASSWORD, password);
         RestClient.get(
-                ApiValues.TOKEN_VALIDATION_END_POINT,
+                ApiValues.LOGIN_END_POINT,
                 requestParams,
                 new UserLoginTask(mContext)
         );
@@ -40,23 +43,57 @@ public class UserLoginTask extends AsyncHttpResponseHandler {
 
     @Override
     public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-        Token token = new Token(responseBody.toString());
-        this.mContext.mPasswordView.setError(responseBody.toString());
-        if (!token.isEmpty()) {
-            this.session.setToken(token);
-            this.mContext.finish();
-            this.mContext.sendMessagesView();
+        try {
+            Token token = Token.build(responseBody);
+            if (!token.isEmpty()) {
+                this.session.setToken(token);
+                this.mContext.finish();
+                this.mContext.sendMessagesView();
 
-        } else {
-            session.resetToken();
+            } else {
+                invalidCredentials();
+            }
+        } catch (java.io.IOException | org.json.JSONException exception) {
+            popAlertConnection(this.mContext.getString(R.string.wrong_server_end) + " [" + exception.getMessage() + ']');
         }
+
         this.mContext.showProgress(false);
+    }
+
+    private void invalidCredentials() {
+        session.resetToken();
+        this.mContext.mPasswordView.setError(this.mContext.getString(R.string.error_incorrect_password));
+        this.mContext.mPasswordView.requestFocus();
     }
 
     @Override
     public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
         this.mContext.showProgress(false);
-        this.mContext.mPasswordView.setError(this.mContext.getString(R.string.error_incorrect_password));
-        this.mContext.mPasswordView.requestFocus();
+        String message;
+        if (statusCode == 401) {
+            invalidCredentials();
+            return;
+        } else if (statusCode == 404) {
+            message = this.mContext.getString(R.string.requested_not_found);
+        } else if (statusCode == 500) {
+            message = this.mContext.getString(R.string.wrong_server_end);
+        } else {
+            message = this.mContext.getString(R.string.unexpected_error);
+        }
+        popAlertConnection(message);
+    }
+
+    private void popAlertConnection(String message) {
+        AlertDialog alertDialog = new AlertDialog.Builder(mContext).create();
+        alertDialog.setTitle("Alert");
+        alertDialog.setMessage(message);
+        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+
+        alertDialog.show();
     }
 }

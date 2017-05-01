@@ -9,6 +9,9 @@
     <string name="error_invalid_email">This email address is invalid</string>
     <string name="error_invalid_password">This password is too short</string>
     <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="requested_not_found">Requested resource not found</string>
+    <string name="wrong_server_end">Something went wrong at server end</string>
+    <string name="unexpected_error">Unexpected Error occcured! [Most common Error: Device might not be connected to Internet or remote server is not up and running]</string>
     <string name="error_field_required">This field is required</string>
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."

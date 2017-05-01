@@ -6,6 +6,7 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
 import costas.albert.popmessage.LoginActivity;
+import costas.albert.popmessage.R;
 import costas.albert.popmessage.api.ApiValues;
 import costas.albert.popmessage.api.RestClient;
 import costas.albert.popmessage.entity.Token;
@@ -45,13 +46,16 @@ public class ValidationTask extends AsyncHttpResponseHandler {
 
     @Override
     public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-        this.dialog.setMessage(responseBody.toString());
-        Token token = new Token(responseBody.toString());
-        if (!token.isEmpty()) {
-            this.session.setToken(token);
-            this.mContext.finish();
-            this.mContext.sendMessagesView();
-        } else {
+        try {
+            Token token = Token.build(responseBody);
+            if (!token.isEmpty()) {
+                this.session.setToken(token);
+                this.mContext.finish();
+                this.mContext.sendMessagesView();
+            } else {
+                session.resetToken();
+            }
+        } catch (java.io.IOException | org.json.JSONException exception) {
             session.resetToken();
         }
         this.dialog.hide();
@@ -60,7 +64,6 @@ public class ValidationTask extends AsyncHttpResponseHandler {
     @Override
     public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
         this.dialog.hide();
-
         if (statusCode == 404) {
             this.dialog.setMessage("Requested resource not found");
         } else if (statusCode == 500) {

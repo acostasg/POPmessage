@@ -15,9 +15,8 @@ public class Session {
     }
 
     public Token getToken() {
-        String token;
-        token = prefs.getString("token", "");
-        return new Token(token);
+        String tokenString = prefs.getString("token", null);
+        return new Token(tokenString);
     }
 
     public void setToken(Token token) {
