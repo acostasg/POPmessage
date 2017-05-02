@@ -5,11 +5,10 @@ import android.view.View;
 
 import costas.albert.popmessage.LoginActivity;
 
-public class EmailSignButtonListener {
-    private final LoginActivity loginActivity;
+public class EmailSignButtonListener extends AbstractLoginListener {
 
     public EmailSignButtonListener(LoginActivity loginActivity) {
-        this.loginActivity = loginActivity;
+        super(loginActivity);
     }
 
     @NonNull
@@ -17,7 +16,7 @@ public class EmailSignButtonListener {
         return new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                loginActivity.attemptLogin();
+                attemptLogin();
             }
         };
     }
