@@ -5,7 +5,7 @@ import android.view.View;
 
 import costas.albert.popmessage.LoginActivity;
 import costas.albert.popmessage.R;
-import costas.albert.popmessage.task.UserLoginTask;
+import costas.albert.popmessage.task.UserLogInTask;
 
 public class AbstractLoginListener {
 
@@ -53,7 +53,7 @@ public class AbstractLoginListener {
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
             loginActivity.showProgress(true);
-            UserLoginTask.execute(loginActivity, email, password);
+            UserLogInTask.execute(loginActivity, email, password);
         }
     }
 

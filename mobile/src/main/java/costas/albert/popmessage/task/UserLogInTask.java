@@ -14,12 +14,12 @@ import costas.albert.popmessage.entity.Token;
 import costas.albert.popmessage.session.Session;
 import cz.msebera.android.httpclient.Header;
 
-public class UserLoginTask extends AsyncHttpResponseHandler {
+public class UserLogInTask extends AsyncHttpResponseHandler {
 
     private LoginActivity mContext;
     private Session session;
 
-    public UserLoginTask(LoginActivity mContext) {
+    public UserLogInTask(LoginActivity mContext) {
         this.mContext = mContext;
         this.session = new Session(this.mContext);
     }
@@ -31,7 +31,7 @@ public class UserLoginTask extends AsyncHttpResponseHandler {
         RestClient.get(
                 ApiValues.LOGIN_END_POINT,
                 requestParams,
-                new UserLoginTask(mContext)
+                new UserLogInTask(mContext)
         );
     }
 

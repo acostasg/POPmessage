@@ -25,7 +25,7 @@ public class Token {
     }
 
     public boolean isEmpty() {
-        return this.hash.isEmpty();
+        return this.hash==null || this.hash.isEmpty();
     }
 
     public static Token build(byte[] responseBody) throws java.io.IOException, org.json.JSONException {

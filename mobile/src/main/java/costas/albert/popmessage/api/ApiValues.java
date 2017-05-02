@@ -13,12 +13,13 @@ public class ApiValues {
     //public scope
     public static final String TOKEN_VALIDATION_END_POINT = "session/token";
     public static final String LOGIN_END_POINT = "user/login";
+    public static final String LOGOUT_END_POINT = "user/logout";
 
 
     //fields
     public static final String USERNAME = "userName";
     public static final String PASSWORD = "password";
 
-    public static final String TOKEN = "Token";
+    protected static final String TOKEN = "Token";
 
 }

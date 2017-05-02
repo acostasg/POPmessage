@@ -39,7 +39,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private final EditorActionListener editorActionListener = new EditorActionListener(this);
     private final AccessContacts accessContacts = new AccessContacts(this);
 
-    // UI references.
     public AutoCompleteTextView mEmailView;
     public EditText mPasswordView;
     public View mProgressView;
