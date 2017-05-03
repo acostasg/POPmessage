@@ -82,7 +82,7 @@
 
             <TextView
                 android:id="@+id/createAccoutLink"
-                android:layout_width="354dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="100dp"
                 android:autoLink="web"
