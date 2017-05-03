@@ -9,18 +9,18 @@ import android.widget.ArrayAdapter;
 
 import java.util.List;
 
-import costas.albert.popmessage.LoginActivity;
 import costas.albert.popmessage.R;
+import costas.albert.popmessage.RegisterActivity;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
-public class AccessContacts {
+public class AccessContactsRegisterActivity {
 
     private static final int REQUEST_READ_CONTACTS = 0;
-    private LoginActivity loginActivity;
+    private RegisterActivity registerActivity;
 
-    public AccessContacts(LoginActivity loginActivity) {
-        this.loginActivity = loginActivity;
+    public AccessContactsRegisterActivity(RegisterActivity registerActivity) {
+        this.registerActivity = registerActivity;
     }
 
     public void populateAutoComplete() {
@@ -28,32 +28,32 @@ public class AccessContacts {
             return;
         }
 
-        this.loginActivity.getLoaderManager().initLoader(0, null, this.loginActivity);
+        this.registerActivity.getLoaderManager().initLoader(0, null, this.registerActivity);
     }
 
     private boolean mayRequestContacts() {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
             return true;
         }
-        if (this.loginActivity.checkSelfPermission(READ_CONTACTS)
+        if (this.registerActivity.checkSelfPermission(READ_CONTACTS)
                 == PackageManager.PERMISSION_GRANTED) {
             return true;
         }
-        if (this.loginActivity.shouldShowRequestPermissionRationale(READ_CONTACTS)) {
+        if (this.registerActivity.shouldShowRequestPermissionRationale(READ_CONTACTS)) {
             Snackbar.make(
-                    this.loginActivity.mEmailView,
+                    this.registerActivity.mEmailView,
                     R.string.permission_rationale,
                     Snackbar.LENGTH_INDEFINITE
             )
                     .setAction(android.R.string.ok, new View.OnClickListener() {
                         @Override
                         @TargetApi(Build.VERSION_CODES.M)
-                        public void onClick(View v){
-                            loginActivity.requestPermissions(new String[]{READ_CONTACTS}, REQUEST_READ_CONTACTS);
+                        public void onClick(View v) {
+                            registerActivity.requestPermissions(new String[]{READ_CONTACTS}, REQUEST_READ_CONTACTS);
                         }
                     });
         } else {
-            this.loginActivity.requestPermissions(new String[]{READ_CONTACTS}, REQUEST_READ_CONTACTS);
+            this.registerActivity.requestPermissions(new String[]{READ_CONTACTS}, REQUEST_READ_CONTACTS);
         }
         return false;
     }
@@ -62,11 +62,11 @@ public class AccessContacts {
         //Create adapter to tell the AutoCompleteTextView what to show in its dropdown list.
         ArrayAdapter<String> adapter =
                 new ArrayAdapter<>(
-                        this.loginActivity,
+                        this.registerActivity,
                         android.R.layout.simple_dropdown_item_1line,
                         emailAddressCollection
                 );
 
-        this.loginActivity.mEmailView.setAdapter(adapter);
+        this.registerActivity.mEmailView.setAdapter(adapter);
     }
 }

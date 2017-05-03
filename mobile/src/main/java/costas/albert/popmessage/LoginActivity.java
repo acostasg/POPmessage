@@ -23,10 +23,11 @@ import android.widget.EditText;
 import java.util.ArrayList;
 import java.util.List;
 
-import costas.albert.popmessage.listener.EditorActionListener;
-import costas.albert.popmessage.listener.EmailSignButtonListener;
-import costas.albert.popmessage.services.AccessContacts;
+import costas.albert.popmessage.listener.EditorActionListenerLoginActivity;
+import costas.albert.popmessage.listener.EmailSignButtonLoginListener;
+import costas.albert.popmessage.services.AccessContactsLoginActivity;
 import costas.albert.popmessage.services.ProfileQuery;
+import costas.albert.popmessage.session.Session;
 import costas.albert.popmessage.task.ValidationTask;
 
 /**
@@ -34,10 +35,10 @@ import costas.albert.popmessage.task.ValidationTask;
  */
 public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<Cursor> {
 
-    private static final int REQUEST_READ_CONTACTS = 0;
-    private final EmailSignButtonListener emailSignButtonListener = new EmailSignButtonListener(this);
-    private final EditorActionListener editorActionListener = new EditorActionListener(this);
-    private final AccessContacts accessContacts = new AccessContacts(this);
+    private static final int REQUEST_READ_CONTACTS = 1;
+    private final EmailSignButtonLoginListener emailSignButtonListener = new EmailSignButtonLoginListener(this);
+    private final EditorActionListenerLoginActivity editorActionListener = new EditorActionListenerLoginActivity(this);
+    private final AccessContactsLoginActivity accessContacts = new AccessContactsLoginActivity(this);
 
     public AutoCompleteTextView mEmailView;
     public EditText mPasswordView;
@@ -48,18 +49,28 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
         // Set up the login form.
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
+
+        // Exist register user in session
+        Session session = new Session(this);
+        if(session.hasUser()) {
+            mEmailView.setText(session.getUser().getUserLogin());
+        }
+
         accessContacts.populateAutoComplete();
 
         mPasswordView = (EditText) findViewById(R.id.password);
         mPasswordView.setOnEditorActionListener(editorActionListener.EditorActionListener());
 
+        // listener to login
         Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
         mEmailSignInButton.setOnClickListener(emailSignButtonListener.EmailSignIsButtonListener());
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
+
         //validate token or login
         ValidationTask.execute(this);
     }

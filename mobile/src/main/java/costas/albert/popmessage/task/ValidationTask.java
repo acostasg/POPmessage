@@ -1,16 +1,15 @@
 package costas.albert.popmessage.task;
 
 import android.app.ProgressDialog;
-import android.util.Log;
 
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
 import costas.albert.popmessage.LoginActivity;
-import costas.albert.popmessage.R;
 import costas.albert.popmessage.api.ApiValues;
 import costas.albert.popmessage.api.RestClient;
 import costas.albert.popmessage.entity.Token;
+import costas.albert.popmessage.entity.mapper.TokenMapper;
 import costas.albert.popmessage.session.Session;
 import cz.msebera.android.httpclient.Header;
 
@@ -48,7 +47,7 @@ public class ValidationTask extends AsyncHttpResponseHandler {
     @Override
     public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
         try {
-            Token token = Token.build(responseBody);
+            Token token = TokenMapper.build(responseBody);
             if (!token.isEmpty()) {
                 this.session.setToken(token);
                 this.mContext.finish();

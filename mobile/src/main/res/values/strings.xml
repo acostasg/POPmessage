@@ -13,6 +13,8 @@
     <string name="wrong_server_end">Something went wrong at server end</string>
     <string name="unexpected_error">Unexpected Error occcured! [Most common Error: Device might not be connected to Internet or remote server is not up and running]</string>
     <string name="error_field_required">This field is required</string>
+    <string name="accept_terms">Please accept our Terms and Conditions.</string>
+    <string name="invalid_params">Rectify any incorrect or add missing data.</string>
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>

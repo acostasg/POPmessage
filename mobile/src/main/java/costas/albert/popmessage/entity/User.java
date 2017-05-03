@@ -1,8 +1,5 @@
 package costas.albert.popmessage.entity;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -10,26 +7,30 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
-        "ID",
+        "Id",
         "name",
         "userLogin",
-        "password",
-        "status"
+        "status",
+        "date"
 })
 public class User {
 
-    @JsonProperty("ID")
+    @JsonProperty("Id")
     private Id ID;
     @JsonProperty("name")
     private String name;
     @JsonProperty("userLogin")
     private String userLogin;
-    @JsonProperty("password")
-    private String password;
     @JsonProperty("status")
     private Status status;
+    @JsonProperty("date")
+    private Date date;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
@@ -63,16 +64,6 @@ public class User {
         this.userLogin = userLogin;
     }
 
-    @JsonProperty("password")
-    public String getPassword() {
-        return password;
-    }
-
-    @JsonProperty("password")
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     @JsonProperty("status")
     public Status getStatus() {
         return status;
@@ -81,6 +72,16 @@ public class User {
     @JsonProperty("status")
     public void setStatus(Status status) {
         this.status = status;
+    }
+
+    @JsonProperty("date")
+    public Date getDate() {
+        return date;
+    }
+
+    @JsonProperty("date")
+    public void setDate(Date date) {
+        this.date = date;
     }
 
     @JsonAnyGetter

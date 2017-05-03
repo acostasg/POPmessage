@@ -6,33 +6,43 @@ import android.content.DialogInterface;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
-import costas.albert.popmessage.LoginActivity;
 import costas.albert.popmessage.R;
+import costas.albert.popmessage.RegisterActivity;
 import costas.albert.popmessage.api.ApiValues;
 import costas.albert.popmessage.api.RestClient;
-import costas.albert.popmessage.entity.Token;
-import costas.albert.popmessage.entity.mapper.TokenMapper;
+import costas.albert.popmessage.entity.User;
+import costas.albert.popmessage.entity.mapper.UserMapper;
 import costas.albert.popmessage.session.Session;
 import cz.msebera.android.httpclient.Header;
 
-public class UserLogInTask extends AsyncHttpResponseHandler {
+public class UserRegisterTask extends AsyncHttpResponseHandler {
 
-    private LoginActivity mContext;
+    private RegisterActivity mContext;
     private Session session;
 
-    public UserLogInTask(LoginActivity mContext) {
+    public UserRegisterTask(RegisterActivity mContext) {
         this.mContext = mContext;
         this.session = new Session(this.mContext);
     }
 
-    public static void execute(LoginActivity mContext, String email, String password) {
+    public static void execute(
+            RegisterActivity mContext,
+            String email,
+            String password,
+            String name,
+            String dateOfBirth,
+            boolean acceptedPolicy
+    ) {
         RequestParams requestParams = new RequestParams();
         requestParams.add(ApiValues.USERNAME, email);
         requestParams.add(ApiValues.PASSWORD, password);
-        RestClient.get(
-                ApiValues.LOGIN_END_POINT,
+        requestParams.add(ApiValues.NAME, name);
+        requestParams.add(ApiValues.DATE_OF_BIRTH, dateOfBirth);
+        requestParams.add(ApiValues.PRIVACY_POLICY, String.valueOf(acceptedPolicy));
+        RestClient.post(
+                ApiValues.REGISTER_END_POINT,
                 requestParams,
-                new UserLogInTask(mContext)
+                new UserRegisterTask(mContext)
         );
     }
 
@@ -45,12 +55,11 @@ public class UserLogInTask extends AsyncHttpResponseHandler {
     @Override
     public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
         try {
-            Token token = TokenMapper.build(responseBody);
-            if (!token.isEmpty()) {
-                this.session.setToken(token);
+            User user = UserMapper.build(responseBody);
+            if (user != null) {
                 this.mContext.finish();
-                this.mContext.sendMessagesView();
-
+                this.mContext.sendLogin();
+                this.session.setUser(user);
             } else {
                 invalidCredentials();
             }
@@ -62,9 +71,8 @@ public class UserLogInTask extends AsyncHttpResponseHandler {
     }
 
     private void invalidCredentials() {
-        session.resetToken();
-        this.mContext.mPasswordView.setError(this.mContext.getString(R.string.error_incorrect_password));
-        this.mContext.mPasswordView.requestFocus();
+        this.mContext.mNameView.setError(this.mContext.getString(R.string.invalid_params));
+        this.mContext.mNameView.requestFocus();
     }
 
     @Override
