@@ -14,12 +14,12 @@ import costas.albert.popmessage.R;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
-public class AccessContactsLoginActivity {
+public class AccessContactsLoginService {
 
     private static final int REQUEST_READ_CONTACTS = 0;
     private LoginActivity loginActivity;
 
-    public AccessContactsLoginActivity(LoginActivity loginActivity) {
+    public AccessContactsLoginService(LoginActivity loginActivity) {
         this.loginActivity = loginActivity;
     }
 

@@ -2,7 +2,7 @@ package costas.albert.popmessage.services;
 
 import android.provider.ContactsContract;
 
-public interface ProfileQuery {
+public interface ProfileQueryService {
     String[] PROJECTION = {
             ContactsContract.CommonDataKinds.Email.ADDRESS,
             ContactsContract.CommonDataKinds.Email.IS_PRIMARY,

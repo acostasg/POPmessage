@@ -25,8 +25,8 @@ import java.util.List;
 
 import costas.albert.popmessage.listener.EditorActionListenerLoginActivity;
 import costas.albert.popmessage.listener.EmailSignButtonLoginListener;
-import costas.albert.popmessage.services.AccessContactsLoginActivity;
-import costas.albert.popmessage.services.ProfileQuery;
+import costas.albert.popmessage.services.AccessContactsLoginService;
+import costas.albert.popmessage.services.ProfileQueryService;
 import costas.albert.popmessage.session.Session;
 import costas.albert.popmessage.task.ValidationTask;
 
@@ -38,7 +38,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private static final int REQUEST_READ_CONTACTS = 1;
     private final EmailSignButtonLoginListener emailSignButtonListener = new EmailSignButtonLoginListener(this);
     private final EditorActionListenerLoginActivity editorActionListener = new EditorActionListenerLoginActivity(this);
-    private final AccessContactsLoginActivity accessContacts = new AccessContactsLoginActivity(this);
+    private final AccessContactsLoginService accessContacts = new AccessContactsLoginService(this);
 
     public AutoCompleteTextView mEmailView;
     public EditText mPasswordView;
@@ -138,7 +138,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
         return new CursorLoader(this,
                 Uri.withAppendedPath(ContactsContract.Profile.CONTENT_URI,
-                        ContactsContract.Contacts.Data.CONTENT_DIRECTORY), ProfileQuery.PROJECTION,
+                        ContactsContract.Contacts.Data.CONTENT_DIRECTORY), ProfileQueryService.PROJECTION,
                 ContactsContract.Contacts.Data.MIMETYPE +
                         " = ?", new String[]{ContactsContract.CommonDataKinds.Email
                 .CONTENT_ITEM_TYPE},
@@ -150,7 +150,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         List<String> emails = new ArrayList<>();
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
-            emails.add(cursor.getString(ProfileQuery.ADDRESS));
+            emails.add(cursor.getString(ProfileQueryService.ADDRESS));
             cursor.moveToNext();
         }
 

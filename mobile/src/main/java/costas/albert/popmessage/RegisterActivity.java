@@ -27,15 +27,15 @@ import java.util.List;
 import costas.albert.popmessage.listener.EditorActionListenerRegisterActivity;
 import costas.albert.popmessage.listener.EmailSignButtonRegisterListener;
 import costas.albert.popmessage.listener.PolicyCheckedListener;
-import costas.albert.popmessage.services.AccessContactsRegisterActivity;
-import costas.albert.popmessage.services.ProfileQuery;
+import costas.albert.popmessage.services.AccessContactsRegisterService;
+import costas.albert.popmessage.services.ProfileQueryService;
 
 public class RegisterActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
     private static final int REQUEST_READ_CONTACTS = 1;
     private final PolicyCheckedListener policyCheckedListener = new PolicyCheckedListener(this);
     private final EmailSignButtonRegisterListener emailSignButtonRegisterListener = new EmailSignButtonRegisterListener(this);
-    private final AccessContactsRegisterActivity accessContacts = new AccessContactsRegisterActivity(this);
+    private final AccessContactsRegisterService accessContacts = new AccessContactsRegisterService(this);
     private final EditorActionListenerRegisterActivity editorActionListener = new EditorActionListenerRegisterActivity(this);
 
     public AutoCompleteTextView mEmailView;
@@ -75,7 +75,7 @@ public class RegisterActivity extends AppCompatActivity implements LoaderManager
     public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
         return new CursorLoader(this,
                 Uri.withAppendedPath(ContactsContract.Profile.CONTENT_URI,
-                        ContactsContract.Contacts.Data.CONTENT_DIRECTORY), ProfileQuery.PROJECTION,
+                        ContactsContract.Contacts.Data.CONTENT_DIRECTORY), ProfileQueryService.PROJECTION,
                 ContactsContract.Contacts.Data.MIMETYPE +
                         " = ?", new String[]{ContactsContract.CommonDataKinds.Email
                 .CONTENT_ITEM_TYPE},
@@ -123,7 +123,7 @@ public class RegisterActivity extends AppCompatActivity implements LoaderManager
         List<String> emails = new ArrayList<>();
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
-            emails.add(cursor.getString(ProfileQuery.ADDRESS));
+            emails.add(cursor.getString(ProfileQueryService.ADDRESS));
             cursor.moveToNext();
         }
 

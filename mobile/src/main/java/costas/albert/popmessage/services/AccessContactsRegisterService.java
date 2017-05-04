@@ -14,12 +14,12 @@ import costas.albert.popmessage.RegisterActivity;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
-public class AccessContactsRegisterActivity {
+public class AccessContactsRegisterService {
 
     private static final int REQUEST_READ_CONTACTS = 0;
     private RegisterActivity registerActivity;
 
-    public AccessContactsRegisterActivity(RegisterActivity registerActivity) {
+    public AccessContactsRegisterService(RegisterActivity registerActivity) {
         this.registerActivity = registerActivity;
     }
 
