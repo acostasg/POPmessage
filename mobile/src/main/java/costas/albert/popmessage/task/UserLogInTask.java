@@ -20,7 +20,7 @@ public class UserLogInTask extends AsyncHttpResponseHandler {
     private LoginActivity mContext;
     private Session session;
 
-    public UserLogInTask(LoginActivity mContext) {
+    private UserLogInTask(LoginActivity mContext) {
         this.mContext = mContext;
         this.session = new Session(this.mContext);
     }

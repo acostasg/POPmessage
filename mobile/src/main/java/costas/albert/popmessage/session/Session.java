@@ -37,7 +37,7 @@ public class Session {
         try {
             return mapper.readValue(user, User.class);
         } catch (Exception exception) {
-           return new User();
+            return new User();
         }
 
     }

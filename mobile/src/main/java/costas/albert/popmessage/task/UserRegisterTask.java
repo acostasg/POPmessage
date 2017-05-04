@@ -20,7 +20,7 @@ public class UserRegisterTask extends AsyncHttpResponseHandler {
     private RegisterActivity mContext;
     private Session session;
 
-    public UserRegisterTask(RegisterActivity mContext) {
+    private UserRegisterTask(RegisterActivity mContext) {
         this.mContext = mContext;
         this.session = new Session(this.mContext);
     }

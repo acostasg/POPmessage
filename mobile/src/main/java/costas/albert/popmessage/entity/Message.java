@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonRootName;
 
 import java.util.HashMap;
 import java.util.List;
@@ -14,17 +15,17 @@ import java.util.Map;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
         "ID",
-        "userID",
         "text",
         "location",
         "votes",
         "status"
 })
+@JsonRootName(value = "Message")
 public class Message {
 
-    @JsonProperty("ID")
+    @JsonProperty("Id")
     private Id ID;
-    @JsonProperty("userID")
+    @JsonProperty("userId")
     private Id userID;
     @JsonProperty("text")
     private String text;
@@ -37,22 +38,22 @@ public class Message {
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
-    @JsonProperty("ID")
+    @JsonProperty("Id")
     public Id getID() {
         return ID;
     }
 
-    @JsonProperty("ID")
+    @JsonProperty("Id")
     public void setID(Id ID) {
         this.ID = ID;
     }
 
-    @JsonProperty("userID")
+    @JsonProperty("userId")
     public Id getUserID() {
         return userID;
     }
 
-    @JsonProperty("userID")
+    @JsonProperty("userId")
     public void setUserID(Id userID) {
         this.userID = userID;
     }

@@ -55,7 +55,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         // Exist register user in session
         Session session = new Session(this);
-        if(session.hasUser()) {
+        if (session.hasUser()) {
             mEmailView.setText(session.getUser().getUserLogin());
         }
 

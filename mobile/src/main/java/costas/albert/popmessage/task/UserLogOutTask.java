@@ -17,7 +17,7 @@ public class UserLogOutTask extends AsyncHttpResponseHandler {
     private MessagesActivity mContext;
     private Session session;
 
-    public UserLogOutTask(MessagesActivity mContext) {
+    private UserLogOutTask(MessagesActivity mContext) {
         this.mContext = mContext;
         this.session = new Session(this.mContext);
     }

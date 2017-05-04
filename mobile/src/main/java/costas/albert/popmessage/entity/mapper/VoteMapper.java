@@ -6,11 +6,11 @@ import org.json.JSONException;
 
 import java.io.IOException;
 
-import costas.albert.popmessage.entity.Token;
+import costas.albert.popmessage.entity.Vote;
 
-public class TokenMapper {
-    public static Token build(byte[] responseBody) throws IOException, JSONException {
+public class VoteMapper {
+    public static Vote build(byte[] responseBody) throws IOException, JSONException {
         ObjectMapper mapper = new ObjectMapper();
-        return mapper.readValue(responseBody, Token.class);
+        return mapper.readValue(responseBody, Vote.class);
     }
 }

@@ -2,10 +2,12 @@ package costas.albert.popmessage.entity;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonRootName;
 
 @JsonPropertyOrder({
         "hash"
 })
+@JsonRootName(value = "Token")
 public class Token {
 
     @JsonProperty("hash")

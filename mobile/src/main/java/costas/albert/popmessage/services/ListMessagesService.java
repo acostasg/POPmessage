@@ -11,23 +11,18 @@ import java.util.HashMap;
 import java.util.List;
 
 import costas.albert.popmessage.MessagesActivity;
+import costas.albert.popmessage.entity.Message;
 
 public class ListMessagesService {
     public ListMessagesService() {
     }
 
-    public void initListMessages(MessagesActivity messagesActivity, int id) {
+    public void initListMessages(MessagesActivity messagesActivity, List<Message> messages, int id) {
         final ListView listview = (ListView) messagesActivity.findViewById(id);
-        //TODO create task async to get api messages
-        String[] values = new String[]{"Android", "iPhone", "WindowsMobile",
-                "Blackberry", "WebOS", "Ubuntu", "Windows7", "Max OS X",
-                "Linux", "OS/2", "Ubuntu", "Windows7", "Max OS X", "Linux",
-                "OS/2", "Ubuntu", "Windows7", "Max OS X", "Linux", "OS/2",
-                "Android", "iPhone", "WindowsMobile"};
 
         final ArrayList<String> list = new ArrayList<String>();
-        for (int i = 0; i < values.length; ++i) {
-            list.add(values[i]);
+        for (Message message : messages) {
+            list.add(String.valueOf(message.getText()));
         }
         final StableArrayAdapter adapter = new StableArrayAdapter(
                 messagesActivity,
@@ -56,7 +51,7 @@ public class ListMessagesService {
         });
     }
 
-    class StableArrayAdapter extends ArrayAdapter<String> {
+    private class StableArrayAdapter extends ArrayAdapter<String> {
 
         HashMap<String, Integer> mIdMap = new HashMap<String, Integer>();
 
