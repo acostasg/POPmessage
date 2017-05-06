@@ -22,19 +22,39 @@
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".RegisterActivity"
             android:label="@string/register"
-            android:screenOrientation="portrait" >
-        </activity>
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name=".MessagesActivity"
             android:label="@string/messages"
-            android:screenOrientation="portrait" >
-        </activity>
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".PublishActivity"
+            android:label="@string/public_messages"
+            android:screenOrientation="portrait"></activity>
+
+        <meta-data
+            android:name="com.google.android.gms.car.application"
+            android:resource="@xml/automotive_app_desc" />
+
+        <service android:name=".services.MessagingService"></service>
+
+        <receiver android:name=".services.MessageReadReceiver">
+            <intent-filter>
+                <action android:name="costas.albert.popmessage.ACTION_MESSAGE_READ" />
+            </intent-filter>
+        </receiver>
+        <receiver android:name=".services.MessageReplyReceiver">
+            <intent-filter>
+                <action android:name="costas.albert.popmessage.ACTION_MESSAGE_REPLY" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

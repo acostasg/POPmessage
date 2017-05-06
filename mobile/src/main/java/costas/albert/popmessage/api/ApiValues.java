@@ -17,6 +17,7 @@ public class ApiValues {
     public static final String LOGOUT_END_POINT = "user/logout";
     public static final String REGISTER_END_POINT = "user/create";
     public static final String GET_MESSAGE_TO_LOCATION = "message/get";
+    public static final String POST_CREATE_MESSAGE = "message/create";
 
     /**
      * fields
@@ -33,5 +34,8 @@ public class ApiValues {
     //location
     public static final String LAT = "lat";
     public static final String LON = "lon";
+
+    //publication
+    public static final String TEXT = "text";
 
 }

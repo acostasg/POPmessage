@@ -37,4 +37,6 @@
     <string name="public_messages">Public Messages</string>
     <string name="your_messages">Your Messages</string>
     <string name="log_out">Log Out</string>
+    <string name="message">Your Message</string>
+    <string name="publish">Publish</string>
 </resources>

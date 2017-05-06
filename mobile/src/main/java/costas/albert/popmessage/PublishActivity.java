@@ -6,9 +6,6 @@ import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
-import android.location.Criteria;
-import android.location.Location;
-import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -18,24 +15,28 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 
 import costas.albert.popmessage.Wrapper.LocationManagerWrapper;
-import costas.albert.popmessage.services.ListMessagesService;
-import costas.albert.popmessage.task.MessageByLocationTask;
+import costas.albert.popmessage.session.Session;
+import costas.albert.popmessage.task.PublishTask;
 import costas.albert.popmessage.task.UserLogOutTask;
 
-public class MessagesActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>, LocationListener {
+public class PublishActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
-    public final ListMessagesService listMessagesService = new ListMessagesService();
+    private EditText editText;
     private LocationManager mLocationManager;
     private LocationManagerWrapper locationManagerWrapper;
+    private Session session;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_messages);
-        requestToPermissionsToAccessGPS();
-        createFloatingButtonToPublishMessage();
+        setContentView(R.layout.create_message_login);
+        editText = (EditText) findViewById(R.id.publish_message_text);
+        this.requestToPermissionsToAccessGPS();
+        this.session = new Session(this);
     }
 
     private void requestToPermissionsToAccessGPS() {
@@ -49,12 +50,16 @@ public class MessagesActivity extends AppCompatActivity implements LoaderManager
         );
     }
 
-    private void createFloatingButtonToPublishMessage() {
-        FloatingActionButton newMessage = (FloatingActionButton) this.findViewById(R.id.new_message);
+    private void initFloatingActionButton() {
+        FloatingActionButton newMessage = (FloatingActionButton) this.findViewById(R.id.publish_action_button);
         newMessage.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), PublishActivity.class);
-                startActivity(intent);
+                PublishTask.execute(
+                        PublishActivity.this,
+                        editText.getText().toString(),
+                        locationManagerWrapper.getBestLocation(mLocationManager),
+                        session.getToken()
+                );
             }
         });
     }
@@ -69,32 +74,14 @@ public class MessagesActivity extends AppCompatActivity implements LoaderManager
                 return;
             }
             this.locationManagerWrapper = new LocationManagerWrapper(mLocationManager, this);
-            Criteria criteria = new Criteria();
-
-            String provider = mLocationManager.getBestProvider(criteria, false);
-
-            this.mLocationManager.requestLocationUpdates(
-                    provider,
-                    LocationManagerWrapper.MIN_TIME,
-                    LocationManagerWrapper.MIN_DISTANCE,
-                    this
-            );
-            this.getLastKnownLocationAndRefreshMessages();
+            initFloatingActionButton();
         }
     }
 
-    public void getLastKnownLocationAndRefreshMessages() {
-        if (this.locationManagerWrapper.hasAccessFineLocation()) {
-            this.locationManagerWrapper.setMessageAccessLocationInvalid();
-            return;
-        }
-        Location bestLocation = this.locationManagerWrapper.getBestLocation(mLocationManager);
-        if (null != bestLocation) {
-            MessageByLocationTask.execute(
-                    this,
-                    bestLocation
-            );
-        }
+    public void sendMessagesView() {
+        Intent intent = new Intent(this, MessagesActivity.class);
+        startActivity(intent);
+        this.finish();
     }
 
     @Override
@@ -130,26 +117,6 @@ public class MessagesActivity extends AppCompatActivity implements LoaderManager
 
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
-
-    }
-
-    @Override
-    public void onLocationChanged(Location location) {
-        this.getLastKnownLocationAndRefreshMessages();
-    }
-
-    @Override
-    public void onStatusChanged(String provider, int status, Bundle extras) {
-        this.getLastKnownLocationAndRefreshMessages();
-    }
-
-    @Override
-    public void onProviderEnabled(String provider) {
-
-    }
-
-    @Override
-    public void onProviderDisabled(String provider) {
 
     }
 }

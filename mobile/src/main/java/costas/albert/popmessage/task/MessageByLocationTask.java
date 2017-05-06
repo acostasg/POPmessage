@@ -67,7 +67,6 @@ public class MessageByLocationTask extends AsyncHttpResponseHandler {
 
     @Override
     public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-        this.dialog.hide();
         if (statusCode == 404) {
             this.dialog.setMessage("Requested resource not found");
         } else if (statusCode == 500) {
@@ -76,5 +75,6 @@ public class MessageByLocationTask extends AsyncHttpResponseHandler {
             this.dialog.setMessage("Unexpected Error occurred! [Most common Error: Device might not" +
                     " be connected to Internet or remote server is not up and running]");
         }
+        this.dialog.setCancelable(true);
     }
 }
