@@ -2,7 +2,6 @@ package costas.albert.popmessage.task;
 
 import android.app.ProgressDialog;
 import android.location.Location;
-import android.util.Log;
 
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -14,13 +13,11 @@ import costas.albert.popmessage.api.RestClient;
 import costas.albert.popmessage.entity.Message;
 import costas.albert.popmessage.entity.Token;
 import costas.albert.popmessage.entity.mapper.MessageMapper;
-import costas.albert.popmessage.services.MessagingService;
 import cz.msebera.android.httpclient.Header;
 
 
 public class PublishTask extends AsyncHttpResponseHandler {
 
-    public static final int CONVERSATION_ID = 1;
     private ProgressDialog dialog;
     private PublishActivity mContext;
 
@@ -48,7 +45,6 @@ public class PublishTask extends AsyncHttpResponseHandler {
         requestParams.add(ApiValues.TEXT, text);
         requestParams.add(ApiValues.LAT, String.valueOf(location.getLatitude()));
         requestParams.add(ApiValues.LON, String.valueOf(location.getLongitude()));
-        ;
         RestClient.post(
                 ApiValues.POST_CREATE_MESSAGE,
                 requestParams,
@@ -60,22 +56,12 @@ public class PublishTask extends AsyncHttpResponseHandler {
     @Override
     public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
         try {
-            Log.v("message", responseBody.toString());
             Message message = MessageMapper.build(responseBody);
-            if (null != message) {
-                this.dialog.hide();
-                MessagingService messagesService = new MessagingService();
-                messagesService.sendNotification(
-                        CONVERSATION_ID,
-                        "Your messages is published:" + message.getText().substring(0, 15) + "...",
-                        "Success",
-                        System.currentTimeMillis()
-                );
-                this.mContext.sendMessagesView();
-            }
+            this.dialog.hide();
+            this.mContext.sendMessagesView(message);
         } catch (Exception exception) {
-            ;
-            this.dialog.setMessage(this.mContext.getString(R.string.wrong_server_end) + " [" + exception.getMessage() + ']');
+            this.dialog.setMessage(this.mContext.getString(R.string.wrong_server_end)
+                    + " [" + exception.getMessage() + ']');
             this.dialog.setCancelable(true);
         }
 

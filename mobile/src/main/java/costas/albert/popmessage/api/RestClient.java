@@ -10,6 +10,8 @@ import costas.albert.popmessage.entity.Token;
 
 public final class RestClient {
 
+    public static final char SEPARATOR_PARAMS = '?';
+    public static final char EQUAL = '=';
     private static AsyncHttpClient client = new AsyncHttpClient();
 
     public static void get(String url, RequestParams params, AsyncHttpResponseHandler responseHandler) {
@@ -39,7 +41,8 @@ public final class RestClient {
 
     private static String getAbsoluteUrl(String relativeUrl, Token token) {
         try {
-            return ApiValues.BASE_URL + relativeUrl + "&" + ApiValues.TOKEN + '=' + URLEncoder.encode(token.hash(), "UTF-8");
+            return ApiValues.BASE_URL + relativeUrl + SEPARATOR_PARAMS +
+                    ApiValues.TOKEN + EQUAL + URLEncoder.encode(token.hash(), "UTF-8");
         } catch (java.io.UnsupportedEncodingException exception) {
             return null;
         }

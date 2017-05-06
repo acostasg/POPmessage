@@ -39,4 +39,5 @@
     <string name="log_out">Log Out</string>
     <string name="message">Your Message</string>
     <string name="publish">Publish</string>
+    <string name="short_text">This text is too small.</string>
 </resources>

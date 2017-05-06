@@ -11,6 +11,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -24,7 +25,8 @@ import costas.albert.popmessage.services.ListMessagesService;
 import costas.albert.popmessage.task.MessageByLocationTask;
 import costas.albert.popmessage.task.UserLogOutTask;
 
-public class MessagesActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>, LocationListener {
+public class MessagesActivity extends AppCompatActivity
+        implements LoaderManager.LoaderCallbacks<Cursor>, LocationListener {
 
     public final ListMessagesService listMessagesService = new ListMessagesService();
     private LocationManager mLocationManager;
@@ -50,7 +52,8 @@ public class MessagesActivity extends AppCompatActivity implements LoaderManager
     }
 
     private void createFloatingButtonToPublishMessage() {
-        FloatingActionButton newMessage = (FloatingActionButton) this.findViewById(R.id.new_message);
+        FloatingActionButton newMessage
+                = (FloatingActionButton) this.findViewById(R.id.new_message);
         newMessage.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), PublishActivity.class);
@@ -60,10 +63,16 @@ public class MessagesActivity extends AppCompatActivity implements LoaderManager
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+    public void onRequestPermissionsResult(
+            int requestCode,
+            @NonNull String permissions[],
+            @NonNull int[] grantResults
+    ) {
         if (requestCode == LocationManagerWrapper.REQUEST_GPS) {
-            this.mLocationManager = (LocationManager) getApplicationContext().getSystemService(LOCATION_SERVICE);
-            locationManagerWrapper = new LocationManagerWrapper(mLocationManager, this);
+            this.mLocationManager
+                    = (LocationManager) getApplicationContext().getSystemService(LOCATION_SERVICE);
+            locationManagerWrapper
+                    = new LocationManagerWrapper(mLocationManager, this);
             if (this.locationManagerWrapper.hasAccessFineLocation()) {
                 this.locationManagerWrapper.setMessageAccessLocationInvalid();
                 return;

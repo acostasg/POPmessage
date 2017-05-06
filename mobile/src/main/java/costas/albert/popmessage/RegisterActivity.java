@@ -30,13 +30,18 @@ import costas.albert.popmessage.listener.PolicyCheckedListener;
 import costas.albert.popmessage.services.AccessContactsRegisterService;
 import costas.albert.popmessage.services.ProfileQueryService;
 
-public class RegisterActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
+public class RegisterActivity extends AppCompatActivity
+        implements LoaderManager.LoaderCallbacks<Cursor> {
 
     private static final int REQUEST_READ_CONTACTS = 1;
-    private final PolicyCheckedListener policyCheckedListener = new PolicyCheckedListener(this);
-    private final EmailSignButtonRegisterListener emailSignButtonRegisterListener = new EmailSignButtonRegisterListener(this);
-    private final AccessContactsRegisterService accessContacts = new AccessContactsRegisterService(this);
-    private final EditorActionListenerRegisterActivity editorActionListener = new EditorActionListenerRegisterActivity(this);
+    private final PolicyCheckedListener policyCheckedListener
+            = new PolicyCheckedListener(this);
+    private final EmailSignButtonRegisterListener emailSignButtonRegisterListener
+            = new EmailSignButtonRegisterListener(this);
+    private final AccessContactsRegisterService accessContacts
+            = new AccessContactsRegisterService(this);
+    private final EditorActionListenerRegisterActivity editorActionListener
+            = new EditorActionListenerRegisterActivity(this);
 
     public AutoCompleteTextView mEmailView;
     public EditText mPasswordView;
@@ -67,15 +72,19 @@ public class RegisterActivity extends AppCompatActivity implements LoaderManager
         mProgressView = findViewById(R.id.register_progress);
 
         Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
-        mEmailSignInButton.setOnClickListener(emailSignButtonRegisterListener.EmailSignIsButtonListener());
+        mEmailSignInButton.setOnClickListener(
+                emailSignButtonRegisterListener.EmailSignIsButtonListener()
+        );
 
     }
 
     @Override
     public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
         return new CursorLoader(this,
-                Uri.withAppendedPath(ContactsContract.Profile.CONTENT_URI,
-                        ContactsContract.Contacts.Data.CONTENT_DIRECTORY), ProfileQueryService.PROJECTION,
+                Uri.withAppendedPath(
+                        ContactsContract.Profile.CONTENT_URI,
+                        ContactsContract.Contacts.Data.CONTENT_DIRECTORY
+                ), ProfileQueryService.PROJECTION,
                 ContactsContract.Contacts.Data.MIMETYPE +
                         " = ?", new String[]{ContactsContract.CommonDataKinds.Email
                 .CONTENT_ITEM_TYPE},
@@ -140,7 +149,8 @@ public class RegisterActivity extends AppCompatActivity implements LoaderManager
             @NonNull int[] grantResults
     ) {
         if (requestCode == REQUEST_READ_CONTACTS) {
-            if (grantResults.length == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            if (grantResults.length == 1
+                    && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 accessContacts.populateAutoComplete();
             }
         }

@@ -61,7 +61,10 @@ public class MessageByLocationTask extends AsyncHttpResponseHandler {
             );
             this.dialog.hide();
         } catch (Exception exception) {
-            this.dialog.setMessage("Unexpected Error occurred! Requested resource not found. " + exception.getMessage());
+            this.dialog.setMessage(
+                    "Unexpected Error occurred! Requested resource not found. "
+                            + exception.getMessage()
+            );
         }
     }
 

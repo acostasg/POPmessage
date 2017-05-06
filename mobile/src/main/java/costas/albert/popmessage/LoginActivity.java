@@ -36,9 +36,12 @@ import costas.albert.popmessage.task.ValidationTask;
 public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<Cursor> {
 
     private static final int REQUEST_READ_CONTACTS = 1;
-    private final EmailSignButtonLoginListener emailSignButtonListener = new EmailSignButtonLoginListener(this);
-    private final EditorActionListenerLoginActivity editorActionListener = new EditorActionListenerLoginActivity(this);
-    private final AccessContactsLoginService accessContacts = new AccessContactsLoginService(this);
+    private final EmailSignButtonLoginListener emailSignButtonListener
+            = new EmailSignButtonLoginListener(this);
+    private final EditorActionListenerLoginActivity editorActionListener
+            = new EditorActionListenerLoginActivity(this);
+    private final AccessContactsLoginService accessContacts
+            = new AccessContactsLoginService(this);
 
     public AutoCompleteTextView mEmailView;
     public EditText mPasswordView;
@@ -137,8 +140,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     @Override
     public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
         return new CursorLoader(this,
-                Uri.withAppendedPath(ContactsContract.Profile.CONTENT_URI,
-                        ContactsContract.Contacts.Data.CONTENT_DIRECTORY), ProfileQueryService.PROJECTION,
+                Uri.withAppendedPath(
+                        ContactsContract.Profile.CONTENT_URI,
+                        ContactsContract.Contacts.Data.CONTENT_DIRECTORY
+                ), ProfileQueryService.PROJECTION,
                 ContactsContract.Contacts.Data.MIMETYPE +
                         " = ?", new String[]{ContactsContract.CommonDataKinds.Email
                 .CONTENT_ITEM_TYPE},

@@ -64,7 +64,8 @@ public class UserRegisterTask extends AsyncHttpResponseHandler {
                 invalidCredentials();
             }
         } catch (java.io.IOException | org.json.JSONException exception) {
-            popAlertConnection(this.mContext.getString(R.string.wrong_server_end) + " [" + exception.getMessage() + ']');
+            popAlertConnection(this.mContext.getString(R.string.wrong_server_end)
+                    + " [" + exception.getMessage() + ']');
         }
 
         this.mContext.showProgress(false);

@@ -8,6 +8,7 @@ import android.content.Loader;
 import android.database.Cursor;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -16,13 +17,16 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import costas.albert.popmessage.Wrapper.LocationManagerWrapper;
+import costas.albert.popmessage.entity.Message;
 import costas.albert.popmessage.session.Session;
 import costas.albert.popmessage.task.PublishTask;
 import costas.albert.popmessage.task.UserLogOutTask;
 
-public class PublishActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
+public class PublishActivity extends AppCompatActivity
+        implements LoaderManager.LoaderCallbacks<Cursor> {
 
     private EditText editText;
     private LocationManager mLocationManager;
@@ -51,9 +55,20 @@ public class PublishActivity extends AppCompatActivity implements LoaderManager.
     }
 
     private void initFloatingActionButton() {
-        FloatingActionButton newMessage = (FloatingActionButton) this.findViewById(R.id.publish_action_button);
+        FloatingActionButton newMessage
+                = (FloatingActionButton) this.findViewById(R.id.publish_action_button);
+
         newMessage.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                editText.setError(null);
+
+                if (editText.getText().length() < 15) {
+                    editText.setError(
+                            PublishActivity.this.getString(R.string.short_text)
+                    );
+                    return;
+                }
+
                 PublishTask.execute(
                         PublishActivity.this,
                         editText.getText().toString(),
@@ -65,10 +80,16 @@ public class PublishActivity extends AppCompatActivity implements LoaderManager.
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+    public void onRequestPermissionsResult(
+            int requestCode,
+            @NonNull String permissions[],
+            @NonNull int[] grantResults
+    ) {
         if (requestCode == LocationManagerWrapper.REQUEST_GPS) {
-            this.mLocationManager = (LocationManager) getApplicationContext().getSystemService(LOCATION_SERVICE);
-            locationManagerWrapper = new LocationManagerWrapper(mLocationManager, this);
+            this.mLocationManager
+                    = (LocationManager) getApplicationContext().getSystemService(LOCATION_SERVICE);
+            locationManagerWrapper
+                    = new LocationManagerWrapper(mLocationManager, this);
             if (this.locationManagerWrapper.hasAccessFineLocation()) {
                 this.locationManagerWrapper.setMessageAccessLocationInvalid();
                 return;
@@ -78,9 +99,14 @@ public class PublishActivity extends AppCompatActivity implements LoaderManager.
         }
     }
 
-    public void sendMessagesView() {
+    public void sendMessagesView(Message message) {
         Intent intent = new Intent(this, MessagesActivity.class);
         startActivity(intent);
+        Toast.makeText(
+                this.getBaseContext(),
+                "Publish success: " + message.getText().substring(0, 15) + "...",
+                Toast.LENGTH_LONG
+        ).show();
         this.finish();
     }
 
