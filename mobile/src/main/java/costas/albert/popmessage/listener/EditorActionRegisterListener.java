@@ -5,13 +5,13 @@ import android.view.KeyEvent;
 import android.view.inputmethod.EditorInfo;
 import android.widget.TextView;
 
-import costas.albert.popmessage.LoginActivity;
 import costas.albert.popmessage.R;
+import costas.albert.popmessage.RegisterActivity;
 
-public class EditorActionListenerLoginListener extends AbstractLoginListener {
+public class EditorActionRegisterListener extends AbstractRegisterListener {
 
-    public EditorActionListenerLoginListener(LoginActivity loginActivity) {
-        super(loginActivity);
+    public EditorActionRegisterListener(RegisterActivity registerActivity) {
+        super(registerActivity);
     }
 
     @NonNull
@@ -19,7 +19,7 @@ public class EditorActionListenerLoginListener extends AbstractLoginListener {
         return new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
-                if (id == R.id.login || id == EditorInfo.IME_NULL) {
+                if (id == R.id.email_sign_in_button || id == EditorInfo.IME_NULL) {
                     attemptLogin();
                     return true;
                 }

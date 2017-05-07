@@ -23,7 +23,7 @@ import android.widget.EditText;
 import java.util.ArrayList;
 import java.util.List;
 
-import costas.albert.popmessage.listener.EditorActionListenerLoginListener;
+import costas.albert.popmessage.listener.EditorActionLoginListener;
 import costas.albert.popmessage.listener.EmailSignButtonLoginListener;
 import costas.albert.popmessage.services.AccessContactsLoginService;
 import costas.albert.popmessage.services.ProfileQueryService;
@@ -38,8 +38,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private static final int REQUEST_READ_CONTACTS = 1;
     private final EmailSignButtonLoginListener emailSignButtonListener
             = new EmailSignButtonLoginListener(this);
-    private final EditorActionListenerLoginListener editorActionListener
-            = new EditorActionListenerLoginListener(this);
+    private final EditorActionLoginListener editorActionListener
+            = new EditorActionLoginListener(this);
     private final AccessContactsLoginService accessContacts
             = new AccessContactsLoginService(this);
 
