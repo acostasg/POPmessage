@@ -15,15 +15,21 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.Toast;
 
 import costas.albert.popmessage.Wrapper.LocationManagerWrapper;
+import costas.albert.popmessage.entity.Message;
 import costas.albert.popmessage.services.ListMessagesService;
+import costas.albert.popmessage.session.Session;
 import costas.albert.popmessage.task.MessageByLocationTask;
 import costas.albert.popmessage.task.UserLogOutTask;
+import costas.albert.popmessage.task.VoteMessageTask;
 
 public class MessagesActivity extends AppCompatActivity
         implements LoaderManager.LoaderCallbacks<Cursor>, LocationListener {
@@ -31,6 +37,7 @@ public class MessagesActivity extends AppCompatActivity
     public final ListMessagesService listMessagesService = new ListMessagesService();
     private LocationManager mLocationManager;
     private LocationManagerWrapper locationManagerWrapper;
+    private Session session;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +45,19 @@ public class MessagesActivity extends AppCompatActivity
         setContentView(R.layout.activity_messages);
         requestToPermissionsToAccessGPS();
         createFloatingButtonToPublishMessage();
+        registerForContextMenu(findViewById(R.id.messages));
+        this.session = new Session(this);
+    }
+
+    @Override
+    public void onCreateContextMenu(
+            ContextMenu menu,
+            View v,
+            ContextMenu.ContextMenuInfo menuInfo
+    ) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.vote_message, menu);
     }
 
     private void requestToPermissionsToAccessGPS() {
@@ -115,6 +135,30 @@ public class MessagesActivity extends AppCompatActivity
     }
 
     @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+        Message message = listMessagesService.getMessages(info.position);
+        switch (item.getItemId()) {
+            case R.id.voteLike:
+                VoteMessageTask.executeLike(
+                        this,
+                        message,
+                        this.session.getToken()
+                );
+                return true;
+            case R.id.voteDislike:
+                VoteMessageTask.executeDislike(
+                        this,
+                        message,
+                        this.session.getToken()
+                );
+                return true;
+            default:
+                return super.onContextItemSelected(item);
+        }
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         switch (id) {
@@ -124,7 +168,17 @@ public class MessagesActivity extends AppCompatActivity
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
 
+    public void sendMessagesView(Message message) {
+        Intent intent = new Intent(this, MessagesActivity.class);
+        startActivity(intent);
+        Toast.makeText(
+                this.getBaseContext(),
+                "Vote: " + message.getText().substring(0, 15) + "...",
+                Toast.LENGTH_LONG
+        ).show();
+        this.finish();
     }
 
     @Override

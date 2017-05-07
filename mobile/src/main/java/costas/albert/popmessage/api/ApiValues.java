@@ -18,6 +18,8 @@ public class ApiValues {
     public static final String REGISTER_END_POINT = "user/create";
     public static final String GET_MESSAGE_TO_LOCATION = "message/get";
     public static final String POST_CREATE_MESSAGE = "message/create";
+    public static final String POST_MESSAGE_LIKE = "message/vote/like/create";
+    public static final String POST_MESSAGE_DISLIKE = "message/vote/dislike/create";
 
     /**
      * fields
@@ -37,5 +39,8 @@ public class ApiValues {
 
     //publication
     public static final String TEXT = "text";
+
+    //vote message
+    public static final String MESSAGE = "message";
 
 }

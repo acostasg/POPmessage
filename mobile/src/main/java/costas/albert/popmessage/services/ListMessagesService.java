@@ -1,75 +1,75 @@
 package costas.albert.popmessage.services;
 
 import android.content.Context;
+import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import costas.albert.popmessage.MessagesActivity;
 import costas.albert.popmessage.entity.Message;
 
 public class ListMessagesService {
+
+    private List<Message> messages;
+
     public ListMessagesService() {
     }
 
-    public void initListMessages(MessagesActivity messagesActivity, List<Message> messages, int id) {
+    public void initListMessages(MessagesActivity messagesActivity, final List<Message> messages, int id) {
         final ListView listview = (ListView) messagesActivity.findViewById(id);
 
-        final ArrayList<String> list = new ArrayList<String>();
-        for (Message message : messages) {
-            list.add(String.valueOf(message.getText()));
+        ArrayList<String> list = new ArrayList<>();
+        int position = 0;
+        this.messages = messages;
+        for (Message message : this.messages) {
+            list.add(position, message.getText());
+            position++;
         }
         final StableArrayAdapter adapter = new StableArrayAdapter(
                 messagesActivity,
                 android.R.layout.simple_list_item_1,
+                messages,
                 list
         );
         listview.setAdapter(adapter);
-
+        listview.setTextFilterEnabled(true);
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
             @Override
             public void onItemClick(AdapterView<?> parent, final View view,
                                     int position, long id) {
-                final String item = (String) parent.getItemAtPosition(position);
-                view.animate().setDuration(2000).alpha(0)
-                        .withEndAction(new Runnable() {
-                            @Override
-                            public void run() {
-                                list.remove(item);
-                                adapter.notifyDataSetChanged();
-                                view.setAlpha(1);
-                            }
-                        });
+                view.showContextMenu();
             }
 
         });
     }
 
+    public Message getMessages(int position) {
+        return messages.get(position);
+    }
+
     private class StableArrayAdapter extends ArrayAdapter<String> {
 
-        HashMap<String, Integer> mIdMap = new HashMap<String, Integer>();
+        List<Message> messages;
 
         StableArrayAdapter(
                 Context context,
                 int textViewResourceId,
-                List<String> objects
+                List<Message> messages,
+                List<String> list
         ) {
-            super(context, textViewResourceId, objects);
-            for (int i = 0; i < objects.size(); ++i) {
-                mIdMap.put(objects.get(i), i);
-            }
+            super(context, textViewResourceId, list);
+            this.messages = messages;
         }
 
+        @Nullable
         @Override
-        public long getItemId(int position) {
-            String item = getItem(position);
-            return mIdMap.get(item);
+        public String getItem(int position) {
+            return messages.get(position).getText();
         }
 
         @Override

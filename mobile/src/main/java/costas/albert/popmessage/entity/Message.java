@@ -108,4 +108,9 @@ public class Message {
         this.additionalProperties.put(name, value);
     }
 
+    @JsonIgnore
+    public String Id() {
+        return this.getID().getId();
+    }
+
 }
