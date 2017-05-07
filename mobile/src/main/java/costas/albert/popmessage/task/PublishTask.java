@@ -13,11 +13,13 @@ import costas.albert.popmessage.api.RestClient;
 import costas.albert.popmessage.entity.Message;
 import costas.albert.popmessage.entity.Token;
 import costas.albert.popmessage.entity.mapper.MessageMapper;
+import costas.albert.popmessage.wrapper.StatusResponseWrapper;
 import cz.msebera.android.httpclient.Header;
 
 
 public class PublishTask extends AsyncHttpResponseHandler {
 
+    private final StatusResponseWrapper statusResponseWrapper = new StatusResponseWrapper();
     private ProgressDialog dialog;
     private PublishActivity mContext;
 
@@ -31,7 +33,7 @@ public class PublishTask extends AsyncHttpResponseHandler {
     public void onStart() {
         this.dialog = new ProgressDialog(mContext);
         this.dialog.setCancelable(false);
-        this.dialog.setMessage("Sending message...");
+        this.dialog.setMessage(this.mContext.getString(R.string.sending_message));
         this.dialog.show();
     }
 
@@ -69,14 +71,6 @@ public class PublishTask extends AsyncHttpResponseHandler {
 
     @Override
     public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-        if (statusCode == 404) {
-            this.dialog.setMessage("Requested resource not found");
-        } else if (statusCode == 500) {
-            this.dialog.setMessage("Something went wrong at server end");
-        } else {
-            this.dialog.setMessage("Unexpected Error occcured! [Most common Error: Device" +
-                    " might not be connected to Internet or remote server is not up and running]");
-        }
-        this.dialog.setCancelable(true);
+        statusResponseWrapper.onFailure(statusCode, this.mContext, this.dialog);
     }
 }

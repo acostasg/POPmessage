@@ -98,9 +98,9 @@ public class UserRegisterTask extends AsyncHttpResponseHandler {
 
     private void popAlertConnection(String message) {
         AlertDialog alertDialog = new AlertDialog.Builder(mContext).create();
-        alertDialog.setTitle("Alert");
+        alertDialog.setTitle(this.mContext.getString(R.string.alert));
         alertDialog.setMessage(message);
-        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, this.mContext.getString(R.string.ok),
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();

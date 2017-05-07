@@ -16,10 +16,12 @@ import costas.albert.popmessage.entity.Message;
 import costas.albert.popmessage.entity.Token;
 import costas.albert.popmessage.entity.mapper.MessageMapper;
 import costas.albert.popmessage.session.Session;
+import costas.albert.popmessage.wrapper.StatusResponseWrapper;
 import cz.msebera.android.httpclient.Header;
 
 public class MessageByLocationTask extends AsyncHttpResponseHandler {
 
+    private final StatusResponseWrapper statusResponseWrapper = new StatusResponseWrapper();
     private ProgressDialog dialog;
     private MessagesActivity mContext;
 
@@ -31,7 +33,7 @@ public class MessageByLocationTask extends AsyncHttpResponseHandler {
     public void onStart() {
         this.dialog = new ProgressDialog(mContext);
         this.dialog.setCancelable(false);
-        this.dialog.setMessage("Search messages by your location...");
+        this.dialog.setMessage(this.mContext.getString(R.string.search_messages));
         this.dialog.show();
     }
 
@@ -62,7 +64,7 @@ public class MessageByLocationTask extends AsyncHttpResponseHandler {
             this.dialog.hide();
         } catch (Exception exception) {
             this.dialog.setMessage(
-                    "Unexpected Error occurred! Requested resource not found. "
+                    this.mContext.getString(R.string.unexpected_short)
                             + exception.getMessage()
             );
         }
@@ -70,14 +72,6 @@ public class MessageByLocationTask extends AsyncHttpResponseHandler {
 
     @Override
     public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-        if (statusCode == 404) {
-            this.dialog.setMessage("Requested resource not found");
-        } else if (statusCode == 500) {
-            this.dialog.setMessage("Something went wrong at server end");
-        } else {
-            this.dialog.setMessage("Unexpected Error occurred! [Most common Error: Device might not" +
-                    " be connected to Internet or remote server is not up and running]");
-        }
-        this.dialog.setCancelable(true);
+        statusResponseWrapper.onFailure(statusCode, this.mContext, this.dialog);
     }
 }

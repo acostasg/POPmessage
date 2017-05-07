@@ -1,4 +1,4 @@
-package costas.albert.popmessage.Wrapper;
+package costas.albert.popmessage.wrapper;
 
 import android.Manifest;
 import android.app.ProgressDialog;
@@ -10,6 +10,8 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 
 import java.util.List;
+
+import costas.albert.popmessage.R;
 
 public class LocationManagerWrapper {
 
@@ -54,8 +56,7 @@ public class LocationManagerWrapper {
 
     public void setMessageAccessLocationInvalid() {
         ProgressDialog dialog = new ProgressDialog(this.appCompatActivity);
-        dialog.setMessage("It is necessary to have permission to location service for" +
-                " use this application.");
+        dialog.setMessage(this.appCompatActivity.getString(R.string.not_permission));
         dialog.show();
     }
 }

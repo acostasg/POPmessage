@@ -18,6 +18,11 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
+    <string name="sending_message">Sending message&#8320;</string>
+    <string name="alert">Alert</string>
+    <string name="ok">OK</string>
+    <string name="search_messages">Search messages by your location&#8320;</string>
+    <string name="unexpected_short">Unexpected Error occurred! Requested resource not found. </string>
     <!-- String related to register -->
     <string name="create_account_for_new_users">Create account for new users</string>
     <string name="submit">Submit</string>
@@ -42,4 +47,10 @@
     <string name="short_text">This text is too small.</string>
     <string name="like">Like</string>
     <string name="disLike">DisLike</string>
+    <string name="publish_success">Publish success: </string>
+    <string name="ellipsis">&#8320;</string>
+    <string name="vote">"Vote: "</string>
+    <!-- String to Errors -->
+    <string name="not_permission">It is necessary to have permission to location service for use this application.</string>
+    <string name="invalid_credential">INVALID CREDENTIALS OR LOGIN REQUIRES (FAILURE)</string>
 </resources>

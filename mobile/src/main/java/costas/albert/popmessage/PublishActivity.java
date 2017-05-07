@@ -1,11 +1,7 @@
 package costas.albert.popmessage;
 
 import android.Manifest;
-import android.app.LoaderManager;
-import android.content.CursorLoader;
 import android.content.Intent;
-import android.content.Loader;
-import android.database.Cursor;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -19,14 +15,13 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import costas.albert.popmessage.Wrapper.LocationManagerWrapper;
 import costas.albert.popmessage.entity.Message;
 import costas.albert.popmessage.session.Session;
 import costas.albert.popmessage.task.PublishTask;
 import costas.albert.popmessage.task.UserLogOutTask;
+import costas.albert.popmessage.wrapper.LocationManagerWrapper;
 
-public class PublishActivity extends AppCompatActivity
-        implements LoaderManager.LoaderCallbacks<Cursor> {
+public class PublishActivity extends AppCompatActivity {
 
     private EditText editText;
     private LocationManager mLocationManager;
@@ -104,7 +99,9 @@ public class PublishActivity extends AppCompatActivity
         startActivity(intent);
         Toast.makeText(
                 this.getBaseContext(),
-                "Publish success: " + message.getText().substring(0, 15) + "...",
+                this.getString(R.string.publish_success)
+                        + message.getText().substring(0, 15)
+                        + this.getString(R.string.ellipsis),
                 Toast.LENGTH_LONG
         ).show();
         this.finish();
@@ -128,21 +125,6 @@ public class PublishActivity extends AppCompatActivity
             default:
                 return super.onOptionsItemSelected(item);
         }
-
-    }
-
-    @Override
-    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        return new CursorLoader(this);
-    }
-
-    @Override
-    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-
-    }
-
-    @Override
-    public void onLoaderReset(Loader<Cursor> loader) {
 
     }
 }

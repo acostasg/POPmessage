@@ -1,11 +1,7 @@
 package costas.albert.popmessage;
 
 import android.Manifest;
-import android.app.LoaderManager;
-import android.content.CursorLoader;
 import android.content.Intent;
-import android.content.Loader;
-import android.database.Cursor;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
@@ -23,16 +19,16 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Toast;
 
-import costas.albert.popmessage.Wrapper.LocationManagerWrapper;
 import costas.albert.popmessage.entity.Message;
 import costas.albert.popmessage.services.ListMessagesService;
 import costas.albert.popmessage.session.Session;
 import costas.albert.popmessage.task.MessageByLocationTask;
 import costas.albert.popmessage.task.UserLogOutTask;
 import costas.albert.popmessage.task.VoteMessageTask;
+import costas.albert.popmessage.wrapper.LocationManagerWrapper;
 
 public class MessagesActivity extends AppCompatActivity
-        implements LoaderManager.LoaderCallbacks<Cursor>, LocationListener {
+        implements LocationListener {
 
     public final ListMessagesService listMessagesService = new ListMessagesService();
     private LocationManager mLocationManager;
@@ -175,25 +171,12 @@ public class MessagesActivity extends AppCompatActivity
         startActivity(intent);
         Toast.makeText(
                 this.getBaseContext(),
-                "Vote: " + message.getText().substring(0, 15) + "...",
+                this.getString(R.string.vote)
+                        + message.getText().substring(0, 15)
+                        + this.getString(R.string.ellipsis),
                 Toast.LENGTH_LONG
         ).show();
         this.finish();
-    }
-
-    @Override
-    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        return new CursorLoader(this);
-    }
-
-    @Override
-    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-
-    }
-
-    @Override
-    public void onLoaderReset(Loader<Cursor> loader) {
-
     }
 
     @Override

@@ -11,11 +11,13 @@ import costas.albert.popmessage.api.RestClient;
 import costas.albert.popmessage.entity.Token;
 import costas.albert.popmessage.entity.mapper.TokenMapper;
 import costas.albert.popmessage.session.Session;
+import costas.albert.popmessage.wrapper.StatusResponseWrapper;
 import cz.msebera.android.httpclient.Header;
 
 
 public class ValidationTask extends AsyncHttpResponseHandler {
 
+    private final StatusResponseWrapper statusResponseWrapper = new StatusResponseWrapper();
     private ProgressDialog dialog;
     private LoginActivity mContext;
     private Session session;
@@ -64,14 +66,6 @@ public class ValidationTask extends AsyncHttpResponseHandler {
 
     @Override
     public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-        if (statusCode == 404) {
-            this.dialog.setMessage("Requested resource not found");
-        } else if (statusCode == 500) {
-            this.dialog.setMessage("Something went wrong at server end");
-        } else {
-            this.dialog.setMessage("Unexpected Error occcured! [Most common Error: Device" +
-                    " might not be connected to Internet or remote server is not up and running]");
-        }
-        this.dialog.setCancelable(true);
+        statusResponseWrapper.onFailure(statusCode, this.mContext, this.dialog);
     }
 }
