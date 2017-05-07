@@ -8,9 +8,9 @@ import android.widget.TextView;
 import costas.albert.popmessage.LoginActivity;
 import costas.albert.popmessage.R;
 
-public class EditorActionListenerLoginActivity extends AbstractLoginListener {
+public class EditorActionListenerLoginListener extends AbstractLoginListener {
 
-    public EditorActionListenerLoginActivity(LoginActivity loginActivity) {
+    public EditorActionListenerLoginListener(LoginActivity loginActivity) {
         super(loginActivity);
     }
 

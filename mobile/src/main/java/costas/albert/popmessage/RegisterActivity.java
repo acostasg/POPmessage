@@ -24,7 +24,7 @@ import android.widget.EditText;
 import java.util.ArrayList;
 import java.util.List;
 
-import costas.albert.popmessage.listener.EditorActionListenerRegisterActivity;
+import costas.albert.popmessage.listener.EditorActionListenerRegisterListener;
 import costas.albert.popmessage.listener.EmailSignButtonRegisterListener;
 import costas.albert.popmessage.listener.PolicyCheckedListener;
 import costas.albert.popmessage.services.AccessContactsRegisterService;
@@ -40,8 +40,8 @@ public class RegisterActivity extends AppCompatActivity
             = new EmailSignButtonRegisterListener(this);
     private final AccessContactsRegisterService accessContacts
             = new AccessContactsRegisterService(this);
-    private final EditorActionListenerRegisterActivity editorActionListener
-            = new EditorActionListenerRegisterActivity(this);
+    private final EditorActionListenerRegisterListener editorActionListener
+            = new EditorActionListenerRegisterListener(this);
 
     public AutoCompleteTextView mEmailView;
     public EditText mPasswordView;

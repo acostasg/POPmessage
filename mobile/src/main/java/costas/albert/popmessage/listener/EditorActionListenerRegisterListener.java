@@ -8,9 +8,9 @@ import android.widget.TextView;
 import costas.albert.popmessage.R;
 import costas.albert.popmessage.RegisterActivity;
 
-public class EditorActionListenerRegisterActivity extends AbstractRegisterListener {
+public class EditorActionListenerRegisterListener extends AbstractRegisterListener {
 
-    public EditorActionListenerRegisterActivity(RegisterActivity registerActivity) {
+    public EditorActionListenerRegisterListener(RegisterActivity registerActivity) {
         super(registerActivity);
     }
 
