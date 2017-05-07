@@ -37,7 +37,7 @@ public class MyMessagesActivity extends AppCompatActivity {
         MessageByUserTask.execute(this, this.session.getToken());
     }
 
-    public ListMessagesService listMessagesService(){
+    public ListMessagesService listMessagesService() {
         return this.listMessagesService;
     }
 

@@ -111,20 +111,29 @@ public class PublishActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_messages, menu);
+        inflater.inflate(R.menu.menu_publish_messages, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        Intent intent;
         int id = item.getItemId();
         switch (id) {
             case R.id.log_out:
                 UserLogOutTask.execute(this);
                 return true;
+            case R.id.view_current_messages:
+                intent = new Intent(this, MessagesActivity.class);
+                startActivity(intent);
+                this.finish();
+                return true;
+            case R.id.my_messages:
+                intent = new Intent(this, MyMessagesActivity.class);
+                startActivity(intent);
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
-
     }
 }

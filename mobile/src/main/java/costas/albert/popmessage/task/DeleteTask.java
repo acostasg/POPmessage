@@ -1,13 +1,11 @@
 package costas.albert.popmessage.task;
 
 import android.app.ProgressDialog;
-import android.location.Location;
 
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
 import costas.albert.popmessage.MyMessagesActivity;
-import costas.albert.popmessage.PublishActivity;
 import costas.albert.popmessage.R;
 import costas.albert.popmessage.api.ApiValues;
 import costas.albert.popmessage.api.RestClient;

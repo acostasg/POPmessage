@@ -12,7 +12,6 @@ import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.List;
 
-import costas.albert.popmessage.MessagesActivity;
 import costas.albert.popmessage.entity.Message;
 
 public class ListMessagesService {

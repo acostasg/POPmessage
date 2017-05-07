@@ -8,7 +8,6 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.ContextMenu;
@@ -176,7 +175,7 @@ public class MessagesActivity extends AppCompatActivity
         this.finish();
     }
 
-    public ListMessagesService listMessagesService(){
+    public ListMessagesService listMessagesService() {
         return this.listMessagesService;
     }
 

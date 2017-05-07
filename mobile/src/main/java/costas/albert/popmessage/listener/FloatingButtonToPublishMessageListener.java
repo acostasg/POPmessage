@@ -7,7 +7,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import costas.albert.popmessage.PublishActivity;
-import costas.albert.popmessage.R;
 
 public class FloatingButtonToPublishMessageListener {
 
