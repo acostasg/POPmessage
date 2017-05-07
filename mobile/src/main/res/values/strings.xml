@@ -11,17 +11,17 @@
     <string name="error_incorrect_password">This password is incorrect</string>
     <string name="requested_not_found">Requested resource not found</string>
     <string name="wrong_server_end">Something went wrong at server end</string>
-    <string name="unexpected_error">Unexpected Error occcured! [Most common Error: Device might not be connected to Internet or remote server is not up and running]</string>
+    <string name="unexpected_error">Unexpected Error occurred! [Most common Error: Device might not be connected to Internet or remote server is not up and running]</string>
     <string name="error_field_required">This field is required</string>
     <string name="accept_terms">Please accept our Terms and Conditions.</string>
     <string name="invalid_params">Rectify any incorrect or add missing data.</string>
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
-    <string name="sending_message">Sending message&#8320;</string>
+    <string name="sending_message">Sending message&#8230;</string>
     <string name="alert">Alert</string>
     <string name="ok">OK</string>
-    <string name="search_messages">Search messages by your location&#8320;</string>
+    <string name="search_messages">Search messages by your location&#8230;</string>
     <string name="unexpected_short">Unexpected Error occurred! Requested resource not found. </string>
     <!-- String related to register -->
     <string name="create_account_for_new_users">Create account for new users</string>
@@ -48,7 +48,7 @@
     <string name="like">Like</string>
     <string name="disLike">DisLike</string>
     <string name="publish_success">Publish success: </string>
-    <string name="ellipsis">&#8320;</string>
+    <string name="ellipsis">&#8230;</string>
     <string name="vote">"Vote: "</string>
     <!-- String to Errors -->
     <string name="not_permission">It is necessary to have permission to location service for use this application.</string>
