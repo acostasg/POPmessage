@@ -1,31 +1,29 @@
 package costas.albert.popmessage.task;
 
 import android.app.ProgressDialog;
-import android.location.Location;
 
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
 import java.util.List;
 
-import costas.albert.popmessage.MessagesActivity;
+import costas.albert.popmessage.MyMessagesActivity;
 import costas.albert.popmessage.R;
 import costas.albert.popmessage.api.ApiValues;
 import costas.albert.popmessage.api.RestClient;
 import costas.albert.popmessage.entity.Message;
 import costas.albert.popmessage.entity.Token;
 import costas.albert.popmessage.entity.mapper.MessageMapper;
-import costas.albert.popmessage.session.Session;
 import costas.albert.popmessage.wrapper.StatusResponseWrapper;
 import cz.msebera.android.httpclient.Header;
 
-public class MessageByLocationTask extends AsyncHttpResponseHandler {
+public class MessageByUserTask extends AsyncHttpResponseHandler {
 
     private final StatusResponseWrapper statusResponseWrapper = new StatusResponseWrapper();
     private ProgressDialog dialog;
-    private MessagesActivity mContext;
+    private MyMessagesActivity mContext;
 
-    private MessageByLocationTask(MessagesActivity mContext) {
+    private MessageByUserTask(MyMessagesActivity mContext) {
         this.mContext = mContext;
     }
 
@@ -33,20 +31,16 @@ public class MessageByLocationTask extends AsyncHttpResponseHandler {
     public void onStart() {
         this.dialog = new ProgressDialog(mContext);
         this.dialog.setCancelable(false);
-        this.dialog.setMessage(this.mContext.getString(R.string.search_messages));
+        this.dialog.setMessage(this.mContext.getString(R.string.search_your_messages));
         this.dialog.show();
     }
 
-    public static void execute(MessagesActivity messagesActivity, Location location) {
-        Token token = new Session(messagesActivity).getToken();
+    public static void execute(MyMessagesActivity messagesActivity, Token token) {
         if (!token.isEmpty()) {
-            RequestParams requestParams = new RequestParams();
-            requestParams.add(ApiValues.LAT, String.valueOf(location.getLatitude()));
-            requestParams.add(ApiValues.LON, String.valueOf(location.getLongitude()));
             RestClient.get(
-                    ApiValues.GET_MESSAGE_TO_LOCATION,
-                    requestParams,
-                    new MessageByLocationTask(messagesActivity),
+                    ApiValues.GET_MESSAGE_TO_USER,
+                    new RequestParams(),
+                    new MessageByUserTask(messagesActivity),
                     token
             );
         }
@@ -59,7 +53,7 @@ public class MessageByLocationTask extends AsyncHttpResponseHandler {
             this.mContext.listMessagesService().initListMessages(
                     this.mContext,
                     messages,
-                    R.id.messages
+                    R.id.messages_your
             );
             this.dialog.hide();
             this.dialog.cancel();
@@ -75,4 +69,5 @@ public class MessageByLocationTask extends AsyncHttpResponseHandler {
     public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
         statusResponseWrapper.onFailure(statusCode, this.mContext, this.dialog);
     }
+
 }

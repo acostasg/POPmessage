@@ -1,7 +1,9 @@
 package costas.albert.popmessage.services;
 
 import android.content.Context;
+import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -20,7 +22,11 @@ public class ListMessagesService {
     public ListMessagesService() {
     }
 
-    public void initListMessages(MessagesActivity messagesActivity, final List<Message> messages, int id) {
+    public void initListMessages(
+            AppCompatActivity messagesActivity,
+            final List<Message> messages,
+            @IdRes int id
+    ) {
         final ListView listview = (ListView) messagesActivity.findViewById(id);
 
         ArrayList<String> list = new ArrayList<>();

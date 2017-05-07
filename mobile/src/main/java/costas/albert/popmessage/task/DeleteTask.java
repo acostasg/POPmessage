@@ -1,11 +1,13 @@
 package costas.albert.popmessage.task;
 
 import android.app.ProgressDialog;
+import android.location.Location;
 
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
-import costas.albert.popmessage.MessagesActivity;
+import costas.albert.popmessage.MyMessagesActivity;
+import costas.albert.popmessage.PublishActivity;
 import costas.albert.popmessage.R;
 import costas.albert.popmessage.api.ApiValues;
 import costas.albert.popmessage.api.RestClient;
@@ -16,14 +18,14 @@ import costas.albert.popmessage.wrapper.StatusResponseWrapper;
 import cz.msebera.android.httpclient.Header;
 
 
-public class VoteMessageTask extends AsyncHttpResponseHandler {
+public class DeleteTask extends AsyncHttpResponseHandler {
 
     private final StatusResponseWrapper statusResponseWrapper = new StatusResponseWrapper();
     private ProgressDialog dialog;
-    private MessagesActivity mContext;
+    private MyMessagesActivity mContext;
 
 
-    private VoteMessageTask(MessagesActivity mContext) {
+    private DeleteTask(MyMessagesActivity mContext) {
         this.mContext = mContext;
     }
 
@@ -32,36 +34,21 @@ public class VoteMessageTask extends AsyncHttpResponseHandler {
     public void onStart() {
         this.dialog = new ProgressDialog(mContext);
         this.dialog.setCancelable(false);
-        this.dialog.setMessage(this.mContext.getString(R.string.sending_message));
+        this.dialog.setMessage(this.mContext.getString(R.string.delete_message));
         this.dialog.show();
     }
 
-    public static void executeLike(
-            MessagesActivity mContext,
+    public static void execute(
+            MyMessagesActivity mContext,
             Message message,
             Token token
     ) {
         RequestParams requestParams = new RequestParams();
-        requestParams.add(ApiValues.MESSAGE, String.valueOf(message.Id()));
+        requestParams.add(ApiValues.MESSAGE, message.Id());
         RestClient.post(
-                ApiValues.POST_MESSAGE_LIKE,
+                ApiValues.POST_REMOVE_MESSAGE,
                 requestParams,
-                new VoteMessageTask(mContext),
-                token
-        );
-    }
-
-    public static void executeDislike(
-            MessagesActivity mContext,
-            Message message,
-            Token token
-    ) {
-        RequestParams requestParams = new RequestParams();
-        requestParams.add(ApiValues.MESSAGE, String.valueOf(message.Id()));
-        RestClient.post(
-                ApiValues.POST_MESSAGE_DISLIKE,
-                requestParams,
-                new VoteMessageTask(mContext),
+                new DeleteTask(mContext),
                 token
         );
     }

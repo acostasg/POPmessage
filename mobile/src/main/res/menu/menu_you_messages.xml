@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <item
+        android:id="@+id/view_current_messages"
+        android:icon="@mipmap/mapa_ico"
+        android:showAsAction="ifRoom"
+        android:title="@string/public_messages" />
+    <item
+        android:id="@+id/log_out"
+        android:icon="@drawable/ic_action_name"
+        android:showAsAction="ifRoom"
+        android:title="@string/log_out" />
+</menu>

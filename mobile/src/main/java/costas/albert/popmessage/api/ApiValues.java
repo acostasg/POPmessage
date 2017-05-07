@@ -18,8 +18,10 @@ public class ApiValues {
     public static final String REGISTER_END_POINT = "user/create";
     public static final String GET_MESSAGE_TO_LOCATION = "message/get";
     public static final String POST_CREATE_MESSAGE = "message/create";
+    public static final String POST_REMOVE_MESSAGE = "message/delete";
     public static final String POST_MESSAGE_LIKE = "message/vote/like/create";
     public static final String POST_MESSAGE_DISLIKE = "message/vote/dislike/create";
+    public static final String GET_MESSAGE_TO_USER = "/user/message/get";
 
     /**
      * fields

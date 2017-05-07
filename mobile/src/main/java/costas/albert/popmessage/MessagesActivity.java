@@ -20,6 +20,7 @@ import android.widget.AdapterView;
 import android.widget.Toast;
 
 import costas.albert.popmessage.entity.Message;
+import costas.albert.popmessage.listener.FloatingButtonToPublishMessageListener;
 import costas.albert.popmessage.services.ListMessagesService;
 import costas.albert.popmessage.session.Session;
 import costas.albert.popmessage.task.MessageByLocationTask;
@@ -30,7 +31,9 @@ import costas.albert.popmessage.wrapper.LocationManagerWrapper;
 public class MessagesActivity extends AppCompatActivity
         implements LocationListener {
 
-    public final ListMessagesService listMessagesService = new ListMessagesService();
+    private final ListMessagesService listMessagesService = new ListMessagesService();
+    private final FloatingButtonToPublishMessageListener floatingButtonToPublishMessageListener
+            = new FloatingButtonToPublishMessageListener(this);
     private LocationManager mLocationManager;
     private LocationManagerWrapper locationManagerWrapper;
     private Session session;
@@ -40,9 +43,9 @@ public class MessagesActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_messages);
         requestToPermissionsToAccessGPS();
-        createFloatingButtonToPublishMessage();
         registerForContextMenu(findViewById(R.id.messages));
         this.session = new Session(this);
+        floatingButtonToPublishMessageListener.createFloatingButtonToPublishMessage(R.id.new_message);
     }
 
     @Override
@@ -65,17 +68,6 @@ public class MessagesActivity extends AppCompatActivity
                 },
                 LocationManagerWrapper.REQUEST_GPS
         );
-    }
-
-    private void createFloatingButtonToPublishMessage() {
-        FloatingActionButton newMessage
-                = (FloatingActionButton) this.findViewById(R.id.new_message);
-        newMessage.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), PublishActivity.class);
-                startActivity(intent);
-            }
-        });
     }
 
     @Override
@@ -156,10 +148,15 @@ public class MessagesActivity extends AppCompatActivity
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        Intent intent;
         int id = item.getItemId();
         switch (id) {
             case R.id.log_out:
                 UserLogOutTask.execute(this);
+                return true;
+            case R.id.my_messages:
+                intent = new Intent(this, MyMessagesActivity.class);
+                startActivity(intent);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -177,6 +174,10 @@ public class MessagesActivity extends AppCompatActivity
                 Toast.LENGTH_LONG
         ).show();
         this.finish();
+    }
+
+    public ListMessagesService listMessagesService(){
+        return this.listMessagesService;
     }
 
     @Override

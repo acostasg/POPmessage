@@ -62,6 +62,7 @@ public class ValidationTask extends AsyncHttpResponseHandler {
             session.resetToken();
         }
         this.dialog.hide();
+        this.dialog.cancel();
     }
 
     @Override

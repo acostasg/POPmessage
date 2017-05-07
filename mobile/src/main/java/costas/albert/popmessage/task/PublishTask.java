@@ -60,6 +60,7 @@ public class PublishTask extends AsyncHttpResponseHandler {
         try {
             Message message = MessageMapper.build(responseBody);
             this.dialog.hide();
+            this.dialog.cancel();
             this.mContext.sendMessagesView(message);
         } catch (Exception exception) {
             this.dialog.setMessage(this.mContext.getString(R.string.wrong_server_end)
