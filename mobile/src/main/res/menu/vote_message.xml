@@ -4,14 +4,11 @@
     <item
         android:id="@+id/voteLike"
         android:icon="@drawable/ic_like"
-        android:title="@string/like"
-        >
-    </item>
+        android:title="@string/like"></item>
 
     <item
         android:id="@+id/voteDislike"
         android:icon="@drawable/ic_dislike"
-        android:title="@string/disLike">
-    </item>
+        android:title="@string/disLike"></item>
 
 </menu>

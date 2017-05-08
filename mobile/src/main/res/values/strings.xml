@@ -46,7 +46,9 @@
     <string name="log_out">Log Out</string>
     <string name="message">Your Message</string>
     <string name="publish">Publish</string>
-    <string name="short_text">This text is too small.</string>
+    <string name="short_text">This text is too small [15 characters minimum].</string>
+    <string name="big_text">This text is too big [160 characters maximum].</string>
+    <string name="from">From: </string>
     <string name="like">Like</string>
     <string name="delete">Delete</string>
     <string name="disLike">DisLike</string>

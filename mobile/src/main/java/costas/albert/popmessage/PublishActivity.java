@@ -64,6 +64,13 @@ public class PublishActivity extends AppCompatActivity {
                     return;
                 }
 
+                if (editText.getText().length() > 160) {
+                    editText.setError(
+                            PublishActivity.this.getString(R.string.big_text)
+                    );
+                    return;
+                }
+
                 PublishTask.execute(
                         PublishActivity.this,
                         editText.getText().toString(),
