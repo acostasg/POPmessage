@@ -98,7 +98,7 @@ public class ListMessagesService {
                 TextView bt = (TextView) v.findViewById(R.id.label);
                 if (tt != null) {
                     //TODO API return user
-                    tt.setText(message.getUserID().getId());
+                    tt.setText(message.getUser().getName());
                 }
                 if (bt != null) {
                     bt.setText(message.getText());

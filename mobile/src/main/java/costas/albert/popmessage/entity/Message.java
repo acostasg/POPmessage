@@ -25,8 +25,8 @@ public class Message {
 
     @JsonProperty("Id")
     private Id ID;
-    @JsonProperty("userId")
-    private Id userID;
+    @JsonProperty("user")
+    private User user;
     @JsonProperty("text")
     private String text;
     @JsonProperty("location")
@@ -48,14 +48,14 @@ public class Message {
         this.ID = ID;
     }
 
-    @JsonProperty("userId")
-    public Id getUserID() {
-        return userID;
+    @JsonProperty("user")
+    public User getUser() {
+        return user;
     }
 
-    @JsonProperty("userId")
-    public void setUserID(Id userID) {
-        this.userID = userID;
+    @JsonProperty("user")
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @JsonProperty("text")
