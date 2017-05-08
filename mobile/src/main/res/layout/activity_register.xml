@@ -10,6 +10,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@mipmap/wallpaper"
     tools:context="costas.albert.popmessage.RegisterActivity">
 
     <!-- register progress -->
@@ -121,11 +122,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
+                android:backgroundTint="@color/colorPrimary"
+                android:textColor="@color/colorTextButton"
                 android:text="@string/submit"
                 android:textStyle="bold" />
 
             <Button
                 android:id="@+id/cancel_action"
+                android:backgroundTint="@color/colorPrimary"
+                android:textColor="@color/colorTextButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:onClick="sendLogin"
