@@ -53,6 +53,7 @@
     <string name="delete">Delete</string>
     <string name="disLike">DisLike</string>
     <string name="publish_success">Publish success: </string>
+    <string name="create_message">Create message</string>
     <string name="ellipsis">&#8230;</string>
     <string name="vote">"Vote: "</string>
     <string name="removed">"Removed: "</string>

@@ -36,7 +36,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".PublishActivity"
-            android:label="@string/public_messages"
+            android:label="@string/create_message"
             android:screenOrientation="portrait" />
         <activity
             android:name=".MyMessagesActivity"
