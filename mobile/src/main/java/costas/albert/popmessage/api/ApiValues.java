@@ -6,10 +6,11 @@ package costas.albert.popmessage.api;
 public class ApiValues {
 
     //only scope api package
-    protected static final String BASE_URL = "http://10.0.2.2:8080/"; //android simulator to pc
-    protected static final String APP_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9";
-    protected static final String AUTHORIZATION = "Authorization";
-    protected static final String TOKEN = "Token";
+    //static final String BASE_URL = "http://10.0.2.2:8080/"; //android emulator simulator to pc
+    static final String BASE_URL = "http://192.168.1.133:8080/"; //local to pc
+    static final String APP_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9";
+    static final String AUTHORIZATION = "Authorization";
+    static final String TOKEN = "Token";
 
     //public scope
     public static final String TOKEN_VALIDATION_END_POINT = "session/token";

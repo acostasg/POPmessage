@@ -32,7 +32,7 @@ public class PublishActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.create_message_login);
+        setContentView(R.layout.create_message);
         editText = (EditText) findViewById(R.id.publish_message_text);
         this.requestToPermissionsToAccessGPS();
         this.session = new Session(this);

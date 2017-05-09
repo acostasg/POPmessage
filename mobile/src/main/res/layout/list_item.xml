@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="?android:attr/listPreferredItemHeight"
-    android:padding="6dip">
+    android:layout_height="?android:attr/listPreferredItemHeight">
 
     <ImageView
         android:id="@+id/icon"
@@ -12,6 +11,7 @@
         android:layout_marginStart="4dp"
         android:layout_marginTop="4dp"
         android:src="@mipmap/ic_launcher" />
+
 
     <LinearLayout
         android:layout_width="0dip"
@@ -23,11 +23,11 @@
             android:id="@+id/user"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/colorPrimary"
             android:layout_marginBottom="4dp"
             android:layout_marginTop="4dp"
             android:text="@+id/user"
-            android:textSize="14sp" />
+            android:textColor="@color/colorPrimary"
+            android:textSize="12sp" />
 
         <TextView
             android:id="@+id/label"
@@ -35,7 +35,41 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="4dp"
             android:layout_marginTop="4dp"
+            android:background="@drawable/border"
+            android:padding="10sp"
             android:text="@+id/label"
+            android:textColor="@color/textItem"
             android:textSize="18sp" />
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAlignment="textEnd"
+            android:layout_gravity="end"
+            android:layout_marginEnd="10pt"
+            >
+        <TextView
+            android:id="@+id/messageVotesLike"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="8dp"
+            android:text="@+id/label"
+            android:textAlignment="textEnd"
+            android:textColor="@color/colorPrimary"
+            android:textSize="8sp" />
+
+        <TextView
+            android:id="@+id/messageVotesDislike"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:layout_marginTop="4dp"
+            android:text="@+id/label"
+            android:textAlignment="textEnd"
+            android:textColor="@color/colorAccent"
+            android:textSize="8sp" />
+            </LinearLayout>
     </LinearLayout>
 </LinearLayout>

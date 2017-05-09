@@ -32,7 +32,7 @@ public class VoteMessageTask extends AsyncHttpResponseHandler {
     public void onStart() {
         this.dialog = new ProgressDialog(mContext);
         this.dialog.setCancelable(false);
-        this.dialog.setMessage(this.mContext.getString(R.string.sending_message));
+        this.dialog.setMessage(this.mContext.getString(R.string.sending_vote));
         this.dialog.show();
     }
 

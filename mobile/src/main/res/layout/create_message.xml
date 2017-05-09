@@ -22,7 +22,11 @@
         android:layout_height="fill_parent"
         android:layout_width="fill_parent"
         android:scrollbars="vertical"
-        android:hint="@string/message" />
+        android:hint="@string/message"
+        android:padding="5pt"
+        android:paddingTop="2pt"
+        android:background="@drawable/border"
+        />
 
 
     <android.support.design.widget.FloatingActionButton

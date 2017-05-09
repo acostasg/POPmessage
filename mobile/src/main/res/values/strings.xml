@@ -19,6 +19,7 @@
         completions."
     </string>
     <string name="sending_message">Sending message&#8230;</string>
+    <string name="sending_vote">Voting&#8230;</string>
     <string name="delete_message">Delete message&#8230;</string>
     <string name="alert">Alert</string>
     <string name="ok">OK</string>
@@ -48,15 +49,15 @@
     <string name="publish">Publish</string>
     <string name="short_text">This text is too small [15 characters minimum].</string>
     <string name="big_text">This text is too big [160 characters maximum].</string>
-    <string name="from">From: </string>
+    <string name="from">From:&#160;</string>
     <string name="like">Like</string>
     <string name="delete">Delete</string>
     <string name="disLike">DisLike</string>
-    <string name="publish_success">Publish success: </string>
+    <string name="publish_success">Publish success:&#160;</string>
     <string name="create_message">Create message</string>
     <string name="ellipsis">&#8230;</string>
-    <string name="vote">"Vote: "</string>
-    <string name="removed">"Removed: "</string>
+    <string name="vote">"Vote:&#160;"</string>
+    <string name="removed">"Removed:&#160;"</string>
     <!-- String to Errors -->
     <string name="not_permission">It is necessary to have permission to location service for use this application.</string>
     <string name="invalid_credential">INVALID CREDENTIALS OR LOGIN REQUIRES (FAILURE)</string>

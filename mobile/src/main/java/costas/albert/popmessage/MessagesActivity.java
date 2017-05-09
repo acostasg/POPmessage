@@ -163,8 +163,7 @@ public class MessagesActivity extends AppCompatActivity
     }
 
     public void sendMessagesView(Message message) {
-        Intent intent = new Intent(this, MessagesActivity.class);
-        startActivity(intent);
+        this.getLastKnownLocationAndRefreshMessages();
         Toast.makeText(
                 this.getBaseContext(),
                 this.getString(R.string.vote)
@@ -172,7 +171,6 @@ public class MessagesActivity extends AppCompatActivity
                         + this.getString(R.string.ellipsis),
                 Toast.LENGTH_LONG
         ).show();
-        this.finish();
     }
 
     public ListMessagesService listMessagesService() {

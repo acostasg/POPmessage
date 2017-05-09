@@ -94,14 +94,23 @@ public class ListMessagesService {
             }
             Message message = messages.get(position);
             if (message != null) {
-                TextView tt = (TextView) v.findViewById(R.id.user);
-                TextView bt = (TextView) v.findViewById(R.id.label);
-                if (tt != null) {
-                    //TODO API return user
-                    tt.setText(message.getUser().getName());
+                TextView user = (TextView) v.findViewById(R.id.user);
+                TextView text = (TextView) v.findViewById(R.id.label);
+                TextView likes = (TextView) v.findViewById(R.id.messageVotesLike);
+                TextView dislikes = (TextView) v.findViewById(R.id.messageVotesDislike);
+                if (user != null) {
+                    user.setText(message.getUser().getName());
                 }
-                if (bt != null) {
-                    bt.setText(message.getText());
+                if (text != null) {
+                    text.setText(message.getText());
+                }
+                if (likes != null) {
+                    String like = "+" + String.valueOf(message.getSummaryVotesLike());
+                    likes.setText(like);
+                }
+                if (dislikes != null) {
+                    String dislike = "-" + String.valueOf(message.getSummaryVotesDislike());
+                    dislikes.setText(dislike);
                 }
             }
             return v;

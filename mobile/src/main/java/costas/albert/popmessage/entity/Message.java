@@ -12,6 +12,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import costas.albert.popmessage.services.MessageFilterService;
+
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
         "ID",
@@ -106,6 +108,14 @@ public class Message {
     @JsonAnySetter
     public void setAdditionalProperty(String name, Object value) {
         this.additionalProperties.put(name, value);
+    }
+
+    public int getSummaryVotesLike() {
+        return MessageFilterService.run(votes, Type.POSITIVE).size();
+    }
+
+    public int getSummaryVotesDislike() {
+        return MessageFilterService.run(votes, Type.NEGATIVE).size();
     }
 
     @JsonIgnore
