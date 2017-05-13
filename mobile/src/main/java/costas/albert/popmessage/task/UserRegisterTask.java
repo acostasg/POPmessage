@@ -90,6 +90,9 @@ public class UserRegisterTask extends AsyncHttpResponseHandler {
             case 500:
                 message = this.mContext.getString(R.string.wrong_server_end);
                 break;
+            case 409:
+                this.mContext.emailInUse();
+                return;
             default:
                 message = this.mContext.getString(R.string.unexpected_error);
         }

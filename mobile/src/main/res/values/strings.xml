@@ -11,6 +11,7 @@
     <string name="error_incorrect_password">This password is incorrect</string>
     <string name="requested_not_found">Requested resource not found</string>
     <string name="wrong_server_end">Something went wrong at server end</string>
+    <string name="user_in_use">Email is in use for other user, change your email for other.</string>
     <string name="unexpected_error">Unexpected Error occurred! [Most common Error: Device might not be connected to Internet or remote server is not up and running]</string>
     <string name="error_field_required">This field is required</string>
     <string name="accept_terms">Please accept our Terms and Conditions.</string>

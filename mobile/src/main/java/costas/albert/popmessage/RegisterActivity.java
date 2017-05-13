@@ -34,6 +34,9 @@ public class RegisterActivity extends AppCompatActivity
         implements LoaderManager.LoaderCallbacks<Cursor> {
 
     private static final int REQUEST_READ_CONTACTS = 1;
+    public static final String EQUAL = " = ?";
+    public static final String DESC = " DESC";
+
     private final PolicyCheckedListener policyCheckedListener
             = new PolicyCheckedListener(this);
     private final EmailSignButtonRegisterListener emailSignButtonRegisterListener
@@ -86,9 +89,9 @@ public class RegisterActivity extends AppCompatActivity
                         ContactsContract.Contacts.Data.CONTENT_DIRECTORY
                 ), ProfileQueryService.PROJECTION,
                 ContactsContract.Contacts.Data.MIMETYPE +
-                        " = ?", new String[]{ContactsContract.CommonDataKinds.Email
+                        EQUAL, new String[]{ContactsContract.CommonDataKinds.Email
                 .CONTENT_ITEM_TYPE},
-                ContactsContract.Contacts.Data.IS_PRIMARY + " DESC");
+                ContactsContract.Contacts.Data.IS_PRIMARY + DESC);
     }
 
     /**
@@ -159,6 +162,13 @@ public class RegisterActivity extends AppCompatActivity
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
 
+    }
+
+    public void emailInUse() {
+        View focusView = null;
+        this.mEmailView.setError(this.getString(R.string.user_in_use));
+        focusView = this.mEmailView;
+        focusView.requestFocus();
     }
 
     public void sendLogin() {
