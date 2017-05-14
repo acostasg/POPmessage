@@ -13,28 +13,41 @@ import java.util.Map;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
-        "Id",
+        "messageID",
+        "userID",
         "type",
 })
 
 @JsonRootName(value = "Vote")
 public class Vote {
 
-    @JsonProperty("Id")
-    private Id Id;
+    @JsonProperty("messageID")
+    private Id messageID;
+    @JsonProperty("userID")
+    private Id userID;
     @JsonProperty("type")
     private Type type;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
-    @JsonProperty("Id")
-    public Id getId() {
-        return Id;
+    @JsonProperty("messageID")
+    public Id getMessageID() {
+        return messageID;
     }
 
-    @JsonProperty("Id")
-    public void setId(Id messageID) {
-        this.Id = messageID;
+    @JsonProperty("messageID")
+    public void setMessageID(Id messageID) {
+        this.messageID = messageID;
+    }
+
+    @JsonProperty("userID")
+    public Id getUserID() {
+        return userID;
+    }
+
+    @JsonProperty("userID")
+    public void setUserID(Id userID) {
+        this.userID = userID;
     }
 
     @JsonProperty("type")
