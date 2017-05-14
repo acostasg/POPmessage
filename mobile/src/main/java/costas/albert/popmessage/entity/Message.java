@@ -61,7 +61,7 @@ public class Message {
         this.user = user;
     }
 
-    @JsonProperty("text")
+    @JsonIgnore
     public String getText() {
         return EncodeMessageWrapper.Decoder(text);
     }

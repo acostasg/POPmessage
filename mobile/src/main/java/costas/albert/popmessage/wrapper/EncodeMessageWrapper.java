@@ -31,10 +31,6 @@ public class EncodeMessageWrapper {
         return new String(Base64.decode(this.text.getBytes(), 2));
     }
 
-    public static String Encoder(String text) {
-        return new EncodeMessageWrapper(text).encode();
-    }
-
     public static String Decoder(String text) {
         return new EncodeMessageWrapper(text).decode();
     }

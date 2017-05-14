@@ -39,6 +39,9 @@ public class ListMessagesService {
         int position = 0;
         this.messages = messages;
         for (Message message : this.messages) {
+            if (null == message) {
+                continue;
+            }
             list.add(position, message.getText());
             position++;
         }
@@ -87,17 +90,17 @@ public class ListMessagesService {
         @NonNull
         @Override
         public View getView(int position, View convertView, @NonNull ViewGroup parent) {
-            View v = convertView;
-            if (v == null) {
+            View view = convertView;
+            if (view == null) {
                 LayoutInflater vi = (LayoutInflater) messagesActivity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                v = vi.inflate(R.layout.list_item, null);
+                view = vi.inflate(R.layout.list_item, null);
             }
             Message message = messages.get(position);
             if (message != null) {
-                TextView user = (TextView) v.findViewById(R.id.user);
-                TextView text = (TextView) v.findViewById(R.id.label);
-                TextView likes = (TextView) v.findViewById(R.id.messageVotesLike);
-                TextView dislikes = (TextView) v.findViewById(R.id.messageVotesDislike);
+                TextView user = (TextView) view.findViewById(R.id.user);
+                TextView text = (TextView) view.findViewById(R.id.label);
+                TextView likes = (TextView) view.findViewById(R.id.messageVotesLike);
+                TextView dislikes = (TextView) view.findViewById(R.id.messageVotesDislike);
                 if (user != null) {
                     user.setText(message.getUser().getName());
                 }
@@ -113,7 +116,7 @@ public class ListMessagesService {
                     dislikes.setText(dislike);
                 }
             }
-            return v;
+            return view;
         }
 
         @Override
