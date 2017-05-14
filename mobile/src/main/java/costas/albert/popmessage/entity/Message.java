@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 import costas.albert.popmessage.services.MessageFilterService;
+import costas.albert.popmessage.wrapper.EncodeMessageWrapper;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
@@ -62,7 +63,7 @@ public class Message {
 
     @JsonProperty("text")
     public String getText() {
-        return text;
+        return EncodeMessageWrapper.Decoder(text);
     }
 
     @JsonProperty("text")

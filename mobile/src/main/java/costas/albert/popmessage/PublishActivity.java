@@ -19,6 +19,7 @@ import costas.albert.popmessage.entity.Message;
 import costas.albert.popmessage.session.Session;
 import costas.albert.popmessage.task.PublishTask;
 import costas.albert.popmessage.task.UserLogOutTask;
+import costas.albert.popmessage.wrapper.EncodeMessageWrapper;
 import costas.albert.popmessage.wrapper.LocationManagerWrapper;
 
 public class PublishActivity extends AppCompatActivity {
@@ -57,14 +58,19 @@ public class PublishActivity extends AppCompatActivity {
             public void onClick(View v) {
                 editText.setError(null);
 
-                if (editText.getText().length() < 15) {
+                EncodeMessageWrapper encodeMessageWrapper
+                        = new EncodeMessageWrapper(editText.getText().toString());
+
+                if (encodeMessageWrapper.isShort()) {
+                    editText.setText(encodeMessageWrapper.clearCode());
                     editText.setError(
                             PublishActivity.this.getString(R.string.short_text)
                     );
                     return;
                 }
 
-                if (editText.getText().length() > 160) {
+                if (encodeMessageWrapper.isSmall()) {
+                    editText.setText(encodeMessageWrapper.clearCode());
                     editText.setError(
                             PublishActivity.this.getString(R.string.big_text)
                     );
@@ -73,7 +79,7 @@ public class PublishActivity extends AppCompatActivity {
 
                 PublishTask.execute(
                         PublishActivity.this,
-                        editText.getText().toString(),
+                        encodeMessageWrapper.encode(),
                         locationManagerWrapper.getBestLocation(mLocationManager),
                         session.getToken()
                 );
