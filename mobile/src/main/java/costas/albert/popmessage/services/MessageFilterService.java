@@ -13,6 +13,11 @@ public final class MessageFilterService {
         this.list = list;
     }
 
+    public static List<Vote> run(List<Vote> list, Type type) {
+        MessageFilterService messageFilter = new MessageFilterService(list);
+        return messageFilter.apply(type);
+    }
+
     public List<Vote> apply(Type type) {
         List<Vote> filter = new ArrayList<>();
 
@@ -22,10 +27,5 @@ public final class MessageFilterService {
             }
         }
         return filter;
-    }
-
-    public static List<Vote> run(List<Vote> list, Type type) {
-        MessageFilterService messageFilter = new MessageFilterService(list);
-        return messageFilter.apply(type);
     }
 }

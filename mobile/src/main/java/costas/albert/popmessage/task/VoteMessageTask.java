@@ -27,15 +27,6 @@ public class VoteMessageTask extends AsyncHttpResponseHandler {
         this.mContext = mContext;
     }
 
-
-    @Override
-    public void onStart() {
-        this.dialog = new ProgressDialog(mContext);
-        this.dialog.setCancelable(false);
-        this.dialog.setMessage(this.mContext.getString(R.string.sending_vote));
-        this.dialog.show();
-    }
-
     public static void executeLike(
             MessagesActivity mContext,
             Message message,
@@ -64,6 +55,14 @@ public class VoteMessageTask extends AsyncHttpResponseHandler {
                 new VoteMessageTask(mContext),
                 token
         );
+    }
+
+    @Override
+    public void onStart() {
+        this.dialog = new ProgressDialog(mContext);
+        this.dialog.setCancelable(false);
+        this.dialog.setMessage(this.mContext.getString(R.string.sending_vote));
+        this.dialog.show();
     }
 
     @Override

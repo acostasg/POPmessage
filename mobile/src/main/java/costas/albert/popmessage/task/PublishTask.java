@@ -28,15 +28,6 @@ public class PublishTask extends AsyncHttpResponseHandler {
         this.mContext = mContext;
     }
 
-
-    @Override
-    public void onStart() {
-        this.dialog = new ProgressDialog(mContext);
-        this.dialog.setCancelable(false);
-        this.dialog.setMessage(this.mContext.getString(R.string.sending_message));
-        this.dialog.show();
-    }
-
     public static void execute(
             PublishActivity mContext,
             String text,
@@ -53,6 +44,14 @@ public class PublishTask extends AsyncHttpResponseHandler {
                 new PublishTask(mContext),
                 token
         );
+    }
+
+    @Override
+    public void onStart() {
+        this.dialog = new ProgressDialog(mContext);
+        this.dialog.setCancelable(false);
+        this.dialog.setMessage(this.mContext.getString(R.string.sending_message));
+        this.dialog.show();
     }
 
     @Override

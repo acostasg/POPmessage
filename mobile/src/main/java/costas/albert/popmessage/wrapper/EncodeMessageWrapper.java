@@ -11,6 +11,10 @@ public class EncodeMessageWrapper {
         this.text = Html.fromHtml(text).toString();
     }
 
+    public static String Decoder(String text) {
+        return new EncodeMessageWrapper(text).decode();
+    }
+
     public boolean isShort() {
         return (this.text.length() < 15);
     }
@@ -29,9 +33,5 @@ public class EncodeMessageWrapper {
 
     public String decode() {
         return new String(Base64.decode(this.text.getBytes(), 2));
-    }
-
-    public static String Decoder(String text) {
-        return new EncodeMessageWrapper(text).decode();
     }
 }

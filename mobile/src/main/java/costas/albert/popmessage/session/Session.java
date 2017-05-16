@@ -58,10 +58,7 @@ public class Session {
         return prefs.contains(USER);
     }
 
-    public boolean resetToken() {
-        final boolean result;
-        if (prefs.edit().remove(TOKEN).commit()) result = true;
-        else result = false;
-        return result;
+    public void resetSession() {
+        prefs.edit().clear().apply();
     }
 }

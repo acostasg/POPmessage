@@ -27,15 +27,6 @@ public class DeleteTask extends AsyncHttpResponseHandler {
         this.mContext = mContext;
     }
 
-
-    @Override
-    public void onStart() {
-        this.dialog = new ProgressDialog(mContext);
-        this.dialog.setCancelable(false);
-        this.dialog.setMessage(this.mContext.getString(R.string.delete_message));
-        this.dialog.show();
-    }
-
     public static void execute(
             MyMessagesActivity mContext,
             Message message,
@@ -49,6 +40,14 @@ public class DeleteTask extends AsyncHttpResponseHandler {
                 new DeleteTask(mContext),
                 token
         );
+    }
+
+    @Override
+    public void onStart() {
+        this.dialog = new ProgressDialog(mContext);
+        this.dialog.setCancelable(false);
+        this.dialog.setMessage(this.mContext.getString(R.string.delete_message));
+        this.dialog.show();
     }
 
     @Override

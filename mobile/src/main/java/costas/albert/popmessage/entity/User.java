@@ -41,13 +41,13 @@ public class User {
         return ID;
     }
 
-    public String Id() {
-        return this.ID.getId();
-    }
-
     @JsonProperty("ID")
     public void setID(Id iD) {
         this.ID = iD;
+    }
+
+    public String Id() {
+        return this.ID.getId();
     }
 
     @JsonProperty("name")

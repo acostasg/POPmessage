@@ -29,14 +29,6 @@ public class MessageByLocationTask extends AsyncHttpResponseHandler {
         this.mContext = mContext;
     }
 
-    @Override
-    public void onStart() {
-        this.dialog = new ProgressDialog(mContext);
-        this.dialog.setCancelable(false);
-        this.dialog.setMessage(this.mContext.getString(R.string.search_messages));
-        this.dialog.show();
-    }
-
     public static void execute(MessagesActivity messagesActivity, Location location) {
         Token token = new Session(messagesActivity).getToken();
         if (!token.isEmpty()) {
@@ -50,6 +42,14 @@ public class MessageByLocationTask extends AsyncHttpResponseHandler {
                     token
             );
         }
+    }
+
+    @Override
+    public void onStart() {
+        this.dialog = new ProgressDialog(mContext);
+        this.dialog.setCancelable(false);
+        this.dialog.setMessage(this.mContext.getString(R.string.search_messages));
+        this.dialog.show();
     }
 
     @Override

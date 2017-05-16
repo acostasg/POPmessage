@@ -24,12 +24,11 @@ import costas.albert.popmessage.session.Session;
 
 public class ListMessagesService {
 
+    private static final char LIKE = '+';
+    private static final char DISLIKE = '-';
     private List<Message> messages;
     private AppCompatActivity messagesActivity;
     private Session session;
-
-    private static final char LIKE = '+';
-    private static final char DISLIKE = '-';
 
     public ListMessagesService() {
     }
@@ -119,6 +118,9 @@ public class ListMessagesService {
                     String userString = messagesActivity.getString(R.string.you);
                     user.setText(userString);
                 } else {
+                    icon.setImageDrawable(messagesActivity.getDrawable(R.drawable.ic_mail_black_24dp));
+                    user.setTextColor(ContextCompat.getColor(this.getContext(), R.color.colorPrimary));
+                    text.setTextColor(ContextCompat.getColor(this.getContext(), R.color.textItem));
                     String userString = messagesActivity.getString(R.string.from) + ' ' + message.getUser().getName();
                     user.setText(userString);
                 }

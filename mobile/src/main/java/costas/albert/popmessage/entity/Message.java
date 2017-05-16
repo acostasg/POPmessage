@@ -56,13 +56,13 @@ public class Message {
         return user;
     }
 
-    public String userId() {
-        return this.getUser().getID().getId();
-    }
-
     @JsonProperty("user")
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public String userId() {
+        return this.getUser().getID().getId();
     }
 
     @JsonIgnore

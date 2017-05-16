@@ -5,13 +5,6 @@ package costas.albert.popmessage.api;
  */
 public class ApiValues {
 
-    //only scope api package
-    //static final String BASE_URL = "http://10.0.2.2:8080/"; //android emulator simulator to pc
-    static final String BASE_URL = "http://192.168.1.132:8080/"; //local to pc
-    static final String APP_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9";
-    static final String AUTHORIZATION = "Authorization";
-    static final String TOKEN = "Token";
-
     //public scope
     public static final String TOKEN_VALIDATION_END_POINT = "session/token";
     public static final String LOGIN_END_POINT = "user/login";
@@ -24,27 +17,28 @@ public class ApiValues {
     public static final String POST_MESSAGE_LIKE = "message/vote/like/create";
     public static final String POST_MESSAGE_DISLIKE = "message/vote/dislike/create";
     public static final String GET_MESSAGE_TO_USER = "/user/message/get";
-
     /**
      * fields
      **/
     //login
     public static final String USERNAME = "userName";
     public static final String PASSWORD = "password";
-
     //extra for register
     public static final String NAME = "name";
     public static final String DATE_OF_BIRTH = "dateOfBirth";
     public static final String PRIVACY_POLICY = "privacyPolicy";
-
     //location
     public static final String LAT = "lat";
     public static final String LON = "lon";
-
     //publication
     public static final String TEXT = "text";
-
     //vote message
     public static final String MESSAGE = "message";
+    //only scope api package
+    //static final String BASE_URL = "http://10.0.2.2:8080/"; //android emulator simulator to pc
+    static final String BASE_URL = "http://192.168.1.132:8080/"; //local to pc
+    static final String APP_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9";
+    static final String AUTHORIZATION = "Authorization";
+    static final String TOKEN = "Token";
 
 }

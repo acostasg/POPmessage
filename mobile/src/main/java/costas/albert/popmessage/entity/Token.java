@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 public class Token {
 
     @JsonProperty("hash")
-    public String hash;
+    private String hash;
 
     public Token() {
     }

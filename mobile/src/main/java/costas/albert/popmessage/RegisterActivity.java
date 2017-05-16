@@ -33,10 +33,9 @@ import costas.albert.popmessage.services.ProfileQueryService;
 public class RegisterActivity extends AppCompatActivity
         implements LoaderManager.LoaderCallbacks<Cursor> {
 
-    private static final int REQUEST_READ_CONTACTS = 1;
     public static final String EQUAL = " = ?";
     public static final String DESC = " DESC";
-
+    private static final int REQUEST_READ_CONTACTS = 1;
     private final PolicyCheckedListener policyCheckedListener
             = new PolicyCheckedListener(this);
     private final EmailSignButtonRegisterListener emailSignButtonRegisterListener

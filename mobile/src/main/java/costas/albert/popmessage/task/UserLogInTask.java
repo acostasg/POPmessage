@@ -61,7 +61,7 @@ public class UserLogInTask extends AsyncHttpResponseHandler {
     }
 
     private void invalidCredentials() {
-        session.resetToken();
+        session.resetSession();
         this.mContext.mPasswordView.setError(this.mContext.getString(R.string.error_incorrect_password));
         this.mContext.mPasswordView.requestFocus();
     }

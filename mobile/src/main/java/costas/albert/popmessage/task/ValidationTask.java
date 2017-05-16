@@ -27,14 +27,6 @@ public class ValidationTask extends AsyncHttpResponseHandler {
         this.session = new Session(this.mContext);
     }
 
-    @Override
-    public void onStart() {
-        this.dialog = new ProgressDialog(mContext);
-        this.dialog.setCancelable(false);
-        this.dialog.setMessage("Validation session...");
-        this.dialog.show();
-    }
-
     public static void execute(LoginActivity loginActivity) {
         Token token = new Session(loginActivity).getToken();
         if (!token.isEmpty()) {
@@ -48,6 +40,14 @@ public class ValidationTask extends AsyncHttpResponseHandler {
     }
 
     @Override
+    public void onStart() {
+        this.dialog = new ProgressDialog(mContext);
+        this.dialog.setCancelable(false);
+        this.dialog.setMessage("Validation session...");
+        this.dialog.show();
+    }
+
+    @Override
     public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
         try {
             Token token = TokenMapper.build(responseBody);
@@ -55,10 +55,10 @@ public class ValidationTask extends AsyncHttpResponseHandler {
                 this.session.setToken(token);
                 GetUserTask.execute(this.mContext, token);
             } else {
-                session.resetToken();
+                session.resetSession();
             }
         } catch (java.io.IOException | org.json.JSONException exception) {
-            session.resetToken();
+            session.resetSession();
         }
         this.dialog.hide();
         this.dialog.cancel();

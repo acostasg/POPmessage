@@ -38,7 +38,7 @@ public class UserLogOutTask extends AsyncHttpResponseHandler {
     }
 
     private void logOut() {
-        this.session.resetToken();
+        this.session.resetSession();
 
         Intent intent = new Intent(this.mContext, LoginActivity.class);
         this.mContext.startActivity(intent);

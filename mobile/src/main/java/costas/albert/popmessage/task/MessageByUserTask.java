@@ -27,14 +27,6 @@ public class MessageByUserTask extends AsyncHttpResponseHandler {
         this.mContext = mContext;
     }
 
-    @Override
-    public void onStart() {
-        this.dialog = new ProgressDialog(mContext);
-        this.dialog.setCancelable(false);
-        this.dialog.setMessage(this.mContext.getString(R.string.search_your_messages));
-        this.dialog.show();
-    }
-
     public static void execute(MyMessagesActivity messagesActivity, Token token) {
         if (!token.isEmpty()) {
             RestClient.get(
@@ -44,6 +36,14 @@ public class MessageByUserTask extends AsyncHttpResponseHandler {
                     token
             );
         }
+    }
+
+    @Override
+    public void onStart() {
+        this.dialog = new ProgressDialog(mContext);
+        this.dialog.setCancelable(false);
+        this.dialog.setMessage(this.mContext.getString(R.string.search_your_messages));
+        this.dialog.show();
     }
 
     @Override

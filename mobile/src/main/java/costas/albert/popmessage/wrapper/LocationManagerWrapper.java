@@ -15,12 +15,11 @@ import costas.albert.popmessage.R;
 
 public class LocationManagerWrapper {
 
-    private LocationManager mLocationManager;
-    private AppCompatActivity appCompatActivity;
-
     public static final int REQUEST_GPS = 1;
     public static final int MIN_DISTANCE = 5;
     public static final int MIN_TIME = 20000;
+    private LocationManager mLocationManager;
+    private AppCompatActivity appCompatActivity;
 
     public LocationManagerWrapper(LocationManager mLocationManager, AppCompatActivity activity) {
         this.mLocationManager = mLocationManager;
