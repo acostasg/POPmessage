@@ -12,7 +12,7 @@ public class StatusResponseWrapper {
         switch (statusCode) {
             case 401:
                 progressDialog.setMessage(appCompatActivity.getString(R.string.invalid_credential));
-                return;
+                break;
             case 404:
                 progressDialog.setMessage(appCompatActivity.getString(R.string.requested_not_found));
                 break;

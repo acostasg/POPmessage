@@ -49,8 +49,7 @@ public class UserLogInTask extends AsyncHttpResponseHandler {
             if (!token.isEmpty()) {
                 this.session.setToken(token);
                 this.mContext.finish();
-                this.mContext.sendMessagesView();
-
+                GetUserTask.execute(this.mContext, token);
             } else {
                 invalidCredentials();
             }
@@ -58,7 +57,6 @@ public class UserLogInTask extends AsyncHttpResponseHandler {
             popAlertConnection(this.mContext.getString(R.string.wrong_server_end)
                     + " [" + exception.getMessage() + ']');
         }
-
         this.mContext.showProgress(false);
     }
 

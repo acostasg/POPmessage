@@ -53,8 +53,7 @@ public class ValidationTask extends AsyncHttpResponseHandler {
             Token token = TokenMapper.build(responseBody);
             if (!token.isEmpty()) {
                 this.session.setToken(token);
-                this.mContext.finish();
-                this.mContext.sendMessagesView();
+                GetUserTask.execute(this.mContext, token);
             } else {
                 session.resetToken();
             }

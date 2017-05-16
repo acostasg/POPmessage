@@ -4,12 +4,14 @@ import android.content.Context;
 import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -18,11 +20,16 @@ import java.util.List;
 
 import costas.albert.popmessage.R;
 import costas.albert.popmessage.entity.Message;
+import costas.albert.popmessage.session.Session;
 
 public class ListMessagesService {
 
     private List<Message> messages;
     private AppCompatActivity messagesActivity;
+    private Session session;
+
+    private static final char LIKE = '+';
+    private static final char DISLIKE = '-';
 
     public ListMessagesService() {
     }
@@ -33,6 +40,7 @@ public class ListMessagesService {
             @IdRes int id
     ) {
         this.messagesActivity = messagesActivity;
+        this.session = new Session(this.messagesActivity);
         final ListView listview = (ListView) this.messagesActivity.findViewById(id);
 
         ArrayList<String> list = new ArrayList<>();
@@ -97,24 +105,30 @@ public class ListMessagesService {
             }
             Message message = messages.get(position);
             if (message != null) {
+                ImageView icon = (ImageView) view.findViewById(R.id.icon_list_message);
                 TextView user = (TextView) view.findViewById(R.id.user);
                 TextView text = (TextView) view.findViewById(R.id.label);
                 TextView likes = (TextView) view.findViewById(R.id.messageVotesLike);
                 TextView dislikes = (TextView) view.findViewById(R.id.messageVotesDislike);
-                if (user != null) {
-                    user.setText(message.getUser().getName());
+
+
+                if (message.userId().equals(session.getUser().Id())) {
+                    icon.setImageDrawable(messagesActivity.getDrawable(R.drawable.ic_done_all_black_24dp));
+                    user.setTextColor(ContextCompat.getColor(this.getContext(), R.color.yourMessages));
+                    text.setTextColor(ContextCompat.getColor(this.getContext(), R.color.yourMessages));
+                    String userString = messagesActivity.getString(R.string.you);
+                    user.setText(userString);
+                } else {
+                    String userString = messagesActivity.getString(R.string.from) + ' ' + message.getUser().getName();
+                    user.setText(userString);
                 }
-                if (text != null) {
-                    text.setText(message.getText());
-                }
-                if (likes != null) {
-                    String like = "+" + String.valueOf(message.getSummaryVotesLike());
-                    likes.setText(like);
-                }
-                if (dislikes != null) {
-                    String dislike = "-" + String.valueOf(message.getSummaryVotesDislike());
-                    dislikes.setText(dislike);
-                }
+
+                text.setText(message.getText());
+                String like = LIKE + String.valueOf(message.getSummaryVotesLike());
+                likes.setText(like);
+                String dislike = DISLIKE + String.valueOf(message.getSummaryVotesDislike());
+                dislikes.setText(dislike);
+
             }
             return view;
         }

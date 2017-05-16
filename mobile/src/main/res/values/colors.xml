@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303f9f</color>
-    <color name="colorAccent">#dd2c00</color>
+    <color name="colorPrimary">#0d47a1</color>
+    <color name="colorPrimaryDark">#002171</color>
+    <color name="colorAccent">#e53935</color>
     <color name="colorTextButton">#FFFFFF</color>
     <color name="textItem">#000000</color>
-    <color name="backgroundItem">#88FFFFFF</color>
+    <color name="backgroundItem">#e0f2f1</color>
+    <color name="yourMessages">#424242</color>
+    <color name="like">#2e7d32</color>
+    <color name="dislike">#ba000d</color>
 </resources>
