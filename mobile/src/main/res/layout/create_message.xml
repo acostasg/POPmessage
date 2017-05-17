@@ -3,31 +3,40 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@mipmap/wallpaper"
     android:gravity="center_horizontal"
     android:orientation="vertical"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:background="@mipmap/wallpaper"
     tools:context="costas.albert.popmessage.PublishActivity">
 
     <EditText
         android:id="@+id/publish_message_text"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@drawable/border"
+        android:gravity="top|start"
+        android:hint="@string/message"
         android:inputType="textMultiLine"
         android:lines="8"
-        android:minLines="6"
-        android:gravity="top|left"
+        android:maxLength="160"
         android:maxLines="60"
-        android:layout_height="fill_parent"
-        android:layout_width="fill_parent"
-        android:scrollbars="vertical"
-        android:hint="@string/message"
+        android:minLines="6"
         android:padding="5pt"
         android:paddingTop="2pt"
-        android:background="@drawable/border"
-        />
+        android:scrollbars="vertical" />
 
+    <TextView
+        android:id="@+id/maxim_char"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:gravity="bottom|start"
+        android:padding="5pt"
+        android:textColor="@color/colorPrimaryDark" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/publish_action_button"
@@ -36,6 +45,8 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:layout_margin="10dp"
-        android:src="@mipmap/ic_send_message" />
+        android:gravity="bottom|end"
+        android:src="@drawable/ic_send_black_24dp" />
+
 
 </RelativeLayout>

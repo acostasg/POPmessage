@@ -2,6 +2,8 @@ package costas.albert.popmessage.task;
 
 import android.app.ProgressDialog;
 import android.location.Location;
+import android.view.View;
+import android.widget.ImageView;
 
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -61,6 +63,12 @@ public class MessageByLocationTask extends AsyncHttpResponseHandler {
                     messages,
                     R.id.messages
             );
+            ImageView iconNotImages = (ImageView) this.mContext.findViewById(R.id.not_messages_global);
+            if (messages.isEmpty()) {
+                iconNotImages.setVisibility(View.VISIBLE);
+            } else {
+                iconNotImages.setVisibility(View.INVISIBLE);
+            }
             this.dialog.hide();
             this.dialog.cancel();
         } catch (Exception exception) {

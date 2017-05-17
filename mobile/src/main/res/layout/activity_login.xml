@@ -3,13 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@mipmap/wallpaper"
     android:gravity="center_horizontal"
     android:orientation="vertical"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:background="@mipmap/wallpaper"
     tools:context="costas.albert.popmessage.LoginActivity">
 
     <!-- Login progress -->
@@ -75,12 +75,12 @@
             <Button
                 android:id="@+id/email_sign_in_button"
                 style="?android:textAppearanceSmall"
-                android:backgroundTint="@color/colorPrimary"
-                android:textColor="@color/colorTextButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
+                android:backgroundTint="@color/colorPrimary"
                 android:text="@string/action_sign_in"
+                android:textColor="@color/colorTextButton"
                 android:textStyle="bold" />
 
             <TextView

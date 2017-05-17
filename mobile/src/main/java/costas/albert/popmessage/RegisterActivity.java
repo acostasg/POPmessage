@@ -164,7 +164,7 @@ public class RegisterActivity extends AppCompatActivity
     }
 
     public void emailInUse() {
-        View focusView = null;
+        View focusView;
         this.mEmailView.setError(this.getString(R.string.user_in_use));
         focusView = this.mEmailView;
         focusView.requestFocus();

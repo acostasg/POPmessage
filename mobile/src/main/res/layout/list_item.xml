@@ -4,13 +4,13 @@
     android:layout_height="?android:attr/listPreferredItemHeight">
 
     <ImageView
-        android:contentDescription="@string/message"
         android:id="@+id/icon_list_message"
         android:layout_width="18dp"
         android:layout_height="18dp"
         android:layout_marginEnd="10dp"
         android:layout_marginStart="4dp"
         android:layout_marginTop="4dp"
+        android:contentDescription="@string/message"
         android:src="@drawable/ic_mail_black_24dp" />
 
 
@@ -35,8 +35,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="4dp"
-            android:layout_marginTop="4dp"
             android:layout_marginEnd="15dp"
+            android:layout_marginTop="4dp"
             android:background="@drawable/border"
             android:padding="10sp"
             android:text="@+id/label"
