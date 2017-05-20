@@ -19,13 +19,19 @@ import cz.msebera.android.httpclient.Header;
 
 public class PublishTask extends AsyncHttpResponseHandler {
 
+    private static PublishTask instance;
     private final StatusResponseWrapper statusResponseWrapper = new StatusResponseWrapper();
     private ProgressDialog dialog;
     private PublishActivity mContext;
 
+    private PublishTask() {
+    }
 
-    private PublishTask(PublishActivity mContext) {
-        this.mContext = mContext;
+    private static PublishTask getInstance(PublishActivity mContext) {
+        if (instance == null)
+            instance = new PublishTask();
+        instance.setContext(mContext);
+        return instance;
     }
 
     public static void execute(
@@ -41,14 +47,20 @@ public class PublishTask extends AsyncHttpResponseHandler {
         RestClient.post(
                 ApiValues.POST_CREATE_MESSAGE,
                 requestParams,
-                new PublishTask(mContext),
+                getInstance(mContext),
                 token
         );
     }
 
+    private void setContext(PublishActivity mContext) {
+        synchronized (this) {
+            this.mContext = mContext;
+            this.dialog = new ProgressDialog(mContext);
+        }
+    }
+
     @Override
     public void onStart() {
-        this.dialog = new ProgressDialog(mContext);
         this.dialog.setCancelable(false);
         this.dialog.setMessage(this.mContext.getString(R.string.sending_message));
         this.dialog.show();

@@ -18,13 +18,19 @@ import cz.msebera.android.httpclient.Header;
 
 public class DeleteTask extends AsyncHttpResponseHandler {
 
+    private static DeleteTask instance;
     private final StatusResponseWrapper statusResponseWrapper = new StatusResponseWrapper();
     private ProgressDialog dialog;
     private MyMessagesActivity mContext;
 
+    private DeleteTask() {
+    }
 
-    private DeleteTask(MyMessagesActivity mContext) {
-        this.mContext = mContext;
+    private static DeleteTask getInstance(MyMessagesActivity mContext) {
+        if (instance == null)
+            instance = new DeleteTask();
+        instance.setContext(mContext);
+        return instance;
     }
 
     public static void execute(
@@ -37,14 +43,20 @@ public class DeleteTask extends AsyncHttpResponseHandler {
         RestClient.post(
                 ApiValues.POST_REMOVE_MESSAGE,
                 requestParams,
-                new DeleteTask(mContext),
+                getInstance(mContext),
                 token
         );
     }
 
+    private void setContext(MyMessagesActivity mContext) {
+        synchronized (this) {
+            this.mContext = mContext;
+            this.dialog = new ProgressDialog(mContext);
+        }
+    }
+
     @Override
     public void onStart() {
-        this.dialog = new ProgressDialog(mContext);
         this.dialog.setCancelable(false);
         this.dialog.setMessage(this.mContext.getString(R.string.delete_message));
         this.dialog.show();

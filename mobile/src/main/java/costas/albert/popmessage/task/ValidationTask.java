@@ -17,14 +17,20 @@ import cz.msebera.android.httpclient.Header;
 
 public class ValidationTask extends AsyncHttpResponseHandler {
 
+    private static ValidationTask instance;
     private final StatusResponseWrapper statusResponseWrapper = new StatusResponseWrapper();
     private ProgressDialog dialog;
     private LoginActivity mContext;
     private Session session;
 
-    private ValidationTask(LoginActivity mContext) {
-        this.mContext = mContext;
-        this.session = new Session(this.mContext);
+    private ValidationTask() {
+    }
+
+    private static ValidationTask getInstance(LoginActivity mContext) {
+        if (instance == null)
+            instance = new ValidationTask();
+        instance.setContext(mContext);
+        return instance;
     }
 
     public static void execute(LoginActivity loginActivity) {
@@ -33,9 +39,16 @@ public class ValidationTask extends AsyncHttpResponseHandler {
             RestClient.get(
                     ApiValues.TOKEN_VALIDATION_END_POINT,
                     new RequestParams(),
-                    new ValidationTask(loginActivity),
+                    getInstance(loginActivity),
                     token
             );
+        }
+    }
+
+    private void setContext(LoginActivity mContext) {
+        synchronized (this) {
+            this.mContext = mContext;
+            this.session = new Session(this.mContext);
         }
     }
 

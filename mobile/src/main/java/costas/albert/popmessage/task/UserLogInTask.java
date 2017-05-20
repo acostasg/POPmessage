@@ -17,12 +17,18 @@ import cz.msebera.android.httpclient.Header;
 
 public class UserLogInTask extends AsyncHttpResponseHandler {
 
+    private static UserLogInTask instance;
     private LoginActivity mContext;
     private Session session;
 
-    private UserLogInTask(LoginActivity mContext) {
-        this.mContext = mContext;
-        this.session = new Session(this.mContext);
+    private UserLogInTask() {
+    }
+
+    private static UserLogInTask getInstance(LoginActivity mContext) {
+        if (instance == null)
+            instance = new UserLogInTask();
+        instance.setContext(mContext);
+        return instance;
     }
 
     public static void execute(LoginActivity mContext, String email, String password) {
@@ -32,8 +38,15 @@ public class UserLogInTask extends AsyncHttpResponseHandler {
         RestClient.get(
                 ApiValues.LOGIN_END_POINT,
                 requestParams,
-                new UserLogInTask(mContext)
+                getInstance(mContext)
         );
+    }
+
+    private void setContext(LoginActivity mContext) {
+        synchronized (this) {
+            this.mContext = mContext;
+            this.session = new Session(this.mContext);
+        }
     }
 
     @Override

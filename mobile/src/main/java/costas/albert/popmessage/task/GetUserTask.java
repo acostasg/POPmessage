@@ -12,23 +12,36 @@ import costas.albert.popmessage.entity.mapper.UserMapper;
 import costas.albert.popmessage.session.Session;
 import cz.msebera.android.httpclient.Header;
 
-public class GetUserTask extends AsyncHttpResponseHandler {
+class GetUserTask extends AsyncHttpResponseHandler {
 
+    private static GetUserTask instance;
     private LoginActivity mContext;
     private Session session;
 
-    private GetUserTask(LoginActivity mContext) {
-        this.mContext = mContext;
-        this.session = new Session(this.mContext);
+    private GetUserTask() {
+    }
+
+    private static GetUserTask getInstance(LoginActivity mContext) {
+        if (instance == null)
+            instance = new GetUserTask();
+        instance.setContext(mContext);
+        return instance;
     }
 
     public static void execute(LoginActivity mContext, Token token) {
         RestClient.get(
                 ApiValues.GET_USER,
                 new RequestParams(),
-                new GetUserTask(mContext),
+                getInstance(mContext),
                 token
         );
+    }
+
+    private void setContext(LoginActivity mContext) {
+        synchronized (this) {
+            this.mContext = mContext;
+            this.session = new Session(this.mContext);
+        }
     }
 
     @Override

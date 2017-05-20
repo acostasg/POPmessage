@@ -21,12 +21,19 @@ import cz.msebera.android.httpclient.Header;
 
 public class MessageByUserTask extends AsyncHttpResponseHandler {
 
+    private static MessageByUserTask instance;
     private final StatusResponseWrapper statusResponseWrapper = new StatusResponseWrapper();
     private ProgressDialog dialog;
     private MyMessagesActivity mContext;
 
-    private MessageByUserTask(MyMessagesActivity mContext) {
-        this.mContext = mContext;
+    private MessageByUserTask() {
+    }
+
+    private static MessageByUserTask getInstance(MyMessagesActivity mContext) {
+        if (instance == null)
+            instance = new MessageByUserTask();
+        instance.setContext(mContext);
+        return instance;
     }
 
     public static void execute(MyMessagesActivity messagesActivity, Token token) {
@@ -34,15 +41,21 @@ public class MessageByUserTask extends AsyncHttpResponseHandler {
             RestClient.get(
                     ApiValues.GET_MESSAGE_TO_USER,
                     new RequestParams(),
-                    new MessageByUserTask(messagesActivity),
+                    getInstance(messagesActivity),
                     token
             );
         }
     }
 
+    private void setContext(MyMessagesActivity mContext) {
+        synchronized (this) {
+            this.mContext = mContext;
+            this.dialog = new ProgressDialog(mContext);
+        }
+    }
+
     @Override
     public void onStart() {
-        this.dialog = new ProgressDialog(mContext);
         this.dialog.setCancelable(false);
         this.dialog.setMessage(this.mContext.getString(R.string.search_your_messages));
         this.dialog.show();

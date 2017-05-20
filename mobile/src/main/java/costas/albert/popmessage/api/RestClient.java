@@ -10,8 +10,9 @@ import costas.albert.popmessage.entity.Token;
 
 public final class RestClient {
 
-    public static final char SEPARATOR_PARAMS = '?';
-    public static final char EQUAL = '=';
+    private static final char SEPARATOR_PARAMS = '?';
+    private static final char EQUAL = '=';
+
     private static AsyncHttpClient client = new AsyncHttpClient();
 
     public static void get(String url, RequestParams params, AsyncHttpResponseHandler responseHandler) {

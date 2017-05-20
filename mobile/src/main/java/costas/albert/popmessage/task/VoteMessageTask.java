@@ -18,13 +18,19 @@ import cz.msebera.android.httpclient.Header;
 
 public class VoteMessageTask extends AsyncHttpResponseHandler {
 
+    private static VoteMessageTask instance;
     private final StatusResponseWrapper statusResponseWrapper = new StatusResponseWrapper();
     private ProgressDialog dialog;
     private MessagesActivity mContext;
 
+    private VoteMessageTask() {
+    }
 
-    private VoteMessageTask(MessagesActivity mContext) {
-        this.mContext = mContext;
+    private static VoteMessageTask getInstance(MessagesActivity mContext) {
+        if (instance == null)
+            instance = new VoteMessageTask();
+        instance.setContext(mContext);
+        return instance;
     }
 
     public static void executeLike(
@@ -37,7 +43,7 @@ public class VoteMessageTask extends AsyncHttpResponseHandler {
         RestClient.post(
                 ApiValues.POST_MESSAGE_LIKE,
                 requestParams,
-                new VoteMessageTask(mContext),
+                getInstance(mContext),
                 token
         );
     }
@@ -52,14 +58,20 @@ public class VoteMessageTask extends AsyncHttpResponseHandler {
         RestClient.post(
                 ApiValues.POST_MESSAGE_DISLIKE,
                 requestParams,
-                new VoteMessageTask(mContext),
+                getInstance(mContext),
                 token
         );
     }
 
+    private void setContext(MessagesActivity mContext) {
+        synchronized (this) {
+            this.mContext = mContext;
+            this.dialog = new ProgressDialog(mContext);
+        }
+    }
+
     @Override
     public void onStart() {
-        this.dialog = new ProgressDialog(mContext);
         this.dialog.setCancelable(false);
         this.dialog.setMessage(this.mContext.getString(R.string.sending_vote));
         this.dialog.show();

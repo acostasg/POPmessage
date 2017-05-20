@@ -14,12 +14,18 @@ import cz.msebera.android.httpclient.Header;
 
 public class UserLogOutTask extends AsyncHttpResponseHandler {
 
+    private static UserLogOutTask instance;
     private AppCompatActivity mContext;
     private Session session;
 
-    private UserLogOutTask(AppCompatActivity mContext) {
-        this.mContext = mContext;
-        this.session = new Session(this.mContext);
+    private UserLogOutTask() {
+    }
+
+    private static UserLogOutTask getInstance(AppCompatActivity mContext) {
+        if (instance == null)
+            instance = new UserLogOutTask();
+        instance.setContext(mContext);
+        return instance;
     }
 
     public static void execute(AppCompatActivity mContext) {
@@ -27,9 +33,14 @@ public class UserLogOutTask extends AsyncHttpResponseHandler {
         RestClient.get(
                 ApiValues.LOGOUT_END_POINT,
                 requestParams,
-                new UserLogOutTask(mContext),
+                getInstance(mContext),
                 new Session(mContext).getToken()
         );
+    }
+
+    private void setContext(AppCompatActivity mContext) {
+        this.mContext = mContext;
+        this.session = new Session(this.mContext);
     }
 
     @Override

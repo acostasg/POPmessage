@@ -17,12 +17,19 @@ import cz.msebera.android.httpclient.Header;
 
 public class UserRegisterTask extends AsyncHttpResponseHandler {
 
+    private static UserRegisterTask instance;
     private RegisterActivity mContext;
     private Session session;
+    private AlertDialog alertDialog;
 
-    private UserRegisterTask(RegisterActivity mContext) {
-        this.mContext = mContext;
-        this.session = new Session(this.mContext);
+    private UserRegisterTask() {
+    }
+
+    private static UserRegisterTask getInstance(RegisterActivity mContext) {
+        if (instance == null)
+            instance = new UserRegisterTask();
+        instance.setContext(mContext);
+        return instance;
     }
 
     public static void execute(
@@ -42,8 +49,16 @@ public class UserRegisterTask extends AsyncHttpResponseHandler {
         RestClient.post(
                 ApiValues.REGISTER_END_POINT,
                 requestParams,
-                new UserRegisterTask(mContext)
+                getInstance(mContext)
         );
+    }
+
+    private void setContext(RegisterActivity mContext) {
+        synchronized (this) {
+            this.mContext = mContext;
+            this.session = new Session(this.mContext);
+            this.alertDialog = new AlertDialog.Builder(mContext).create();
+        }
     }
 
     @Override
@@ -100,16 +115,15 @@ public class UserRegisterTask extends AsyncHttpResponseHandler {
     }
 
     private void popAlertConnection(String message) {
-        AlertDialog alertDialog = new AlertDialog.Builder(mContext).create();
-        alertDialog.setTitle(this.mContext.getString(R.string.alert));
-        alertDialog.setMessage(message);
-        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, this.mContext.getString(R.string.ok),
+        this.alertDialog.setTitle(this.mContext.getString(R.string.alert));
+        this.alertDialog.setMessage(message);
+        this.alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, this.mContext.getString(R.string.ok),
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
                     }
                 });
 
-        alertDialog.show();
+        this.alertDialog.show();
     }
 }

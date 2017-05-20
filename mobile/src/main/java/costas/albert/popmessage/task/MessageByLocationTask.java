@@ -23,12 +23,19 @@ import cz.msebera.android.httpclient.Header;
 
 public class MessageByLocationTask extends AsyncHttpResponseHandler {
 
+    private static MessageByLocationTask instance;
     private final StatusResponseWrapper statusResponseWrapper = new StatusResponseWrapper();
     private ProgressDialog dialog;
     private MessagesActivity mContext;
 
-    private MessageByLocationTask(MessagesActivity mContext) {
-        this.mContext = mContext;
+    private MessageByLocationTask() {
+    }
+
+    private static MessageByLocationTask getInstance(MessagesActivity mContext) {
+        if (instance == null)
+            instance = new MessageByLocationTask();
+        instance.setContext(mContext);
+        return instance;
     }
 
     public static void execute(MessagesActivity messagesActivity, Location location) {
@@ -40,15 +47,21 @@ public class MessageByLocationTask extends AsyncHttpResponseHandler {
             RestClient.get(
                     ApiValues.GET_MESSAGE_TO_LOCATION,
                     requestParams,
-                    new MessageByLocationTask(messagesActivity),
+                    getInstance(messagesActivity),
                     token
             );
         }
     }
 
+    private void setContext(MessagesActivity mContext) {
+        synchronized (this) {
+            this.mContext = mContext;
+            this.dialog = new ProgressDialog(mContext);
+        }
+    }
+
     @Override
     public void onStart() {
-        this.dialog = new ProgressDialog(mContext);
         this.dialog.setCancelable(false);
         this.dialog.setMessage(this.mContext.getString(R.string.search_messages));
         this.dialog.show();
