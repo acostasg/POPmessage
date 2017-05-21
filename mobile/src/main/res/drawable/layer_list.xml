@@ -10,10 +10,10 @@
     </item>
 
     <item
-        android:top="0.2dp"
-        android:bottom="1dp"
-        android:left="0.2dp"
-        android:right="1dp">
+        android:top="0.3dp"
+        android:bottom="0.6dp"
+        android:left="0.3dp"
+        android:right="0.6dp">
 
         <shape android:shape="rectangle">
 

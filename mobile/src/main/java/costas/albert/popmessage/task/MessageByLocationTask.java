@@ -84,11 +84,14 @@ public class MessageByLocationTask extends AsyncHttpResponseHandler {
     }
 
     private void setMessage(String message) {
-        Snackbar.make(
-                this.mContext.findViewById(android.R.id.content).getRootView(),
-                message,
-                Snackbar.LENGTH_LONG
-        ).show();
+        try {
+            Snackbar.make(
+                    this.mContext.findViewById(android.R.id.content).getRootView(),
+                    message,
+                    Snackbar.LENGTH_LONG
+            ).show();
+        } catch (Exception exception) {
+        }
     }
 
     @Override

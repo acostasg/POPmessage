@@ -11,7 +11,9 @@
         android:id="@+id/messages"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="1pt" />
+        android:layout_margin="1pt"
+        android:divider="@null"
+        android:dividerHeight="0dp" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/new_message"

@@ -3,35 +3,39 @@
     android:layout_width="fill_parent"
     android:layout_height="?android:attr/listPreferredItemHeight"
     android:background="@drawable/layer_list"
-    android:layout_marginBottom="1dp"
-    >
-
-    <ImageView
-        android:id="@+id/icon_list_message"
-        android:layout_width="18dp"
-        android:layout_height="18dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="4dp"
-        android:contentDescription="@string/message"
-        android:src="@drawable/ic_mail_black_24dp" />
-
+    android:orientation="vertical">
 
     <LinearLayout
-        android:layout_width="0dip"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:orientation="vertical">
+        android:id="@+id/userNameLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/icon_list_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="4dp"
+            android:contentDescription="@string/message"
+            android:src="@drawable/ic_mail_black_24dp" />
 
         <TextView
             android:id="@+id/user"
-            android:layout_width="fill_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="4dp"
-            android:layout_marginTop="4dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginTop="7dp"
             android:text="@+id/user"
-            android:textColor="@color/colorPrimary"
+            android:textColor="@color/yourMessages"
             android:textSize="12sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
         <TextView
             android:id="@+id/label"
@@ -40,65 +44,64 @@
             android:layout_marginBottom="4dp"
             android:layout_marginEnd="15dp"
             android:layout_marginTop="4dp"
-            android:background="@drawable/border"
             android:padding="10sp"
             android:text="@+id/label"
+            android:typeface="normal"
             android:textColor="@color/textItem"
-            android:textSize="18sp" />
+            android:textSize="15sp" />
+    </LinearLayout>
 
-        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_marginEnd="10pt"
+        android:textAlignment="textEnd">
+
+        <ImageView
+            android:id="@+id/icon_like"
+            android:layout_width="14dp"
+            android:layout_height="14dp"
+            android:layout_marginBottom="4dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="3dp"
+            android:contentDescription="@string/like"
+            android:src="@drawable/ic_like" />
+
+        <TextView
+            android:id="@+id/messageVotesLike"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:layout_marginEnd="10pt"
-            android:textAlignment="textEnd">
+            android:layout_marginBottom="4dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginTop="4dp"
+            android:text="@+id/label"
+            android:textAlignment="textEnd"
+            android:textColor="@color/likeSilver"
+            android:textSize="10sp" />
 
-            <ImageView
-                android:id="@+id/icon_like"
-                android:layout_width="14dp"
-                android:layout_height="14dp"
-                android:layout_marginBottom="4dp"
-                android:layout_marginEnd="5dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="3dp"
-                android:contentDescription="@string/like"
-                android:src="@drawable/ic_like" />
+        <ImageView
+            android:id="@+id/icon_dislike"
+            android:layout_width="14dp"
+            android:layout_height="14dp"
+            android:layout_marginBottom="4dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
+            android:contentDescription="@string/disLike"
+            android:src="@drawable/ic_dislike" />
 
-            <TextView
-                android:id="@+id/messageVotesLike"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="4dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginTop="4dp"
-                android:text="@+id/label"
-                android:textAlignment="textEnd"
-                android:textColor="@color/like"
-                android:textSize="10sp" />
-
-            <ImageView
-                android:id="@+id/icon_dislike"
-                android:layout_width="14dp"
-                android:layout_height="14dp"
-                android:layout_marginBottom="4dp"
-                android:layout_marginEnd="5dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="5dp"
-                android:contentDescription="@string/disLike"
-                android:src="@drawable/ic_dislike" />
-
-            <TextView
-                android:id="@+id/messageVotesDislike"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="4dp"
-                android:layout_marginTop="4dp"
-                android:text="@+id/label"
-                android:textAlignment="textEnd"
-                android:textColor="@color/dislike"
-                android:textSize="10sp" />
-        </LinearLayout>
-
+        <TextView
+            android:id="@+id/messageVotesDislike"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:layout_marginTop="4dp"
+            android:text="@+id/label"
+            android:textAlignment="textEnd"
+            android:textColor="@color/dislikeSilver"
+            android:textSize="10sp" />
     </LinearLayout>
 
 </LinearLayout>

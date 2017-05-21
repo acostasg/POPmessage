@@ -12,7 +12,9 @@
         android:id="@+id/messages_your"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="2pt"
+        android:layout_margin="1pt"
+        android:divider="@null"
+        android:dividerHeight="0dp"
         />
 
     <android.support.design.widget.FloatingActionButton
