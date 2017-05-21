@@ -1,9 +1,13 @@
 package costas.albert.popmessage.task;
 
+import android.support.design.widget.Snackbar;
+import android.util.Log;
+
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
 import costas.albert.popmessage.LoginActivity;
+import costas.albert.popmessage.R;
 import costas.albert.popmessage.api.ApiValues;
 import costas.albert.popmessage.api.RestClient;
 import costas.albert.popmessage.entity.Token;
@@ -58,7 +62,12 @@ class GetUserTask extends AsyncHttpResponseHandler {
                 this.session.setUser(user);
             }
         } catch (java.io.IOException | org.json.JSONException exception) {
-            return;
+            Snackbar.make(
+                    this.mContext.findViewById(android.R.id.content).getRootView(),
+                    this.mContext.getString(R.string.wrong_server_end),
+                    Snackbar.LENGTH_LONG
+            ).show();
+            Log.d(this.getClass().getSimpleName(), exception.getMessage());
         }
         finishTask();
     }

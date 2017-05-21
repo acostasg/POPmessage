@@ -5,8 +5,9 @@
     <color name="colorAccent">#e53935</color>
     <color name="colorTextButton">#FFFFFF</color>
     <color name="textItem">#000000</color>
-    <color name="backgroundItem">#e0f2f1</color>
+    <color name="backgroundItem">#FFF</color>
+    <color name="shadow">#516e6e6e</color>
     <color name="yourMessages">#424242</color>
-    <color name="like">#2e7d32</color>
-    <color name="dislike">#ba000d</color>
+    <color name="like">#749f77</color>
+    <color name="dislike">#ff3d4b</color>
 </resources>

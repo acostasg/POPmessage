@@ -1,6 +1,8 @@
 package costas.albert.popmessage.task;
 
 import android.app.ProgressDialog;
+import android.support.design.widget.Snackbar;
+import android.util.Log;
 
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -85,15 +87,18 @@ public class VoteMessageTask extends AsyncHttpResponseHandler {
             this.dialog.cancel();
             this.mContext.sendMessagesView(message);
         } catch (Exception exception) {
-            this.dialog.setMessage(this.mContext.getString(R.string.wrong_server_end)
-                    + " [" + exception.getMessage() + ']');
-            this.dialog.setCancelable(true);
+            Snackbar.make(
+                    this.mContext.findViewById(android.R.id.content).getRootView(),
+                    this.mContext.getString(R.string.wrong_server_end),
+                    Snackbar.LENGTH_LONG
+            ).show();
+            Log.d(this.getClass().getSimpleName(), exception.getMessage());
         }
 
     }
 
     @Override
     public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-        statusResponseWrapper.onFailure(statusCode, this.mContext, this.dialog);
+        statusResponseWrapper.onFailure(statusCode, this.mContext);
     }
 }

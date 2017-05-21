@@ -1,6 +1,8 @@
 package costas.albert.popmessage.task;
 
 import android.app.ProgressDialog;
+import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -76,19 +78,21 @@ public class MessageByUserTask extends AsyncHttpResponseHandler {
             } else {
                 iconNotImages.setVisibility(View.INVISIBLE);
             }
-            this.dialog.hide();
-            this.dialog.cancel();
         } catch (Exception exception) {
-            this.dialog.setMessage(
-                    this.mContext.getString(R.string.unexpected_short)
-                            + exception.getMessage()
-            );
+            Snackbar.make(
+                    this.mContext.findViewById(android.R.id.content).getRootView(),
+                    this.mContext.getString(R.string.unexpected_short),
+                    Snackbar.LENGTH_LONG
+            ).show();
+            Log.d(this.getClass().getSimpleName(), exception.getMessage());
         }
+        this.dialog.hide();
+        this.dialog.cancel();
     }
 
     @Override
     public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-        statusResponseWrapper.onFailure(statusCode, this.mContext, this.dialog);
+        statusResponseWrapper.onFailure(statusCode, this.mContext);
     }
 
 }

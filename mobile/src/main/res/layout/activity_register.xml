@@ -109,13 +109,30 @@
                 android:id="@+id/hasPrivacyPolicy"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="48dp"
+                android:layout_marginTop="38dp"
                 android:checkMark="?android:attr/listChoiceIndicatorMultiple"
                 android:checked="false"
                 android:clickable="true"
                 android:gravity="center"
                 android:linksClickable="true"
+                android:autoLink="web"
+                android:textStyle="bold"
                 android:text="@string/accept_privacy_policy" />
+
+            <TextView
+                android:id="@+id/linkToViewPrivacyPolicy"
+                android:layout_width="match_parent"
+                android:textColorLink="@color/colorPrimaryDark"
+                android:layout_height="wrap_content"
+                android:autoLink="web"
+                android:clickable="true"
+                android:contentDescription="@string/link_policy"
+                android:cursorVisible="true"
+                android:onClick="openPolicyText"
+                android:text="@string/link_policy"
+                android:textColor="@color/colorPrimaryDark"
+                android:visibility="visible"
+                tools:ignore="TextViewEdits" />
 
             <Button
                 android:id="@+id/email_sign_in_button"

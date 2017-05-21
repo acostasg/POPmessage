@@ -16,8 +16,8 @@ import costas.albert.popmessage.R;
 public class LocationManagerWrapper {
 
     public static final int REQUEST_GPS = 1;
-    public static final int MIN_DISTANCE = 5;
-    public static final int MIN_TIME = 20000;
+    public static final int MIN_DISTANCE = 50;  //50 meters
+    public static final int MIN_TIME = 900000; //15 minutes
     private LocationManager mLocationManager;
     private AppCompatActivity appCompatActivity;
 

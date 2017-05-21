@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="link_policy">Push to view privacy policy</string>
+    <string name="policyText">
+POPmessage está especialmente sensibilizada en la protección de los datos de los USUARIOS de los
+        servicios a los que se accede a través de su web. Mediante la presente Política de Privacidad
+        (en adelante , la Política) POPmessage informa a los USUARIOS de la APP: datos de usuario del
+        tratamiento y usos a los que se someten los datos de carácter personal que se recaban en la web,
+        con el fin de que decidan, libre y voluntariamente, si desean facilitar la información solicitada.\n\n
+
+POPmessage se reserva la facultad de modificar esta Política con el objeto de adaptarla a novedades
+        legislativas, criterios jurisprudenciales, prácticas del sector, o intereses de la entidad. \n\n
+        Cualquier modificación en la misma será anunciada con la debida antelación, a fin de que tengas perfecto conocimiento de su contenido.\n\n
+
+Ciertos servicios prestados en el portal pueden contener condiciones particulares con previsiones en
+        materia de protección de Datos Personales. De ellos puedes informarte en los correspondientes apartados.
+\n\n\n
+TITULARIDAD DEL TRATAMIENTO\n
+En dichos supuestos, los datos recabados por POPmessage serán incorporados a ficheros titularidad de
+        POPmessage , debidamente inscritos en el Registro General de Protección de Datos.
+\n\n\n
+USOS Y FINALIDADES\n
+La finalidad de la recogida y tratamiento de los datos personales es la gestión, prestación y personalización
+        de los servicios y contenidos del mismo que el USUARIO utilice y de la cual se informará en cada apartado.
+\n\n\n
+COMUNICACIÓN DE LOS DATOS\n
+Los datos recabados a través de la web sólo serán cedidos en aquellos casos en que expresamente se informe
+        de ello al USUARIO.
+\n\n\n
+ACTUALIZACIÓN DE LOS DATOS\n
+Con el fin de que los datos obrantes en nuestras bases de datos siempre correspondan a tu situación real
+        deberás mantenerlos actualizados, bien actualizándolos tú directamente en los caso en que ello sea posible bien comunicándolo al departamento correspondiente.
+\n\n\n
+UTILIZACIÓN DE COOKIES\n
+Con el objeto de proteger la intimidad de los usuarios de la aplicación POPmessage emplea cookies cuando
+        los mismos navegan por la misma.
+\n\n\n
+SEGURIDAD DE LOS DATOS\n
+LA POPmessage ha adoptado en su sistema de información las medidas técnicas y organizativas legalmente requeridas,
+        a fin de garantizar la seguridad y confidencialidad de los datos almacenados, evitando así,
+        en la medida de lo posible, su alteración, pérdida, tratamiento o acceso no autorizado.
+\n\n\n
+DERECHOS DE LOS USUARIOS\n
+En todo caso podrás acceder a tus datos, rectificarlos, cancelarlos y en su caso, oponerte a su tratamiento:\n
+Enviendo un e-mail a la siguiente dirección de correo electrónico: popmessage@gmail.com
+    </string>
+</resources>

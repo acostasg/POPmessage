@@ -3,8 +3,10 @@ package costas.albert.popmessage;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.app.AlertDialog;
 import android.app.LoaderManager;
 import android.content.CursorLoader;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.Loader;
 import android.content.pm.PackageManager;
@@ -161,6 +163,21 @@ public class RegisterActivity extends AppCompatActivity
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
 
+    }
+
+    public void openPolicyText(View view) {
+        AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+        alertDialog.setTitle(this.getString(R.string.privacy_policy));
+        alertDialog.setIcon(R.drawable.ic_security_black_24dp);
+        alertDialog.setMessage(this.getString(R.string.policyText));
+        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, this.getString(R.string.ok),
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+
+        alertDialog.show();
     }
 
     public void emailInUse() {

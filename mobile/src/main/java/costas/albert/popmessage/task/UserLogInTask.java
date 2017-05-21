@@ -2,6 +2,8 @@ package costas.albert.popmessage.task;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.support.design.widget.Snackbar;
+import android.util.Log;
 
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -20,6 +22,7 @@ public class UserLogInTask extends AsyncHttpResponseHandler {
     private static UserLogInTask instance;
     private LoginActivity mContext;
     private Session session;
+    private AlertDialog alertDialog;
 
     private UserLogInTask() {
     }
@@ -46,6 +49,7 @@ public class UserLogInTask extends AsyncHttpResponseHandler {
         synchronized (this) {
             this.mContext = mContext;
             this.session = new Session(this.mContext);
+            this.alertDialog = new AlertDialog.Builder(mContext).create();
         }
     }
 
@@ -61,16 +65,19 @@ public class UserLogInTask extends AsyncHttpResponseHandler {
             Token token = TokenMapper.build(responseBody);
             if (!token.isEmpty()) {
                 this.session.setToken(token);
-                this.mContext.finish();
                 GetUserTask.execute(this.mContext, token);
             } else {
                 invalidCredentials();
             }
         } catch (java.io.IOException | org.json.JSONException exception) {
-            popAlertConnection(this.mContext.getString(R.string.wrong_server_end)
-                    + " [" + exception.getMessage() + ']');
+            Snackbar.make(
+                    this.mContext.findViewById(android.R.id.content).getRootView(),
+                    this.mContext.getString(R.string.wrong_server_end),
+                    Snackbar.LENGTH_LONG
+            ).show();
+            Log.d(this.getClass().getSimpleName(), exception.getMessage());
         }
-        this.mContext.showProgress(false);
+        this.mContext.finish();
     }
 
     private void invalidCredentials() {
@@ -100,16 +107,15 @@ public class UserLogInTask extends AsyncHttpResponseHandler {
     }
 
     private void popAlertConnection(String message) {
-        AlertDialog alertDialog = new AlertDialog.Builder(mContext).create();
-        alertDialog.setTitle(this.mContext.getString(R.string.alert));
-        alertDialog.setMessage(message);
-        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, this.mContext.getString(R.string.ok),
+        this.alertDialog.setTitle(this.mContext.getString(R.string.alert));
+        this.alertDialog.setMessage(message);
+        this.alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, this.mContext.getString(R.string.ok),
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
                     }
                 });
 
-        alertDialog.show();
+        this.alertDialog.show();
     }
 }

@@ -1,11 +1,14 @@
 package costas.albert.popmessage.task;
 
 import android.app.ProgressDialog;
+import android.support.design.widget.Snackbar;
+import android.util.Log;
 
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
 import costas.albert.popmessage.LoginActivity;
+import costas.albert.popmessage.R;
 import costas.albert.popmessage.api.ApiValues;
 import costas.albert.popmessage.api.RestClient;
 import costas.albert.popmessage.entity.Token;
@@ -72,6 +75,12 @@ public class ValidationTask extends AsyncHttpResponseHandler {
             }
         } catch (java.io.IOException | org.json.JSONException exception) {
             session.resetSession();
+            Snackbar.make(
+                    this.mContext.findViewById(android.R.id.content).getRootView(),
+                    this.mContext.getString(R.string.expired_session),
+                    Snackbar.LENGTH_LONG
+            ).show();
+            Log.d(this.getClass().getSimpleName(), exception.getMessage());
         }
         this.dialog.hide();
         this.dialog.cancel();
@@ -79,6 +88,6 @@ public class ValidationTask extends AsyncHttpResponseHandler {
 
     @Override
     public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-        statusResponseWrapper.onFailure(statusCode, this.mContext, this.dialog);
+        statusResponseWrapper.onFailure(statusCode, this.mContext);
     }
 }

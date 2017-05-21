@@ -86,6 +86,7 @@
             <TextView
                 android:id="@+id/createAccoutLink"
                 android:layout_width="match_parent"
+                android:textColorLink="@color/colorPrimaryDark"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="100dp"
                 android:autoLink="web"

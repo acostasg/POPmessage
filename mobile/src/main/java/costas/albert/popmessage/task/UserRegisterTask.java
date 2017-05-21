@@ -2,6 +2,8 @@ package costas.albert.popmessage.task;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.support.design.widget.Snackbar;
+import android.util.Log;
 
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -79,8 +81,12 @@ public class UserRegisterTask extends AsyncHttpResponseHandler {
                 invalidCredentials();
             }
         } catch (java.io.IOException | org.json.JSONException exception) {
-            popAlertConnection(this.mContext.getString(R.string.wrong_server_end)
-                    + " [" + exception.getMessage() + ']');
+            Snackbar.make(
+                    this.mContext.findViewById(android.R.id.content).getRootView(),
+                    this.mContext.getString(R.string.wrong_server_end),
+                    Snackbar.LENGTH_LONG
+            ).show();
+            Log.d(this.getClass().getSimpleName(), exception.getMessage());
         }
 
         this.mContext.showProgress(false);

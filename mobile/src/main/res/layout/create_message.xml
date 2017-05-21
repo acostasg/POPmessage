@@ -16,7 +16,7 @@
         android:id="@+id/publish_message_text"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:background="@drawable/border"
+        android:background="@drawable/layer_list"
         android:gravity="top|start"
         android:hint="@string/message"
         android:inputType="textMultiLine"
@@ -26,7 +26,8 @@
         android:minLines="6"
         android:padding="5pt"
         android:paddingTop="2pt"
-        android:scrollbars="vertical" />
+        android:scrollbars="vertical"
+        />
 
     <TextView
         android:id="@+id/maxim_char"

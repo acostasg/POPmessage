@@ -5,14 +5,13 @@
     android:layout_height="match_parent"
     android:background="@mipmap/wallpaper"
     android:gravity="center_horizontal"
-    android:orientation="vertical"
     tools:context="costas.albert.popmessage.MessagesActivity">
 
     <ListView
         android:id="@+id/messages"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="2pt" />
+        android:layout_margin="1pt" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/new_message"
