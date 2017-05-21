@@ -5,6 +5,7 @@ import android.support.design.widget.Snackbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -73,10 +74,13 @@ public class MessageByUserTask extends AsyncHttpResponseHandler {
                     R.id.messages_your
             );
             ImageView iconNotImages = (ImageView) this.mContext.findViewById(R.id.not_messages);
+            TextView textView = (TextView) this.mContext.findViewById(R.id.text_not_found);
             if (messages.isEmpty()) {
                 iconNotImages.setVisibility(View.VISIBLE);
+                textView.setVisibility(View.VISIBLE);
             } else {
                 iconNotImages.setVisibility(View.INVISIBLE);
+                textView.setVisibility(View.INVISIBLE);
             }
         } catch (Exception exception) {
             Snackbar.make(

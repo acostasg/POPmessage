@@ -6,6 +6,7 @@ import android.support.design.widget.Snackbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -72,10 +73,13 @@ public class MessageByLocationTask extends AsyncHttpResponseHandler {
                     R.id.messages
             );
             ImageView iconNotImages = (ImageView) this.mContext.findViewById(R.id.not_messages_global);
+            TextView textView = (TextView) this.mContext.findViewById(R.id.text_not_found_global);
             if (messages.isEmpty()) {
                 iconNotImages.setVisibility(View.VISIBLE);
+                textView.setVisibility(View.VISIBLE);
             } else {
                 iconNotImages.setVisibility(View.INVISIBLE);
+                textView.setVisibility(View.INVISIBLE);
             }
         } catch (Exception exception) {
             setMessage(this.mContext.getString(R.string.unexpected_short));
@@ -91,6 +95,7 @@ public class MessageByLocationTask extends AsyncHttpResponseHandler {
                     Snackbar.LENGTH_LONG
             ).show();
         } catch (Exception exception) {
+            Log.d(this.getClass().getSimpleName(), exception.getMessage());
         }
     }
 

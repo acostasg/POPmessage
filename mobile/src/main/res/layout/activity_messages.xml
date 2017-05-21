@@ -24,6 +24,18 @@
         android:layout_margin="10dp"
         android:src="@drawable/ic_message_black_24dp" />
 
+    <TextView
+        android:id="@+id/text_not_found_global"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        android:textSize="@dimen/middle"
+        android:text="@string/requested_not_found"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorPrimary"
+        android:visibility="invisible"
+        />
+
     <ImageView
         android:id="@+id/not_messages_global"
         android:layout_width="match_parent"

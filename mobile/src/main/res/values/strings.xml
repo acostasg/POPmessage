@@ -9,7 +9,7 @@
     <string name="error_invalid_email">This email address is invalid</string>
     <string name="error_invalid_password">This password is too short</string>
     <string name="error_incorrect_password">This password is incorrect</string>
-    <string name="requested_not_found">Requested resource not found</string>
+    <string name="requested_not_found">You have write a great first message</string>
     <string name="messages_not_found">Not found messages</string>
     <string name="wrong_server_end">Something went wrong at server end</string>
     <string name="expired_session">Your session has expired. Please log in again</string>
