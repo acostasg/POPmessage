@@ -29,6 +29,7 @@ import costas.albert.popmessage.task.MessageByLocationTask;
 import costas.albert.popmessage.task.UserLogOutTask;
 import costas.albert.popmessage.task.VoteMessageTask;
 import costas.albert.popmessage.wrapper.LocationManagerWrapper;
+import costas.albert.popmessage.wrapper.SubStringWrapper;
 
 public class MessagesActivity extends AppCompatActivity
         implements LocationListener {
@@ -186,10 +187,11 @@ public class MessagesActivity extends AppCompatActivity
 
     public void sendMessagesView(Message message) {
         this.getLastKnownLocationAndRefreshMessages();
+
         Toast.makeText(
                 this.getBaseContext(),
                 this.getString(R.string.vote)
-                        + message.getText().substring(0, 15)
+                        + SubStringWrapper.subString(message.getText())
                         + this.getString(R.string.ellipsis),
                 Toast.LENGTH_LONG
         ).show();

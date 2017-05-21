@@ -26,6 +26,7 @@ import costas.albert.popmessage.task.PublishTask;
 import costas.albert.popmessage.task.UserLogOutTask;
 import costas.albert.popmessage.wrapper.EncodeMessageWrapper;
 import costas.albert.popmessage.wrapper.LocationManagerWrapper;
+import costas.albert.popmessage.wrapper.SubStringWrapper;
 
 public class PublishActivity extends AppCompatActivity {
 
@@ -138,7 +139,7 @@ public class PublishActivity extends AppCompatActivity {
         Toast.makeText(
                 this.getBaseContext(),
                 this.getString(R.string.publish_success)
-                        + message.getText().substring(0, 15)
+                        + SubStringWrapper.subString(message.getText())
                         + this.getString(R.string.ellipsis),
                 Toast.LENGTH_LONG
         ).show();

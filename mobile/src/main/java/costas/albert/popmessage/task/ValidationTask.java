@@ -84,6 +84,7 @@ public class ValidationTask extends AsyncHttpResponseHandler {
         }
         this.dialog.hide();
         this.dialog.cancel();
+        this.mContext.sendMessagesView();
     }
 
     @Override

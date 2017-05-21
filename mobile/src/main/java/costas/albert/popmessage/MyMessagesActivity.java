@@ -21,6 +21,7 @@ import costas.albert.popmessage.session.Session;
 import costas.albert.popmessage.task.DeleteTask;
 import costas.albert.popmessage.task.MessageByUserTask;
 import costas.albert.popmessage.task.UserLogOutTask;
+import costas.albert.popmessage.wrapper.SubStringWrapper;
 
 public class MyMessagesActivity extends AppCompatActivity {
 
@@ -117,7 +118,7 @@ public class MyMessagesActivity extends AppCompatActivity {
         Toast.makeText(
                 this.getBaseContext(),
                 this.getString(R.string.removed)
-                        + message.getText().substring(0, 15)
+                        + SubStringWrapper.subString(message.getText())
                         + this.getString(R.string.ellipsis),
                 Toast.LENGTH_LONG
         ).show();
