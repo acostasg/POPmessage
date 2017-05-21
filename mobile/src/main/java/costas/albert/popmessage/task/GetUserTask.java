@@ -51,7 +51,6 @@ class GetUserTask extends AsyncHttpResponseHandler {
     @Override
     public void onCancel() {
         super.onCancel();
-        this.mContext.showProgress(false);
     }
 
     @Override
@@ -62,24 +61,22 @@ class GetUserTask extends AsyncHttpResponseHandler {
                 this.session.setUser(user);
             }
         } catch (java.io.IOException | org.json.JSONException exception) {
-            Snackbar.make(
-                    this.mContext.findViewById(android.R.id.content).getRootView(),
-                    this.mContext.getString(R.string.wrong_server_end),
-                    Snackbar.LENGTH_LONG
-            ).show();
+            setMessageError();
             Log.d(this.getClass().getSimpleName(), exception.getMessage());
         }
-        finishTask();
     }
 
-    private void finishTask() {
-        this.mContext.finish();
-        this.mContext.sendMessagesView();
-        this.mContext.showProgress(false);
+    private void setMessageError() {
+        Snackbar.make(
+                this.mContext.findViewById(android.R.id.content).getRootView(),
+                this.mContext.getString(R.string.wrong_server_end),
+                Snackbar.LENGTH_LONG
+        ).show();
     }
 
     @Override
     public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-        finishTask();
+        setMessageError();
+        Log.d(this.getClass().getSimpleName(), error.getMessage());
     }
 }

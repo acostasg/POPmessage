@@ -77,6 +77,8 @@ public class UserLogInTask extends AsyncHttpResponseHandler {
             ).show();
             Log.d(this.getClass().getSimpleName(), exception.getMessage());
         }
+        this.mContext.sendMessagesView();
+        this.mContext.showProgress(false);
         this.mContext.finish();
     }
 

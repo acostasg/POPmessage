@@ -46,6 +46,7 @@ public class User {
         this.ID = iD;
     }
 
+    @JsonIgnore
     public String Id() {
         return this.ID.getId();
     }

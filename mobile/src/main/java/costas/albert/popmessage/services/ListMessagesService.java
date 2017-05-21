@@ -111,7 +111,7 @@ public class ListMessagesService {
                 TextView dislikes = (TextView) view.findViewById(R.id.messageVotesDislike);
 
 
-                if (message.userId().equals(session.getUser().Id())) {
+                if (session.hasUser() && message.userId().equals(session.getUser().Id())) {
                     icon.setImageDrawable(messagesActivity.getDrawable(R.drawable.ic_done_all_black_24dp));
                     user.setTextColor(ContextCompat.getColor(this.getContext(), R.color.yourMessages));
                     text.setTextColor(ContextCompat.getColor(this.getContext(), R.color.yourMessages));

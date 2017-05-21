@@ -58,15 +58,8 @@ public class MessageByLocationTask extends AsyncHttpResponseHandler {
     private void setContext(MessagesActivity mContext) {
         synchronized (this) {
             this.mContext = mContext;
-            this.dialog = new ProgressDialog(mContext);
+            setMessage(this.mContext.getString(R.string.search_messages));
         }
-    }
-
-    @Override
-    public void onStart() {
-        this.dialog.setCancelable(false);
-        this.dialog.setMessage(this.mContext.getString(R.string.search_messages));
-        this.dialog.show();
     }
 
     @Override
@@ -85,15 +78,17 @@ public class MessageByLocationTask extends AsyncHttpResponseHandler {
                 iconNotImages.setVisibility(View.INVISIBLE);
             }
         } catch (Exception exception) {
-            Snackbar.make(
-                    this.mContext.findViewById(android.R.id.content).getRootView(),
-                    this.mContext.getString(R.string.unexpected_short),
-                    Snackbar.LENGTH_LONG
-            ).show();
+            setMessage(this.mContext.getString(R.string.unexpected_short));
             Log.d(this.getClass().getSimpleName(), exception.getMessage());
         }
-        this.dialog.hide();
-        this.dialog.cancel();
+    }
+
+    private void setMessage(String message) {
+        Snackbar.make(
+                this.mContext.findViewById(android.R.id.content).getRootView(),
+                message,
+                Snackbar.LENGTH_LONG
+        ).show();
     }
 
     @Override
