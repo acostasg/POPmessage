@@ -31,7 +31,7 @@ public class EncodeMessageWrapper {
         return this.text;
     }
 
-    public String decode() {
+    private String decode() {
         return new String(Base64.decode(this.text.getBytes(), 2));
     }
 }

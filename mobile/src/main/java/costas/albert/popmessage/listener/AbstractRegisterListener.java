@@ -3,19 +3,24 @@ package costas.albert.popmessage.listener;
 import android.text.TextUtils;
 import android.view.View;
 
+import costas.albert.popmessage.EmailValidator.EmailValidator;
 import costas.albert.popmessage.R;
 import costas.albert.popmessage.RegisterActivity;
 import costas.albert.popmessage.task.UserRegisterTask;
+import costas.albert.popmessage.wrapper.CipherPasswordWrapper;
 
-public class AbstractRegisterListener {
+class AbstractRegisterListener {
 
-    protected final RegisterActivity registerActivity;
+    private static final int MINIM = 8;
+    private static final int MAXIM = 16;
+    private final RegisterActivity registerActivity;
+    private EmailValidator emailValidator = new EmailValidator();
 
     AbstractRegisterListener(RegisterActivity registerActivity) {
         this.registerActivity = registerActivity;
     }
 
-    protected void attemptLogin() {
+    void attemptLogin() {
         // Reset errors.
         registerActivity.mEmailView.setError(null);
         registerActivity.mPasswordView.setError(null);
@@ -25,7 +30,10 @@ public class AbstractRegisterListener {
 
         // Store values at the time of the login attempt.
         String email = registerActivity.mEmailView.getText().toString();
-        String password = registerActivity.mPasswordView.getText().toString();
+        String password = CipherPasswordWrapper.Encoder(
+                registerActivity.mPasswordView.getText().toString()
+        );
+
         String name = registerActivity.mNameView.getText().toString();
         String dateOfBirth = registerActivity.mDateOfBirthView.getText().toString();
         boolean hasPolicy = registerActivity.mHasPrivacyPolicyView.isChecked();
@@ -34,7 +42,11 @@ public class AbstractRegisterListener {
         View focusView = null;
 
         // Check for a valid password, if the user entered one.
-        if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
+        if (
+                !TextUtils.isEmpty(password)
+                        && !isPasswordWithMinimCharacters(password)
+                        && !isPasswordWithMaximCharacters(password)
+                ) {
             registerActivity.mPasswordView.setError(registerActivity.getString(R.string.error_invalid_password));
             focusView = registerActivity.mPasswordView;
             cancel = true;
@@ -79,11 +91,15 @@ public class AbstractRegisterListener {
     }
 
     private boolean isEmailValid(String email) {
-        return email.contains("@");
+        return this.emailValidator.validate(email);
     }
 
-    private boolean isPasswordValid(String password) {
-        return password.length() > 4;
+    private boolean isPasswordWithMinimCharacters(String password) {
+        return password.length() > MINIM;
+    }
+
+    private boolean isPasswordWithMaximCharacters(String password) {
+        return password.length() > MAXIM;
     }
 
 }

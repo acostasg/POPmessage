@@ -82,13 +82,18 @@ public class ValidationTask extends AsyncHttpResponseHandler {
             ).show();
             Log.d(this.getClass().getSimpleName(), exception.getMessage());
         }
+        cancelProgressDialog();
+        this.mContext.sendMessagesView();
+    }
+
+    private void cancelProgressDialog() {
         this.dialog.hide();
         this.dialog.cancel();
-        this.mContext.sendMessagesView();
     }
 
     @Override
     public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
         statusResponseWrapper.onFailure(statusCode, this.mContext);
+        cancelProgressDialog();
     }
 }

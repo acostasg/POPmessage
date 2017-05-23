@@ -7,7 +7,7 @@
     <string name="action_sign_in">Sign in</string>
     <string name="action_sign_in_short">Sign in</string>
     <string name="error_invalid_email">This email address is invalid</string>
-    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_invalid_password">This password incorrect, between 8 and 16 characters.</string>
     <string name="error_incorrect_password">This password is incorrect</string>
     <string name="requested_not_found">You have write a great first message</string>
     <string name="messages_not_found">Not found messages</string>
