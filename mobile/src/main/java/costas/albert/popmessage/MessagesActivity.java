@@ -180,6 +180,9 @@ public class MessagesActivity extends AppCompatActivity
                 intent = new Intent(this, MyMessagesActivity.class);
                 startActivity(intent);
                 return true;
+            case R.id.refresh:
+                this.getLastKnownLocationAndRefreshMessages();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }

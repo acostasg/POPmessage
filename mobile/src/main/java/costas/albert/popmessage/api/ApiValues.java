@@ -31,7 +31,7 @@ public class ApiValues {
     public static final String TEXT = "text";
     //vote message
     public static final String MESSAGE = "message";
-    
+
     //only scope api package
     //static final String BASE_URL = "http://10.0.2.2:8080/"; //android emulator simulator to pc
     static final String BASE_URL = "http://213.32.90.156:8080/"; //VPS

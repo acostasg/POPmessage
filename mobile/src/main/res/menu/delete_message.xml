@@ -2,6 +2,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
+        android:id="@+id/delete_modify"
+        android:icon="@drawable/ic_mode_edit_black_24dp"
+        android:title="@string/modify" />
+
+    <item
         android:id="@+id/delete_message"
         android:icon="@drawable/ic_delete_forever_black_24dp"
         android:title="@string/delete" />

@@ -48,6 +48,8 @@
     <!-- String to messages view -->
     <string name="public_messages">Public Messages</string>
     <string name="your_messages">Your Messages</string>
+    <string name="refresh_location">Refresh messages</string>
+    <string name="refresh_you">Refresh your messages</string>
     <string name="log_out">Log Out</string>
     <string name="message">Your Message</string>
     <string name="of">&#160;/&#160;</string>
@@ -58,6 +60,7 @@
     <string name="from">From:</string>
     <string name="you">Your message:</string>
     <string name="like">Like</string>
+    <string name="modify">Modify</string>
     <string name="delete">Delete</string>
     <string name="disLike">DisLike</string>
     <string name="publish_success">Publish success:&#160;</string>

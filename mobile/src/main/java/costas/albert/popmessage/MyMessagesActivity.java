@@ -38,6 +38,10 @@ public class MyMessagesActivity extends AppCompatActivity {
         this.session = new Session(this);
         floatingButtonToPublishMessageListener
                 .createFloatingButtonToPublishMessage(R.id.new_message_your);
+        executeMessageByUserTask();
+    }
+
+    private void executeMessageByUserTask() {
         MessageByUserTask.execute(this, this.session.getToken());
     }
 
@@ -109,6 +113,9 @@ public class MyMessagesActivity extends AppCompatActivity {
                 startActivity(intent);
                 this.finish();
                 return true;
+            case R.id.refresh:
+                executeMessageByUserTask();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -122,7 +129,7 @@ public class MyMessagesActivity extends AppCompatActivity {
                         + this.getString(R.string.ellipsis),
                 Toast.LENGTH_LONG
         ).show();
-        MessageByUserTask.execute(this, this.session.getToken());
+        executeMessageByUserTask();
     }
 
 }
