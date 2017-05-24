@@ -50,6 +50,11 @@ public class Vote {
         this.userID = userID;
     }
 
+    @JsonIgnore
+    public String UserID() {
+        return userID.getId();
+    }
+
     @JsonProperty("type")
     public Type getType() {
         return type;

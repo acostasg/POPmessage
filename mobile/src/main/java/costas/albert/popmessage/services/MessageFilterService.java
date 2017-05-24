@@ -9,7 +9,7 @@ import costas.albert.popmessage.entity.Vote;
 public final class MessageFilterService {
     private List<Vote> list;
 
-    public MessageFilterService(List<Vote> list) {
+    private MessageFilterService(List<Vote> list) {
         this.list = list;
     }
 
@@ -18,7 +18,7 @@ public final class MessageFilterService {
         return messageFilter.apply(type);
     }
 
-    public List<Vote> apply(Type type) {
+    private List<Vote> apply(Type type) {
         List<Vote> filter = new ArrayList<>();
 
         for (Vote vote : list) {

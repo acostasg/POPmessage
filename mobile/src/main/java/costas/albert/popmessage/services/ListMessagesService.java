@@ -117,10 +117,12 @@ public class ListMessagesService {
                     icon.setImageDrawable(messagesActivity.getDrawable(R.drawable.ic_done_all_black_24dp));
                     userNameLayout.setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
                     user.setTextColor(ContextCompat.getColor(this.getContext(), R.color.yourMessages));
+                    text.setTextColor(ContextCompat.getColor(this.getContext(), R.color.colorPrimary));
                     String userString = messagesActivity.getString(R.string.you);
                     user.setText(userString);
                 } else {
-                    icon.setImageDrawable(messagesActivity.getDrawable(R.drawable.ic_mail_black_24dp));
+                    icon.setImageDrawable(messagesActivity.getDrawable(R.drawable.ic_mail_outline_black_24dp));
+                    text.setTextColor(ContextCompat.getColor(this.getContext(), R.color.textItem));
                     userNameLayout.setLayoutDirection(View.LAYOUT_DIRECTION_LTR);
                     String userString = messagesActivity.getString(R.string.from) + ' ' + message.getUser().getName();
                     user.setText(userString);

@@ -16,10 +16,11 @@ import java.util.Map;
         "id"
 })
 @JsonRootName(value = "Id")
-public class Id {
+class Id {
 
     @JsonProperty("id")
     private String id;
+
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 

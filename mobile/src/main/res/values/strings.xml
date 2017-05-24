@@ -67,6 +67,7 @@
     <string name="create_message">Create message</string>
     <string name="ellipsis">&#8230;</string>
     <string name="vote">"Vote:&#160;"</string>
+    <string name="vote_repeat">"One vote per message, thank you."</string>
     <string name="removed">"Removed:&#160;"</string>
     <!-- String to Errors -->
     <string name="not_permission">It is necessary to have permission to location service for use this application.</string>

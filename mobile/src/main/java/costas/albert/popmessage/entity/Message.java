@@ -12,6 +12,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import costas.albert.popmessage.services.MessageCheckUserForVoteService;
 import costas.albert.popmessage.services.MessageFilterService;
 import costas.albert.popmessage.wrapper.EncodeMessageWrapper;
 
@@ -42,7 +43,7 @@ public class Message {
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     @JsonProperty("Id")
-    public Id getID() {
+    Id getID() {
         return ID;
     }
 
@@ -121,6 +122,10 @@ public class Message {
 
     public int getSummaryVotesDislike() {
         return MessageFilterService.run(votes, Type.NEGATIVE).size();
+    }
+
+    public boolean isVotedFromUser(User user) {
+        return MessageCheckUserForVoteService.run(votes, user);
     }
 
     @JsonIgnore

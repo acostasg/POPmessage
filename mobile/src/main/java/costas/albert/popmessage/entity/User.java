@@ -37,7 +37,7 @@ public class User {
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     @JsonProperty("ID")
-    public Id getID() {
+    Id getID() {
         return ID;
     }
 

@@ -1,5 +1,5 @@
 package costas.albert.popmessage.entity;
 
-public enum Status {
+enum Status {
     ACTIVE, BLOCKED, DELETED
 }

@@ -148,6 +148,16 @@ public class MessagesActivity extends AppCompatActivity
     public boolean onContextItemSelected(MenuItem item) {
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
         Message message = listMessagesService.getMessages(info.position);
+
+        if (message.isVotedFromUser(this.session.getUser())) {
+            Toast.makeText(
+                    this.getBaseContext(),
+                    this.getString(R.string.vote_repeat),
+                    Toast.LENGTH_LONG
+            ).show();
+            return true;
+        }
+
         switch (item.getItemId()) {
             case R.id.voteLike:
                 VoteMessageTask.executeLike(

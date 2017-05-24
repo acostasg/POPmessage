@@ -14,19 +14,19 @@
             android:id="@+id/icon_list_message"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="10dp"
+            android:layout_marginEnd="3dp"
             android:layout_marginStart="4dp"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="3dp"
             android:contentDescription="@string/message"
-            android:src="@drawable/ic_mail_black_24dp" />
+            android:src="@drawable/ic_mail_outline_black_24dp" />
 
         <TextView
             android:id="@+id/user"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="4dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginTop="7dp"
+            android:layout_marginStart="2dp"
+            android:layout_marginTop="4dp"
             android:text="@+id/user"
             android:textColor="@color/yourMessages"
             android:textSize="12sp" />
