@@ -23,6 +23,7 @@ import costas.albert.popmessage.entity.Message;
 import costas.albert.popmessage.listener.watcher.TextCountWatcher;
 import costas.albert.popmessage.session.Session;
 import costas.albert.popmessage.task.PublishTask;
+import costas.albert.popmessage.task.UpdateTask;
 import costas.albert.popmessage.task.UserLogOutTask;
 import costas.albert.popmessage.wrapper.EncodeMessageWrapper;
 import costas.albert.popmessage.wrapper.LocationManagerWrapper;
@@ -34,16 +35,29 @@ public class PublishActivity extends AppCompatActivity {
     private LocationManager mLocationManager;
     private LocationManagerWrapper locationManagerWrapper;
     private Session session;
+    private String updateId = null;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.create_message);
+        this.checkUpdateMessage();
+        this.requestToPermissionsToAccessGPS();
+        this.initSession();
+    }
+
+    private void initSession() {
+        this.session = new Session(this);
+    }
+
+    private void checkUpdateMessage() {
         editText = (EditText) findViewById(R.id.publish_message_text);
         editText.addTextChangedListener(new TextCountWatcher((TextView) findViewById(R.id.maxim_char)));
-        this.requestToPermissionsToAccessGPS();
-        this.session = new Session(this);
+        if (getIntent().getExtras() != null) {
+            this.updateId = getIntent().getExtras().getString(MyMessagesActivity.MESSAGE_ID);
+            editText.setText(getIntent().getExtras().getString(MyMessagesActivity.MESSAGE_TEXT));
+        }
     }
 
     private void requestToPermissionsToAccessGPS() {
@@ -68,30 +82,57 @@ public class PublishActivity extends AppCompatActivity {
                 EncodeMessageWrapper encodeMessageWrapper
                         = new EncodeMessageWrapper(editText.getText().toString());
 
-                if (encodeMessageWrapper.isShort()) {
-                    editText.setText(encodeMessageWrapper.clearCode());
-                    editText.setError(
-                            PublishActivity.this.getString(R.string.short_text)
-                    );
-                    return;
+                if (checkAndEncodeMessage(encodeMessageWrapper)) return;
+
+                if (isNewMessage()) {
+                    publishMessage(encodeMessageWrapper);
+                } else {
+                    updateMessage(encodeMessageWrapper);
                 }
 
-                if (encodeMessageWrapper.isSmall()) {
-                    editText.setText(encodeMessageWrapper.clearCode());
-                    editText.setError(
-                            PublishActivity.this.getString(R.string.big_text)
-                    );
-                    return;
-                }
-
-                PublishTask.execute(
-                        PublishActivity.this,
-                        encodeMessageWrapper.encode(),
-                        locationManagerWrapper.getBestLocation(mLocationManager),
-                        session.getToken()
-                );
             }
         });
+    }
+
+    private boolean isNewMessage() {
+        return updateId == null;
+    }
+
+    private void updateMessage(EncodeMessageWrapper encodeMessageWrapper) {
+        UpdateTask.execute(
+                PublishActivity.this,
+                updateId,
+                encodeMessageWrapper.encode(),
+                session.getToken()
+        );
+    }
+
+    private void publishMessage(EncodeMessageWrapper encodeMessageWrapper) {
+        PublishTask.execute(
+                PublishActivity.this,
+                encodeMessageWrapper.encode(),
+                locationManagerWrapper.getBestLocation(mLocationManager),
+                session.getToken()
+        );
+    }
+
+    private boolean checkAndEncodeMessage(EncodeMessageWrapper encodeMessageWrapper) {
+        if (encodeMessageWrapper.isShort()) {
+            editText.setText(encodeMessageWrapper.clearCode());
+            editText.setError(
+                    PublishActivity.this.getString(R.string.short_text)
+            );
+            return true;
+        }
+
+        if (encodeMessageWrapper.isSmall()) {
+            editText.setText(encodeMessageWrapper.clearCode());
+            editText.setError(
+                    PublishActivity.this.getString(R.string.big_text)
+            );
+            return true;
+        }
+        return false;
     }
 
     @Override
@@ -133,8 +174,8 @@ public class PublishActivity extends AppCompatActivity {
         }
     }
 
-    public void sendMessagesView(Message message) {
-        Intent intent = new Intent(this, MessagesActivity.class);
+    public void sendMessagesView(Message message, Class<?> activityName) {
+        Intent intent = new Intent(this, activityName);
         startActivity(intent);
         Toast.makeText(
                 this.getBaseContext(),
@@ -144,6 +185,10 @@ public class PublishActivity extends AppCompatActivity {
                 Toast.LENGTH_LONG
         ).show();
         this.finish();
+    }
+
+    public void sendMessagesView(Message message) {
+        this.sendMessagesView(message, MessagesActivity.class);
     }
 
     @Override

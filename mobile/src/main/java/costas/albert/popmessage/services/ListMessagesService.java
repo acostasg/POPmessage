@@ -112,22 +112,22 @@ public class ListMessagesService {
                 TextView dislikes = (TextView) view.findViewById(R.id.messageVotesDislike);
                 LinearLayout userNameLayout = (LinearLayout) view.findViewById(R.id.userNameLayout);
 
-
+                String userString;
                 if (session.hasUser() && message.userId().equals(session.getUser().Id())) {
                     icon.setImageDrawable(messagesActivity.getDrawable(R.drawable.ic_done_all_black_24dp));
                     userNameLayout.setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
                     user.setTextColor(ContextCompat.getColor(this.getContext(), R.color.yourMessages));
                     text.setTextColor(ContextCompat.getColor(this.getContext(), R.color.colorPrimary));
-                    String userString = messagesActivity.getString(R.string.you);
-                    user.setText(userString);
+                    userString = messagesActivity.getString(R.string.you);
                 } else {
                     icon.setImageDrawable(messagesActivity.getDrawable(R.drawable.ic_mail_outline_black_24dp));
                     text.setTextColor(ContextCompat.getColor(this.getContext(), R.color.textItem));
                     userNameLayout.setLayoutDirection(View.LAYOUT_DIRECTION_LTR);
-                    String userString = messagesActivity.getString(R.string.from) + ' ' + message.getUser().getName();
-                    user.setText(userString);
+                    userString = messagesActivity.getString(R.string.from) + ' ' + message.getUser().getName();
+
                 }
 
+                user.setText(userString);
                 text.setText(message.getText());
                 String like = LIKE + String.valueOf(message.getSummaryVotesLike());
                 likes.setText(like);

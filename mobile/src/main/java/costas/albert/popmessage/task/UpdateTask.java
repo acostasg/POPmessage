@@ -1,13 +1,13 @@
 package costas.albert.popmessage.task;
 
 import android.app.ProgressDialog;
-import android.location.Location;
 import android.support.design.widget.Snackbar;
 import android.util.Log;
 
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
+import costas.albert.popmessage.MyMessagesActivity;
 import costas.albert.popmessage.PublishActivity;
 import costas.albert.popmessage.R;
 import costas.albert.popmessage.api.ApiValues;
@@ -19,35 +19,34 @@ import costas.albert.popmessage.wrapper.StatusResponseWrapper;
 import cz.msebera.android.httpclient.Header;
 
 
-public class PublishTask extends AsyncHttpResponseHandler {
+public class UpdateTask extends AsyncHttpResponseHandler {
 
-    private static PublishTask instance;
+    private static UpdateTask instance;
     private final StatusResponseWrapper statusResponseWrapper = new StatusResponseWrapper();
     private ProgressDialog dialog;
     private PublishActivity mContext;
 
-    private PublishTask() {
+    private UpdateTask() {
     }
 
-    private static PublishTask getInstance(PublishActivity mContext) {
+    private static UpdateTask getInstance(PublishActivity mContext) {
         if (instance == null)
-            instance = new PublishTask();
+            instance = new UpdateTask();
         instance.setContext(mContext);
         return instance;
     }
 
     public static void execute(
             PublishActivity mContext,
+            String messageId,
             String text,
-            Location location,
             Token token
     ) {
         RequestParams requestParams = new RequestParams();
         requestParams.add(ApiValues.TEXT, text);
-        requestParams.add(ApiValues.LAT, String.valueOf(location.getLatitude()));
-        requestParams.add(ApiValues.LON, String.valueOf(location.getLongitude()));
+        requestParams.add(ApiValues.MESSAGE, messageId);
         RestClient.post(
-                ApiValues.POST_CREATE_MESSAGE,
+                ApiValues.POST_UPDATE_MESSAGE,
                 requestParams,
                 getInstance(mContext),
                 token
@@ -72,7 +71,7 @@ public class PublishTask extends AsyncHttpResponseHandler {
     public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
         try {
             Message message = MessageMapper.build(responseBody);
-            this.mContext.sendMessagesView(message);
+            this.mContext.sendMessagesView(message, MyMessagesActivity.class);
         } catch (Exception exception) {
             Snackbar.make(
                     this.mContext.findViewById(android.R.id.content).getRootView(),

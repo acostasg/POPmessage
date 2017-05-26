@@ -25,6 +25,9 @@ import costas.albert.popmessage.wrapper.SubStringWrapper;
 
 public class MyMessagesActivity extends AppCompatActivity {
 
+    public static final String MESSAGE_ID = "messageId";
+    public static final String MESSAGE_TEXT = "messageText";
+
     private final ListMessagesService listMessagesService = new ListMessagesService();
     private final FloatingButtonToPublishMessageListener floatingButtonToPublishMessageListener
             = new FloatingButtonToPublishMessageListener(this);
@@ -75,6 +78,12 @@ public class MyMessagesActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.delete_message:
                 DeleteTask.execute(this, message, this.session.getToken());
+                return true;
+            case R.id.delete_modify:
+                Intent intent = new Intent(this.getApplicationContext(), PublishActivity.class);
+                intent.putExtra(MESSAGE_ID, message.Id());
+                intent.putExtra(MESSAGE_TEXT, message.getText());
+                this.startActivity(intent);
                 return true;
             default:
                 return super.onContextItemSelected(item);

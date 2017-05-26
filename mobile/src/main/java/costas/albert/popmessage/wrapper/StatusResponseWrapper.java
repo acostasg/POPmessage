@@ -2,6 +2,7 @@ package costas.albert.popmessage.wrapper;
 
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 
 import costas.albert.popmessage.R;
 
@@ -27,5 +28,6 @@ public class StatusResponseWrapper {
                 messageError,
                 Snackbar.LENGTH_LONG
         ).show();
+        Log.d(this.getClass().getSimpleName(), messageError);
     }
 }
