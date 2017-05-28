@@ -34,8 +34,8 @@ public class ApiValues {
     public static final String MESSAGE = "message";
 
     //only scope api package
-    static final String BASE_URL = "http://10.0.2.2:8080/"; //android emulator simulator to pc
-    //static final String BASE_URL = "http://213.32.90.156:8080/"; //VPS
+    //static final String BASE_URL = "http://10.0.2.2:8080/"; //android emulator simulator to pc
+    static final String BASE_URL = "http://vps412694.ovh.net:8080/"; //VPS
     static final String APP_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9";
     static final String AUTHORIZATION = "Authorization";
     static final String TOKEN = "Token";
