@@ -39,11 +39,13 @@ public class MessageByUserTask extends AsyncHttpResponseHandler {
         return instance;
     }
 
-    public static void execute(MyMessagesActivity messagesActivity, Token token) {
+    public static void execute(MyMessagesActivity messagesActivity, Token token, int last) {
         if (!token.isEmpty()) {
+            RequestParams requestParams = new RequestParams();
+            requestParams.add(ApiValues.LAST, String.valueOf(last));
             RestClient.get(
                     ApiValues.GET_MESSAGE_TO_USER,
-                    new RequestParams(),
+                    requestParams,
                     getInstance(messagesActivity),
                     token
             );
@@ -73,15 +75,6 @@ public class MessageByUserTask extends AsyncHttpResponseHandler {
                     messages,
                     R.id.messages_your
             );
-            ImageView iconNotImages = (ImageView) this.mContext.findViewById(R.id.not_messages);
-            TextView textView = (TextView) this.mContext.findViewById(R.id.text_not_found);
-            if (messages.isEmpty()) {
-                iconNotImages.setVisibility(View.VISIBLE);
-                textView.setVisibility(View.VISIBLE);
-            } else {
-                iconNotImages.setVisibility(View.INVISIBLE);
-                textView.setVisibility(View.INVISIBLE);
-            }
         } catch (Exception exception) {
             Snackbar.make(
                     this.mContext.findViewById(android.R.id.content).getRootView(),

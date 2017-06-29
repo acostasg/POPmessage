@@ -1,6 +1,5 @@
 package costas.albert.popmessage.task;
 
-import android.app.ProgressDialog;
 import android.location.Location;
 import android.support.design.widget.Snackbar;
 import android.util.Log;
@@ -28,7 +27,6 @@ public class MessageByLocationTask extends AsyncHttpResponseHandler {
 
     private static MessageByLocationTask instance;
     private final StatusResponseWrapper statusResponseWrapper = new StatusResponseWrapper();
-    private ProgressDialog dialog;
     private MessagesActivity mContext;
 
     private MessageByLocationTask() {
@@ -41,12 +39,13 @@ public class MessageByLocationTask extends AsyncHttpResponseHandler {
         return instance;
     }
 
-    public static void execute(MessagesActivity messagesActivity, Location location) {
+    public static void execute(MessagesActivity messagesActivity, Location location, int last) {
         Token token = new Session(messagesActivity).getToken();
         if (!token.isEmpty()) {
             RequestParams requestParams = new RequestParams();
             requestParams.add(ApiValues.LAT, String.valueOf(location.getLatitude()));
             requestParams.add(ApiValues.LON, String.valueOf(location.getLongitude()));
+            requestParams.add(ApiValues.LAST, String.valueOf(last));
             RestClient.get(
                     ApiValues.GET_MESSAGE_TO_LOCATION,
                     requestParams,
@@ -72,15 +71,6 @@ public class MessageByLocationTask extends AsyncHttpResponseHandler {
                     messages,
                     R.id.messages
             );
-            ImageView iconNotImages = (ImageView) this.mContext.findViewById(R.id.not_messages_global);
-            TextView textView = (TextView) this.mContext.findViewById(R.id.text_not_found_global);
-            if (messages.isEmpty()) {
-                iconNotImages.setVisibility(View.VISIBLE);
-                textView.setVisibility(View.VISIBLE);
-            } else {
-                iconNotImages.setVisibility(View.INVISIBLE);
-                textView.setVisibility(View.INVISIBLE);
-            }
         } catch (Exception exception) {
             setMessage(this.mContext.getString(R.string.unexpected_short));
             Log.d(this.getClass().getSimpleName(), exception.getMessage());

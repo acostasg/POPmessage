@@ -16,6 +16,7 @@ import java.lang.reflect.Method;
 
 import costas.albert.popmessage.entity.Message;
 import costas.albert.popmessage.listener.FloatingButtonToPublishMessageListener;
+import costas.albert.popmessage.services.ListActivityInterface;
 import costas.albert.popmessage.services.ListMessagesService;
 import costas.albert.popmessage.session.Session;
 import costas.albert.popmessage.task.DeleteTask;
@@ -23,7 +24,7 @@ import costas.albert.popmessage.task.MessageByUserTask;
 import costas.albert.popmessage.task.UserLogOutTask;
 import costas.albert.popmessage.wrapper.SubStringWrapper;
 
-public class MyMessagesActivity extends AppCompatActivity {
+public class MyMessagesActivity extends AppCompatActivity implements ListActivityInterface {
 
     public static final String MESSAGE_ID = "messageId";
     public static final String MESSAGE_TEXT = "messageText";
@@ -45,7 +46,11 @@ public class MyMessagesActivity extends AppCompatActivity {
     }
 
     private void executeMessageByUserTask() {
-        MessageByUserTask.execute(this, this.session.getToken());
+        MessageByUserTask.execute(
+                this,
+                this.session.getToken(),
+                listMessagesService.position()
+        );
     }
 
     public ListMessagesService listMessagesService() {
@@ -123,6 +128,7 @@ public class MyMessagesActivity extends AppCompatActivity {
                 this.finish();
                 return true;
             case R.id.refresh:
+                listMessagesService.resetPosition();
                 executeMessageByUserTask();
                 return true;
             default:
@@ -141,4 +147,8 @@ public class MyMessagesActivity extends AppCompatActivity {
         executeMessageByUserTask();
     }
 
+    @Override
+    public void executeMessageTask() {
+        this.executeMessageByUserTask();
+    }
 }

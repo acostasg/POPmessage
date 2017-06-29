@@ -28,14 +28,16 @@ public class ApiValues {
     //location
     public static final String LAT = "lat";
     public static final String LON = "lon";
+    public static final String LAST = "last";
     //publication
     public static final String TEXT = "text";
     //vote message
     public static final String MESSAGE = "message";
+    public static final int LIMIT = 10;
 
     //only scope api package
-    //static final String BASE_URL = "http://10.0.2.2:8080/"; //android emulator simulator to pc
-    static final String BASE_URL = "http://vps412694.ovh.net:8080/"; //VPS
+    static final String BASE_URL = "http://10.0.2.2:8080/"; //android emulator simulator to pc
+    //static final String BASE_URL = "http://zonamessage.com:8080/"; //VPS
     static final String APP_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9";
     static final String AUTHORIZATION = "Authorization";
     static final String TOKEN = "Token";

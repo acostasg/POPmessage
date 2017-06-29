@@ -23,6 +23,7 @@ import java.lang.reflect.Method;
 
 import costas.albert.popmessage.entity.Message;
 import costas.albert.popmessage.listener.FloatingButtonToPublishMessageListener;
+import costas.albert.popmessage.services.ListActivityInterface;
 import costas.albert.popmessage.services.ListMessagesService;
 import costas.albert.popmessage.session.Session;
 import costas.albert.popmessage.task.MessageByLocationTask;
@@ -32,7 +33,7 @@ import costas.albert.popmessage.wrapper.LocationManagerWrapper;
 import costas.albert.popmessage.wrapper.SubStringWrapper;
 
 public class MessagesActivity extends AppCompatActivity
-        implements LocationListener {
+        implements LocationListener, ListActivityInterface {
 
     private final ListMessagesService listMessagesService = new ListMessagesService();
     private final FloatingButtonToPublishMessageListener floatingButtonToPublishMessageListener
@@ -112,7 +113,8 @@ public class MessagesActivity extends AppCompatActivity
         if (null != bestLocation) {
             MessageByLocationTask.execute(
                     this,
-                    bestLocation
+                    bestLocation,
+                    listMessagesService.position()
             );
         }
     }
@@ -191,6 +193,7 @@ public class MessagesActivity extends AppCompatActivity
                 startActivity(intent);
                 return true;
             case R.id.refresh:
+                this.listMessagesService.resetPosition();
                 this.getLastKnownLocationAndRefreshMessages();
                 return true;
             default:
@@ -200,12 +203,15 @@ public class MessagesActivity extends AppCompatActivity
 
     public void sendMessagesView(Message message) {
         this.getLastKnownLocationAndRefreshMessages();
+        this.printMessage(this.getString(R.string.vote)
+                + SubStringWrapper.subString(message.getText())
+                + this.getString(R.string.ellipsis));
+    }
 
+    public void printMessage(String text) {
         Toast.makeText(
                 this.getBaseContext(),
-                this.getString(R.string.vote)
-                        + SubStringWrapper.subString(message.getText())
-                        + this.getString(R.string.ellipsis),
+                text,
                 Toast.LENGTH_LONG
         ).show();
     }
@@ -216,11 +222,13 @@ public class MessagesActivity extends AppCompatActivity
 
     @Override
     public void onLocationChanged(Location location) {
+        this.listMessagesService().resetPosition();
         this.getLastKnownLocationAndRefreshMessages();
     }
 
     @Override
     public void onStatusChanged(String provider, int status, Bundle extras) {
+        this.listMessagesService().resetPosition();
         this.getLastKnownLocationAndRefreshMessages();
     }
 
@@ -232,5 +240,10 @@ public class MessagesActivity extends AppCompatActivity
     @Override
     public void onProviderDisabled(String provider) {
 
+    }
+
+    @Override
+    public void executeMessageTask() {
+        this.getLastKnownLocationAndRefreshMessages();
     }
 }
