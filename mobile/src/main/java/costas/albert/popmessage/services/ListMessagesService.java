@@ -220,19 +220,17 @@ public class ListMessagesService {
                 TextView likes = (TextView) view.findViewById(R.id.messageVotesLike);
                 TextView dislikes = (TextView) view.findViewById(R.id.messageVotesDislike);
                 LinearLayout userNameLayout = (LinearLayout) view.findViewById(R.id.userNameLayout);
-                String userString;
+                String userString = "";
 
                 if (session.hasUser() && message.userId().equals(session.getUser().Id())) {
                     icon.setImageDrawable(messagesActivity.getDrawable(R.drawable.ic_done_all_black_24dp));
                     userNameLayout.setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
-                    user.setTextColor(ContextCompat.getColor(this.getContext(), R.color.yourMessages));
-                    text.setTextColor(ContextCompat.getColor(this.getContext(), R.color.colorPrimary));
-                    userString = messagesActivity.getString(R.string.you);
+                    text.setTextColor(ContextCompat.getColor(this.getContext(), R.color.yourMessages));
                 } else {
                     icon.setImageDrawable(messagesActivity.getDrawable(R.drawable.ic_mail_outline_black_24dp));
                     text.setTextColor(ContextCompat.getColor(this.getContext(), R.color.textItem));
                     userNameLayout.setLayoutDirection(View.LAYOUT_DIRECTION_LTR);
-                    userString = messagesActivity.getString(R.string.from) + ' ' + message.getUser().getName();
+                    userString = message.getUser().getName();
                 }
 
                 user.setText(userString);

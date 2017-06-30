@@ -3,7 +3,8 @@
     android:layout_width="fill_parent"
     android:layout_height="?android:attr/listPreferredItemHeight"
     android:background="@drawable/layer_list"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="10dp">
 
     <LinearLayout
         android:id="@+id/userNameLayout"
@@ -14,9 +15,8 @@
             android:id="@+id/icon_list_message"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="3dp"
-            android:layout_marginStart="4dp"
-            android:layout_marginTop="3dp"
+            android:layout_marginEnd="1dp"
+            android:layout_marginTop="1dp"
             android:contentDescription="@string/message"
             android:src="@drawable/ic_mail_outline_black_24dp" />
 
@@ -24,9 +24,9 @@
             android:id="@+id/user"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="4dp"
-            android:layout_marginStart="2dp"
-            android:layout_marginTop="4dp"
+            android:layout_marginBottom="2dp"
+            android:layout_marginStart="1dp"
+            android:layout_marginTop="2dp"
             android:text="@+id/user"
             android:textColor="@color/yourMessages"
             android:textSize="12sp" />
@@ -41,21 +41,20 @@
             android:id="@+id/label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="4dp"
-            android:layout_marginEnd="15dp"
-            android:layout_marginTop="4dp"
-            android:padding="10sp"
+            android:layout_marginBottom="2dp"
+            android:layout_marginEnd="2dp"
+            android:layout_marginTop="2dp"
+            android:paddingBottom="5dp"
             android:text="@+id/label"
-            android:typeface="normal"
             android:textColor="@color/textItem"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            android:typeface="normal" />
     </LinearLayout>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end"
-        android:layout_marginEnd="10pt"
         android:textAlignment="textEnd">
 
         <ImageView
@@ -85,9 +84,9 @@
             android:id="@+id/icon_dislike"
             android:layout_width="14dp"
             android:layout_height="14dp"
-            android:layout_marginBottom="4dp"
-            android:layout_marginEnd="5dp"
-            android:layout_marginStart="10dp"
+            android:layout_marginBottom="2dp"
+            android:layout_marginEnd="3dp"
+            android:layout_marginStart="5dp"
             android:layout_marginTop="5dp"
             android:contentDescription="@string/disLike"
             android:src="@drawable/ic_dislike" />
@@ -96,7 +95,7 @@
             android:id="@+id/messageVotesDislike"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="4dp"
+            android:layout_marginBottom="2dp"
             android:layout_marginTop="4dp"
             android:text="@+id/label"
             android:textAlignment="textEnd"

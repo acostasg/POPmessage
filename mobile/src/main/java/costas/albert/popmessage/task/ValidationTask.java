@@ -1,13 +1,11 @@
 package costas.albert.popmessage.task;
 
-import android.app.ProgressDialog;
 import android.support.design.widget.Snackbar;
 import android.util.Log;
 
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
-import costas.albert.popmessage.LoginActivity;
 import costas.albert.popmessage.R;
 import costas.albert.popmessage.SplashActivity;
 import costas.albert.popmessage.api.ApiValues;
@@ -23,7 +21,6 @@ public class ValidationTask extends AsyncHttpResponseHandler {
 
     private static ValidationTask instance;
     private final StatusResponseWrapper statusResponseWrapper = new StatusResponseWrapper();
-    private ProgressDialog dialog;
     private SplashActivity mContext;
     private Session session;
 
@@ -57,14 +54,6 @@ public class ValidationTask extends AsyncHttpResponseHandler {
     }
 
     @Override
-    public void onStart() {
-        this.dialog = new ProgressDialog(mContext);
-        this.dialog.setCancelable(false);
-        this.dialog.setMessage("Validation session...");
-        this.dialog.show();
-    }
-
-    @Override
     public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
         try {
             Token token = TokenMapper.build(responseBody);
@@ -83,18 +72,12 @@ public class ValidationTask extends AsyncHttpResponseHandler {
             ).show();
             Log.d(this.getClass().getSimpleName(), exception.getMessage());
         }
-        cancelProgressDialog();
         this.mContext.sendMessagesView();
-    }
-
-    private void cancelProgressDialog() {
-        this.dialog.hide();
-        this.dialog.cancel();
     }
 
     @Override
     public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
         statusResponseWrapper.onFailure(statusCode, this.mContext);
-        cancelProgressDialog();
+        this.mContext.sendLoginView();
     }
 }

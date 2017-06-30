@@ -8,7 +8,7 @@
     <color name="textItem">#000000</color>
     <color name="backgroundItem">#FFFFFF</color>
     <color name="shadow">#516e6e6e</color>
-    <color name="yourMessages">#504f4f</color>
+    <color name="yourMessages">#212121</color>
     <color name="like">#749f77</color>
     <color name="likeSilver">#bdbdbd</color>
     <color name="dislike">#ff3d4b</color>
