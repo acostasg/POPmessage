@@ -9,6 +9,7 @@ import com.loopj.android.http.RequestParams;
 
 import costas.albert.popmessage.LoginActivity;
 import costas.albert.popmessage.R;
+import costas.albert.popmessage.SplashActivity;
 import costas.albert.popmessage.api.ApiValues;
 import costas.albert.popmessage.api.RestClient;
 import costas.albert.popmessage.entity.Token;
@@ -23,20 +24,20 @@ public class ValidationTask extends AsyncHttpResponseHandler {
     private static ValidationTask instance;
     private final StatusResponseWrapper statusResponseWrapper = new StatusResponseWrapper();
     private ProgressDialog dialog;
-    private LoginActivity mContext;
+    private SplashActivity mContext;
     private Session session;
 
     private ValidationTask() {
     }
 
-    private static ValidationTask getInstance(LoginActivity mContext) {
+    private static ValidationTask getInstance(SplashActivity mContext) {
         if (instance == null)
             instance = new ValidationTask();
         instance.setContext(mContext);
         return instance;
     }
 
-    public static void execute(LoginActivity loginActivity) {
+    public static void execute(SplashActivity loginActivity) {
         Token token = new Session(loginActivity).getToken();
         if (!token.isEmpty()) {
             RestClient.get(
@@ -48,7 +49,7 @@ public class ValidationTask extends AsyncHttpResponseHandler {
         }
     }
 
-    private void setContext(LoginActivity mContext) {
+    private void setContext(SplashActivity mContext) {
         synchronized (this) {
             this.mContext = mContext;
             this.session = new Session(this.mContext);

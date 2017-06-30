@@ -10,6 +10,7 @@ import com.loopj.android.http.RequestParams;
 
 import costas.albert.popmessage.LoginActivity;
 import costas.albert.popmessage.R;
+import costas.albert.popmessage.SplashActivity;
 import costas.albert.popmessage.api.ApiValues;
 import costas.albert.popmessage.api.RestClient;
 import costas.albert.popmessage.entity.Token;
@@ -78,7 +79,7 @@ public class UserLogInTask extends AsyncHttpResponseHandler {
             Log.d(this.getClass().getSimpleName(), exception.getMessage());
         }
         this.mContext.sendMessagesView();
-        this.mContext.showProgress(false);
+        //this.mContext.showProgress(false);
         this.mContext.finish();
     }
 

@@ -1,6 +1,7 @@
 package costas.albert.popmessage.task;
 
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -8,6 +9,7 @@ import com.loopj.android.http.RequestParams;
 
 import costas.albert.popmessage.LoginActivity;
 import costas.albert.popmessage.R;
+import costas.albert.popmessage.SplashActivity;
 import costas.albert.popmessage.api.ApiValues;
 import costas.albert.popmessage.api.RestClient;
 import costas.albert.popmessage.entity.Token;
@@ -19,20 +21,20 @@ import cz.msebera.android.httpclient.Header;
 class GetUserTask extends AsyncHttpResponseHandler {
 
     private static GetUserTask instance;
-    private LoginActivity mContext;
+    private AppCompatActivity mContext;
     private Session session;
 
     private GetUserTask() {
     }
 
-    private static GetUserTask getInstance(LoginActivity mContext) {
+    private static GetUserTask getInstance(AppCompatActivity mContext) {
         if (instance == null)
             instance = new GetUserTask();
         instance.setContext(mContext);
         return instance;
     }
 
-    public static void execute(LoginActivity mContext, Token token) {
+    public static void execute(AppCompatActivity mContext, Token token) {
         RestClient.get(
                 ApiValues.GET_USER,
                 new RequestParams(),
@@ -41,7 +43,7 @@ class GetUserTask extends AsyncHttpResponseHandler {
         );
     }
 
-    private void setContext(LoginActivity mContext) {
+    private void setContext(AppCompatActivity mContext) {
         synchronized (this) {
             this.mContext = mContext;
             this.session = new Session(this.mContext);

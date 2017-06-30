@@ -13,4 +13,5 @@
     <color name="likeSilver">#bdbdbd</color>
     <color name="dislike">#ff3d4b</color>
     <color name="dislikeSilver">#bdbdbd</color>
+    <color name="splash">#a7bdda</color>
 </resources>

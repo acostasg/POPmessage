@@ -193,7 +193,7 @@ public class ListMessagesService {
             this.messages = messages;
         }
 
-        public void addItem(int position, Message message, String string) {
+        private void addItem(int position, Message message, String string) {
             this.messages.add(position, message);
             this.add(string);
         }
