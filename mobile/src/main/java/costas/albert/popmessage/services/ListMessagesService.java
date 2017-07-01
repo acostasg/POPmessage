@@ -214,12 +214,12 @@ public class ListMessagesService {
             }
             Message message = messages.get(position);
             if (message != null) {
-                ImageView icon = (ImageView) view.findViewById(R.id.icon_list_message);
-                TextView user = (TextView) view.findViewById(R.id.user);
-                TextView text = (TextView) view.findViewById(R.id.label);
-                TextView likes = (TextView) view.findViewById(R.id.messageVotesLike);
-                TextView dislikes = (TextView) view.findViewById(R.id.messageVotesDislike);
-                LinearLayout userNameLayout = (LinearLayout) view.findViewById(R.id.userNameLayout);
+                ImageView icon = view.findViewById(R.id.icon_list_message);
+                TextView user = view.findViewById(R.id.user);
+                TextView text = view.findViewById(R.id.label);
+                TextView likes = view.findViewById(R.id.messageVotesLike);
+                TextView dislikes = view.findViewById(R.id.messageVotesDislike);
+                LinearLayout userNameLayout = view.findViewById(R.id.userNameLayout);
                 String userString = "";
 
                 if (session.hasUser() && message.userId().equals(session.getUser().Id())) {

@@ -3,9 +3,6 @@ package costas.albert.popmessage.task;
 import android.location.Location;
 import android.support.design.widget.Snackbar;
 import android.util.Log;
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;

@@ -28,7 +28,6 @@ import costas.albert.popmessage.listener.EmailSignButtonLoginListener;
 import costas.albert.popmessage.services.AccessContactsLoginService;
 import costas.albert.popmessage.services.ProfileQueryService;
 import costas.albert.popmessage.session.Session;
-import costas.albert.popmessage.task.ValidationTask;
 
 /**
  * A login screen that offers login via email/password.

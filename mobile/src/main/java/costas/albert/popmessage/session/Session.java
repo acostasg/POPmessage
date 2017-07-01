@@ -27,8 +27,7 @@ public class Session {
 
     public boolean setToken(Token token) {
         final boolean result;
-        if (prefs.edit().putString(TOKEN, token.hash()).commit()) result = true;
-        else result = false;
+        result = prefs.edit().putString(TOKEN, token.hash()).commit();
         return result;
     }
 
@@ -46,8 +45,7 @@ public class Session {
         try {
             String jsonInString = mapper.writeValueAsString(user);
             final boolean result;
-            if (prefs.edit().putString(USER, jsonInString).commit()) result = true;
-            else result = false;
+            result = prefs.edit().putString(USER, jsonInString).commit();
             return result;
         } catch (Exception exception) {
             return false;

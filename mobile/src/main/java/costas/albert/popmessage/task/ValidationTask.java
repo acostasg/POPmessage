@@ -34,15 +34,17 @@ public class ValidationTask extends AsyncHttpResponseHandler {
         return instance;
     }
 
-    public static void execute(SplashActivity loginActivity) {
-        Token token = new Session(loginActivity).getToken();
+    public static void execute(SplashActivity splashActivity) {
+        Token token = new Session(splashActivity).getToken();
         if (!token.isEmpty()) {
             RestClient.get(
                     ApiValues.TOKEN_VALIDATION_END_POINT,
                     new RequestParams(),
-                    getInstance(loginActivity),
+                    getInstance(splashActivity),
                     token
             );
+        } else {
+            splashActivity.sendLoginView();
         }
     }
 

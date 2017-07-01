@@ -10,7 +10,6 @@ import com.loopj.android.http.RequestParams;
 
 import costas.albert.popmessage.LoginActivity;
 import costas.albert.popmessage.R;
-import costas.albert.popmessage.SplashActivity;
 import costas.albert.popmessage.api.ApiValues;
 import costas.albert.popmessage.api.RestClient;
 import costas.albert.popmessage.entity.Token;
