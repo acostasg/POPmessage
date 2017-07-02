@@ -2,7 +2,6 @@ package costas.albert.popmessage.task;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.support.design.widget.Snackbar;
 import android.util.Log;
 
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -14,12 +13,14 @@ import costas.albert.popmessage.api.ApiValues;
 import costas.albert.popmessage.api.RestClient;
 import costas.albert.popmessage.entity.User;
 import costas.albert.popmessage.entity.mapper.UserMapper;
+import costas.albert.popmessage.services.PrintMessageService;
 import costas.albert.popmessage.session.Session;
 import cz.msebera.android.httpclient.Header;
 
 public class UserRegisterTask extends AsyncHttpResponseHandler {
 
     private static UserRegisterTask instance;
+    private final PrintMessageService printMessageService = new PrintMessageService();
     private RegisterActivity mContext;
     private Session session;
     private AlertDialog alertDialog;
@@ -81,11 +82,10 @@ public class UserRegisterTask extends AsyncHttpResponseHandler {
                 invalidCredentials();
             }
         } catch (java.io.IOException | org.json.JSONException exception) {
-            Snackbar.make(
-                    this.mContext.findViewById(android.R.id.content).getRootView(),
+            this.printMessageService.printBarMessage(
                     this.mContext.getString(R.string.wrong_server_end),
-                    Snackbar.LENGTH_LONG
-            ).show();
+                    this.mContext
+            );
             Log.d(this.getClass().getSimpleName(), exception.getMessage());
         }
 

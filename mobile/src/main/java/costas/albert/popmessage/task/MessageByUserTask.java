@@ -1,6 +1,5 @@
 package costas.albert.popmessage.task;
 
-import android.app.ProgressDialog;
 import android.support.design.widget.Snackbar;
 import android.util.Log;
 
@@ -16,6 +15,7 @@ import costas.albert.popmessage.api.RestClient;
 import costas.albert.popmessage.entity.Message;
 import costas.albert.popmessage.entity.Token;
 import costas.albert.popmessage.entity.mapper.MessageMapper;
+import costas.albert.popmessage.services.PrintMessageService;
 import costas.albert.popmessage.wrapper.StatusResponseWrapper;
 import cz.msebera.android.httpclient.Header;
 
@@ -23,7 +23,7 @@ public class MessageByUserTask extends AsyncHttpResponseHandler {
 
     private static MessageByUserTask instance;
     private final StatusResponseWrapper statusResponseWrapper = new StatusResponseWrapper();
-    private ProgressDialog dialog;
+    private final PrintMessageService printMessageService = new PrintMessageService();
     private MyMessagesActivity mContext;
 
     private MessageByUserTask() {
@@ -52,15 +52,16 @@ public class MessageByUserTask extends AsyncHttpResponseHandler {
     private void setContext(MyMessagesActivity mContext) {
         synchronized (this) {
             this.mContext = mContext;
-            this.dialog = new ProgressDialog(mContext);
         }
     }
 
     @Override
     public void onStart() {
-        this.dialog.setCancelable(false);
-        this.dialog.setMessage(this.mContext.getString(R.string.search_your_messages));
-        this.dialog.show();
+        this.printMessageService.printBarMessage(
+                this.mContext.getString(R.string.search_your_messages),
+                this.mContext,
+                Snackbar.LENGTH_SHORT
+        );
     }
 
     @Override
@@ -73,15 +74,12 @@ public class MessageByUserTask extends AsyncHttpResponseHandler {
                     R.id.messages_your
             );
         } catch (Exception exception) {
-            Snackbar.make(
-                    this.mContext.findViewById(android.R.id.content).getRootView(),
+            this.printMessageService.printBarMessage(
                     this.mContext.getString(R.string.unexpected_short),
-                    Snackbar.LENGTH_LONG
-            ).show();
+                    this.mContext
+            );
             Log.d(this.getClass().getSimpleName(), exception.getMessage());
         }
-        this.dialog.hide();
-        this.dialog.cancel();
     }
 
     @Override

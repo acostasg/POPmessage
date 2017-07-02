@@ -15,12 +15,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.lang.reflect.Method;
 
 import costas.albert.popmessage.entity.Message;
 import costas.albert.popmessage.listener.watcher.TextCountWatcher;
+import costas.albert.popmessage.services.PrintMessageService;
 import costas.albert.popmessage.session.Session;
 import costas.albert.popmessage.task.PublishTask;
 import costas.albert.popmessage.task.UpdateTask;
@@ -31,12 +31,12 @@ import costas.albert.popmessage.wrapper.SubStringWrapper;
 
 public class PublishActivity extends AppCompatActivity {
 
+    private final PrintMessageService printMessageService = new PrintMessageService();
     private EditText editText;
     private LocationManager mLocationManager;
     private LocationManagerWrapper locationManagerWrapper;
     private Session session;
     private String updateId = null;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -175,15 +175,13 @@ public class PublishActivity extends AppCompatActivity {
     }
 
     public void sendMessagesView(Message message, Class<?> activityName) {
-        Intent intent = new Intent(this, activityName);
-        startActivity(intent);
-        Toast.makeText(
-                this.getBaseContext(),
+        this.printMessageService.printMessage(
                 this.getString(R.string.publish_success)
                         + SubStringWrapper.subString(message.getText())
                         + this.getString(R.string.ellipsis),
-                Toast.LENGTH_LONG
-        ).show();
+                this);
+        Intent intent = new Intent(this, activityName);
+        startActivity(intent);
         this.finish();
     }
 

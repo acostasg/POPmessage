@@ -1,8 +1,7 @@
 package costas.albert.popmessage.task;
 
-import android.app.ProgressDialog;
-import android.support.design.widget.Snackbar;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -14,6 +13,7 @@ import costas.albert.popmessage.api.RestClient;
 import costas.albert.popmessage.entity.Message;
 import costas.albert.popmessage.entity.Token;
 import costas.albert.popmessage.entity.mapper.MessageMapper;
+import costas.albert.popmessage.services.PrintMessageService;
 import costas.albert.popmessage.wrapper.StatusResponseWrapper;
 import cz.msebera.android.httpclient.Header;
 
@@ -22,7 +22,7 @@ public class DeleteTask extends AsyncHttpResponseHandler {
 
     private static DeleteTask instance;
     private final StatusResponseWrapper statusResponseWrapper = new StatusResponseWrapper();
-    private ProgressDialog dialog;
+    private final PrintMessageService printMessageService = new PrintMessageService();
     private MyMessagesActivity mContext;
 
     private DeleteTask() {
@@ -53,15 +53,16 @@ public class DeleteTask extends AsyncHttpResponseHandler {
     private void setContext(MyMessagesActivity mContext) {
         synchronized (this) {
             this.mContext = mContext;
-            this.dialog = new ProgressDialog(mContext);
         }
     }
 
     @Override
     public void onStart() {
-        this.dialog.setCancelable(false);
-        this.dialog.setMessage(this.mContext.getString(R.string.delete_message));
-        this.dialog.show();
+        this.printMessageService.printMessage(
+                this.mContext.getString(R.string.delete_message),
+                this.mContext,
+                Toast.LENGTH_SHORT
+        );
     }
 
     @Override
@@ -70,15 +71,12 @@ public class DeleteTask extends AsyncHttpResponseHandler {
             Message message = MessageMapper.build(responseBody);
             this.mContext.sendMessagesView(message);
         } catch (Exception exception) {
-            Snackbar.make(
-                    this.mContext.findViewById(android.R.id.content).getRootView(),
-                    this.mContext.getString(R.string.wrong_server_end),
-                    Snackbar.LENGTH_LONG
-            ).show();
+            this.printMessageService.printBarMessage(
+                    mContext.getString(R.string.wrong_server_end),
+                    this.mContext
+            );
             Log.d(this.getClass().getSimpleName(), exception.getMessage());
         }
-        this.dialog.hide();
-        this.dialog.cancel();
     }
 
     @Override

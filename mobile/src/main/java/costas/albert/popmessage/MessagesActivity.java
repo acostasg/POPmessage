@@ -25,6 +25,8 @@ import costas.albert.popmessage.entity.Message;
 import costas.albert.popmessage.listener.FloatingButtonToPublishMessageListener;
 import costas.albert.popmessage.services.ListActivityInterface;
 import costas.albert.popmessage.services.ListMessagesService;
+import costas.albert.popmessage.services.PrintMessageService;
+import costas.albert.popmessage.services.handler.ServiceMessageHandler;
 import costas.albert.popmessage.session.Session;
 import costas.albert.popmessage.task.MessageByLocationTask;
 import costas.albert.popmessage.task.UserLogOutTask;
@@ -38,6 +40,8 @@ public class MessagesActivity extends AppCompatActivity
     private final ListMessagesService listMessagesService = new ListMessagesService();
     private final FloatingButtonToPublishMessageListener floatingButtonToPublishMessageListener
             = new FloatingButtonToPublishMessageListener(this);
+    private final PrintMessageService printMessageService = new PrintMessageService();
+    private ServiceMessageHandler serviceMessageHandler;
     private LocationManager mLocationManager;
     private LocationManagerWrapper locationManagerWrapper;
     private Session session;
@@ -209,11 +213,7 @@ public class MessagesActivity extends AppCompatActivity
     }
 
     public void printMessage(String text) {
-        Toast.makeText(
-                this.getBaseContext(),
-                text,
-                Toast.LENGTH_LONG
-        ).show();
+        this.printMessageService.printMessage(text, this);
     }
 
     public ListMessagesService listMessagesService() {

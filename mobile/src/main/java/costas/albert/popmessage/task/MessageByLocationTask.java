@@ -16,6 +16,7 @@ import costas.albert.popmessage.api.RestClient;
 import costas.albert.popmessage.entity.Message;
 import costas.albert.popmessage.entity.Token;
 import costas.albert.popmessage.entity.mapper.MessageMapper;
+import costas.albert.popmessage.services.PrintMessageService;
 import costas.albert.popmessage.session.Session;
 import costas.albert.popmessage.wrapper.StatusResponseWrapper;
 import cz.msebera.android.httpclient.Header;
@@ -24,6 +25,7 @@ public class MessageByLocationTask extends AsyncHttpResponseHandler {
 
     private static MessageByLocationTask instance;
     private final StatusResponseWrapper statusResponseWrapper = new StatusResponseWrapper();
+    private final PrintMessageService printMessageService = new PrintMessageService();
     private MessagesActivity mContext;
 
     private MessageByLocationTask() {
@@ -55,7 +57,11 @@ public class MessageByLocationTask extends AsyncHttpResponseHandler {
     private void setContext(MessagesActivity mContext) {
         synchronized (this) {
             this.mContext = mContext;
-            setMessage(this.mContext.getString(R.string.search_messages));
+            this.printMessageService.printBarMessage(
+                    this.mContext.getString(R.string.search_messages),
+                    this.mContext,
+                    Snackbar.LENGTH_SHORT
+            );
         }
     }
 
@@ -69,19 +75,10 @@ public class MessageByLocationTask extends AsyncHttpResponseHandler {
                     R.id.messages
             );
         } catch (Exception exception) {
-            setMessage(this.mContext.getString(R.string.unexpected_short));
-            Log.d(this.getClass().getSimpleName(), exception.getMessage());
-        }
-    }
-
-    private void setMessage(String message) {
-        try {
-            Snackbar.make(
-                    this.mContext.findViewById(android.R.id.content).getRootView(),
-                    message,
-                    Snackbar.LENGTH_LONG
-            ).show();
-        } catch (Exception exception) {
+            this.printMessageService.printBarMessage(
+                    this.mContext.getString(R.string.unexpected_short),
+                    this.mContext
+            );
             Log.d(this.getClass().getSimpleName(), exception.getMessage());
         }
     }

@@ -1,6 +1,5 @@
 package costas.albert.popmessage.task;
 
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
@@ -13,12 +12,14 @@ import costas.albert.popmessage.api.RestClient;
 import costas.albert.popmessage.entity.Token;
 import costas.albert.popmessage.entity.User;
 import costas.albert.popmessage.entity.mapper.UserMapper;
+import costas.albert.popmessage.services.PrintMessageService;
 import costas.albert.popmessage.session.Session;
 import cz.msebera.android.httpclient.Header;
 
 class GetUserTask extends AsyncHttpResponseHandler {
 
     private static GetUserTask instance;
+    private final PrintMessageService printMessageService = new PrintMessageService();
     private AppCompatActivity mContext;
     private Session session;
 
@@ -67,11 +68,10 @@ class GetUserTask extends AsyncHttpResponseHandler {
     }
 
     private void setMessageError() {
-        Snackbar.make(
-                this.mContext.findViewById(android.R.id.content).getRootView(),
+        this.printMessageService.printBarMessage(
                 this.mContext.getString(R.string.wrong_server_end),
-                Snackbar.LENGTH_LONG
-        ).show();
+                this.mContext
+        );
     }
 
     @Override

@@ -5,8 +5,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import costas.albert.popmessage.R;
+import costas.albert.popmessage.services.PrintMessageService;
 
 public class StatusResponseWrapper {
+
+    private PrintMessageService printMessageService = new PrintMessageService();
 
     public void onFailure(int statusCode, AppCompatActivity mContext) {
         String messageError;

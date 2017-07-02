@@ -10,8 +10,6 @@ public class SplashActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        //validate token or login
         ValidationTask.execute(this);
     }
 

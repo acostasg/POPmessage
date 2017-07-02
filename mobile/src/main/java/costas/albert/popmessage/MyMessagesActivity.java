@@ -10,7 +10,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Toast;
 
 import java.lang.reflect.Method;
 
@@ -18,6 +17,7 @@ import costas.albert.popmessage.entity.Message;
 import costas.albert.popmessage.listener.FloatingButtonToPublishMessageListener;
 import costas.albert.popmessage.services.ListActivityInterface;
 import costas.albert.popmessage.services.ListMessagesService;
+import costas.albert.popmessage.services.PrintMessageService;
 import costas.albert.popmessage.session.Session;
 import costas.albert.popmessage.task.DeleteTask;
 import costas.albert.popmessage.task.MessageByUserTask;
@@ -32,6 +32,7 @@ public class MyMessagesActivity extends AppCompatActivity implements ListActivit
     private final ListMessagesService listMessagesService = new ListMessagesService();
     private final FloatingButtonToPublishMessageListener floatingButtonToPublishMessageListener
             = new FloatingButtonToPublishMessageListener(this);
+    private final PrintMessageService printMessageService = new PrintMessageService();
     private Session session;
 
     @Override
@@ -137,13 +138,12 @@ public class MyMessagesActivity extends AppCompatActivity implements ListActivit
     }
 
     public void sendMessagesView(Message message) {
-        Toast.makeText(
-                this.getBaseContext(),
+        this.printMessageService.printMessage(
                 this.getString(R.string.removed)
                         + SubStringWrapper.subString(message.getText())
                         + this.getString(R.string.ellipsis),
-                Toast.LENGTH_LONG
-        ).show();
+                this
+        );
         executeMessageByUserTask();
     }
 
