@@ -33,16 +33,23 @@ public class ListMessagesService {
     private int position = 0;
 
     public void initListMessages(
-            AppCompatActivity messagesActivity,
+            AppCompatActivity appCompatActivity,
             final List<Message> messages,
             @IdRes int id
     ) {
-        this.appCompatActivity = messagesActivity;
+        this.appCompatActivity = appCompatActivity;
         this.checkEmptyMessage(messages);
         this.initFooter();
-        this.iniServiceMessageHandler(messagesActivity, id);
-        this.initMassagesListView(messagesActivity, messages, id);
+        this.iniServiceMessageHandler(appCompatActivity, id);
+        this.initMassagesListView(appCompatActivity, messages, id);
         this.serviceMessageHandler.sendEmptyMessage(1);
+        this.disableShowProgress();
+    }
+
+    private void disableShowProgress() {
+        if (this.appCompatActivity instanceof ListActivityInterface) {
+            ((ListActivityInterface) this.appCompatActivity).showProgress(false);
+        }
     }
 
     private void iniServiceMessageHandler(AppCompatActivity messagesActivity, @IdRes int id) {

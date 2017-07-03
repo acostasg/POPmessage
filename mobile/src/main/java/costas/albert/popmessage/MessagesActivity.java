@@ -26,12 +26,12 @@ import costas.albert.popmessage.listener.FloatingButtonToPublishMessageListener;
 import costas.albert.popmessage.services.ListActivityInterface;
 import costas.albert.popmessage.services.ListMessagesService;
 import costas.albert.popmessage.services.PrintMessageService;
-import costas.albert.popmessage.services.handler.ServiceMessageHandler;
 import costas.albert.popmessage.session.Session;
 import costas.albert.popmessage.task.MessageByLocationTask;
 import costas.albert.popmessage.task.UserLogOutTask;
 import costas.albert.popmessage.task.VoteMessageTask;
 import costas.albert.popmessage.wrapper.LocationManagerWrapper;
+import costas.albert.popmessage.wrapper.ProgressViewWrapper;
 import costas.albert.popmessage.wrapper.SubStringWrapper;
 
 public class MessagesActivity extends AppCompatActivity
@@ -41,7 +41,7 @@ public class MessagesActivity extends AppCompatActivity
     private final FloatingButtonToPublishMessageListener floatingButtonToPublishMessageListener
             = new FloatingButtonToPublishMessageListener(this);
     private final PrintMessageService printMessageService = new PrintMessageService();
-    private ServiceMessageHandler serviceMessageHandler;
+    private ProgressViewWrapper progressViewWrapper;
     private LocationManager mLocationManager;
     private LocationManagerWrapper locationManagerWrapper;
     private Session session;
@@ -54,6 +54,12 @@ public class MessagesActivity extends AppCompatActivity
         registerForContextMenu(findViewById(R.id.messages));
         this.session = new Session(this);
         floatingButtonToPublishMessageListener.createFloatingButtonToPublishMessage(R.id.new_message);
+        this.progressViewWrapper = new ProgressViewWrapper(this);
+        this.showProgress(true);
+    }
+
+    public void showProgress(final boolean show) {
+        this.progressViewWrapper.showProgress(show);
     }
 
     @Override

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="?android:attr/listPreferredItemHeight"
     android:background="@drawable/layer_list"
@@ -9,7 +10,8 @@
     <LinearLayout
         android:id="@+id/userNameLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        tools:ignore="UseCompoundDrawables">
 
         <ImageView
             android:id="@+id/icon_list_message"
@@ -78,7 +80,8 @@
             android:text="@+id/label"
             android:textAlignment="textEnd"
             android:textColor="@color/likeSilver"
-            android:textSize="10sp" />
+            android:textSize="10sp"
+            tools:ignore="SmallSp" />
 
         <ImageView
             android:id="@+id/icon_dislike"
@@ -100,7 +103,8 @@
             android:text="@+id/label"
             android:textAlignment="textEnd"
             android:textColor="@color/dislikeSilver"
-            android:textSize="10sp" />
+            android:textSize="10sp"
+            tools:ignore="SmallSp" />
     </LinearLayout>
 
 </LinearLayout>

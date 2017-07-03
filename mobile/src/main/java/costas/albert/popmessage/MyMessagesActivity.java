@@ -22,6 +22,7 @@ import costas.albert.popmessage.session.Session;
 import costas.albert.popmessage.task.DeleteTask;
 import costas.albert.popmessage.task.MessageByUserTask;
 import costas.albert.popmessage.task.UserLogOutTask;
+import costas.albert.popmessage.wrapper.ProgressViewWrapper;
 import costas.albert.popmessage.wrapper.SubStringWrapper;
 
 public class MyMessagesActivity extends AppCompatActivity implements ListActivityInterface {
@@ -33,6 +34,7 @@ public class MyMessagesActivity extends AppCompatActivity implements ListActivit
     private final FloatingButtonToPublishMessageListener floatingButtonToPublishMessageListener
             = new FloatingButtonToPublishMessageListener(this);
     private final PrintMessageService printMessageService = new PrintMessageService();
+    private ProgressViewWrapper progressViewWrapper;
     private Session session;
 
     @Override
@@ -44,6 +46,12 @@ public class MyMessagesActivity extends AppCompatActivity implements ListActivit
         floatingButtonToPublishMessageListener
                 .createFloatingButtonToPublishMessage(R.id.new_message_your);
         executeMessageByUserTask();
+        this.progressViewWrapper = new ProgressViewWrapper(this);
+        this.showProgress(true);
+    }
+
+    public void showProgress(final boolean show) {
+        this.progressViewWrapper.showProgress(show);
     }
 
     private void executeMessageByUserTask() {

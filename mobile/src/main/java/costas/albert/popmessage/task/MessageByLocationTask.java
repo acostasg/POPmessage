@@ -84,6 +84,15 @@ public class MessageByLocationTask extends AsyncHttpResponseHandler {
     }
 
     @Override
+    public void onStart() {
+        this.printMessageService.printBarMessage(
+                this.mContext.getString(R.string.search_messages),
+                this.mContext,
+                Snackbar.LENGTH_SHORT
+        );
+    }
+
+    @Override
     public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
         statusResponseWrapper.onFailure(statusCode, this.mContext);
     }

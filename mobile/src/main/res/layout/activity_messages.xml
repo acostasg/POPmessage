@@ -7,6 +7,17 @@
     android:gravity="center_horizontal"
     tools:context="costas.albert.popmessage.MessagesActivity">
 
+    <ProgressBar
+        android:id="@+id/load_progress"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:visibility="gone"
+        android:gravity = "center_vertical|center_horizontal"
+        android:layout_marginTop="@dimen/top"
+        tools:visibility="visible" />
+
     <ListView
         android:id="@+id/messages"
         android:layout_width="wrap_content"

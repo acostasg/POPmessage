@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -72,12 +73,17 @@ public class PublishActivity extends AppCompatActivity {
     }
 
     private void initFloatingActionButton() {
-        FloatingActionButton newMessage
+        final FloatingActionButton newMessage
                 = (FloatingActionButton) this.findViewById(R.id.publish_action_button);
+        final int color = ContextCompat.getColor(this, R.color.colorPrimarySilverLight);
 
         newMessage.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 editText.setError(null);
+                editText.setEnabled(false);
+                editText.setBackgroundColor(color);
+
+                newMessage.setVisibility(View.GONE);
 
                 EncodeMessageWrapper encodeMessageWrapper
                         = new EncodeMessageWrapper(editText.getText().toString());

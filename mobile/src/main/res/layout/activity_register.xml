@@ -19,7 +19,9 @@
         android:id="@+id/imageRegister"
         android:layout_width="44sp"
         android:layout_height="44sp"
-        app:srcCompat="@drawable/ic_person_add_black_24dp" />
+        app:srcCompat="@drawable/ic_person_add_black_24dp"
+        android:contentDescription=""
+        tools:ignore="ContentDescription" />
 
     <ProgressBar
         android:id="@+id/register_progress"
