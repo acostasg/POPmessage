@@ -202,6 +202,10 @@ public class MessagesActivity extends AppCompatActivity
                 intent = new Intent(this, MyMessagesActivity.class);
                 startActivity(intent);
                 return true;
+            case R.id.map_messages:
+                intent = new Intent(this, MapActivity.class);
+                startActivity(intent);
+                return true;
             case R.id.refresh:
                 this.listMessagesService.resetPosition();
                 this.getLastKnownLocationAndRefreshMessages();

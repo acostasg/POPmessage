@@ -48,6 +48,7 @@
     <!-- String to messages view -->
     <string name="public_messages">Public Messages</string>
     <string name="your_messages">Your Messages</string>
+    <string name="map_messages">Map Messages</string>
     <string name="refresh_location">Refresh messages</string>
     <string name="refresh_you">Refresh your messages</string>
     <string name="log_out">Log Out</string>

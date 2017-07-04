@@ -10,10 +10,17 @@
         android:title="@string/refresh_location" />
 
     <item
+        android:id="@+id/map_messages"
+        android:icon="@drawable/ic_map_black_24dp"
+        android:showAsAction="ifRoom"
+        android:title="@string/map_messages" />
+
+    <item
         android:id="@+id/my_messages"
         android:icon="@drawable/ic_create_black_24dp"
         android:showAsAction="ifRoom"
         android:title="@string/your_messages" />
+
     <item
         android:id="@+id/log_out"
         android:icon="@drawable/ic_power_settings_new_black_24dp"

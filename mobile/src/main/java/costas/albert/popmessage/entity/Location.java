@@ -17,7 +17,7 @@ import java.util.Map;
         "lon"
 })
 @JsonRootName(value = "Location")
-class Location {
+public class Location {
 
     @JsonProperty("lat")
     private String lat;

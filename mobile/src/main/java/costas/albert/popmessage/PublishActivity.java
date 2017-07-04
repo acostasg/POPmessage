@@ -216,6 +216,10 @@ public class PublishActivity extends AppCompatActivity {
                 startActivity(intent);
                 this.finish();
                 return true;
+            case R.id.map_messages:
+                intent = new Intent(this, MapActivity.class);
+                startActivity(intent);
+                return true;
             case R.id.my_messages:
                 intent = new Intent(this, MyMessagesActivity.class);
                 startActivity(intent);
