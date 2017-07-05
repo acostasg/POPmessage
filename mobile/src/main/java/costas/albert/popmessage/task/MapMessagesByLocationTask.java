@@ -2,7 +2,6 @@ package costas.albert.popmessage.task;
 
 import android.location.Location;
 import android.support.design.widget.Snackbar;
-import android.util.Log;
 
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -77,7 +76,6 @@ public class MapMessagesByLocationTask extends AsyncHttpResponseHandler {
                     this.mContext.getString(R.string.unexpected_short),
                     this.mContext
             );
-            Log.d(this.getClass().getSimpleName(), exception.getMessage());
         }
     }
 

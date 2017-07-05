@@ -66,6 +66,10 @@ public class Message {
         return this.getUser().getID().getId();
     }
 
+    public String userName() {
+        return this.getUser().getName();
+    }
+
     @JsonIgnore
     public String getText() {
         return EncodeMessageWrapper.Decoder(text);

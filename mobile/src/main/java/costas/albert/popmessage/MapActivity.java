@@ -1,7 +1,9 @@
 package costas.albert.popmessage;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
@@ -9,6 +11,7 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -23,20 +26,35 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.maps.android.clustering.Cluster;
+import com.google.maps.android.clustering.ClusterManager;
+import com.google.maps.android.clustering.view.DefaultClusterRenderer;
+import com.google.maps.android.ui.IconGenerator;
 
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.List;
 
 import costas.albert.popmessage.entity.Message;
+import costas.albert.popmessage.listener.FloatingButtonToPublishMessageListener;
+import costas.albert.popmessage.services.google.maps.GroupMessages;
 import costas.albert.popmessage.task.MapMessagesByLocationTask;
 import costas.albert.popmessage.task.UserLogOutTask;
 import costas.albert.popmessage.wrapper.LocationManagerWrapper;
 
 public class MapActivity extends AppCompatActivity implements OnMapReadyCallback, LocationListener {
 
+    public static final int LAST = 0;
+    public static final float ZOOM = 13.5f;
+    private final FloatingButtonToPublishMessageListener floatingButtonToPublishMessageListener
+            = new FloatingButtonToPublishMessageListener(this);
+    private ClusterManager<GroupMessages> clusterManager;
     private GoogleMap mMap;
     private LocationManager mLocationManager;
     private LocationManagerWrapper locationManagerWrapper;
+    private int OFFSET = 268435456;
+    private double RADIUS = 85445659.4471;
+    private double pi = 3.1444;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +63,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+        this.floatingButtonToPublishMessageListener.createFloatingButtonToPublishMessage(R.id.new_message);
         this.requestToPermissionsToAccessGPS();
     }
 
@@ -172,37 +191,82 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                             new LatLng(
                                     bestLocation.getLatitude(),
                                     bestLocation.getLongitude()),
-                            13.5f
+                            ZOOM
                     )
             );
             MapMessagesByLocationTask.execute(
                     this,
                     bestLocation,
-                    20
+                    LAST
             );
         }
     }
 
     public void initMapMessages(List<Message> messages) {
-        for (Message message : messages) {
-            this.mMap.addMarker(new MarkerOptions().position(
-                    new LatLng(
-                            Double.valueOf(message.getLocation().getLon()), //TODO change to APi return
-                            Double.valueOf(message.getLocation().getLat())
+        this.clusterManager = new ClusterManager<GroupMessages>(this, mMap);
+        final CustomClusterRenderer renderer = new CustomClusterRenderer(this, mMap, this.clusterManager);
 
-                    )
-            )
-                    .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_map_location))
-                    .title(message.getText()));
+        this.clusterManager.setRenderer(renderer);
+        mMap.setOnCameraIdleListener(clusterManager);
+        mMap.setOnMarkerClickListener(clusterManager);
+        initMarkers(messages);
+    }
+
+    private void initMarkers(List<Message> messages) {
+
+        List<GroupMessages> clusters = clusters(messages);
+        clusterManager.addItems(clusters);
+        clusterManager.cluster();
+    }
+
+    private List<GroupMessages> clusters(List<Message> messagesList) {
+
+        ArrayList<GroupMessages> clusterList = new ArrayList<>();
+        for (Message message : messagesList) {
+            GroupMessages cluster = new GroupMessages(message);
+            clusterList.add(cluster);
         }
+
+        return clusterList;
     }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
         this.mMap = googleMap;
-        this.mMap.getUiSettings().setScrollGesturesEnabled(false);
-        this.mMap.getUiSettings().setIndoorLevelPickerEnabled(false);
+        //this.mMap.getUiSettings().setScrollGesturesEnabled(false);
         this.mMap.getUiSettings().setMapToolbarEnabled(false);
-        this.mMap.getUiSettings().setZoomGesturesEnabled(false);
+    }
+
+    public class CustomClusterRenderer extends DefaultClusterRenderer<GroupMessages> {
+
+        private final Context mContext;
+        private final IconGenerator mClusterIconGenerator;
+
+        public CustomClusterRenderer(Context context, GoogleMap map,
+                                     ClusterManager<GroupMessages> clusterManager) {
+            super(context, map, clusterManager);
+            mClusterIconGenerator = new IconGenerator(context.getApplicationContext());
+            mContext = context;
+        }
+
+        @Override
+        protected void onBeforeClusterItemRendered(GroupMessages item,
+                                                   MarkerOptions markerOptions) {
+            markerOptions.icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_map_location))
+                    .snippet(item.message().userName())
+                    .title(item.message().getText());
+        }
+
+        @Override
+        protected void onBeforeClusterRendered(Cluster<GroupMessages> cluster, MarkerOptions markerOptions) {
+            super.onBeforeClusterRendered(cluster, markerOptions);
+
+            mClusterIconGenerator.setBackground(
+                    ContextCompat.getDrawable(mContext, R.drawable.background_circle));
+            mClusterIconGenerator.setTextAppearance(R.style.AppTheme_WhiteTextAppearance);
+            final Bitmap icon = mClusterIconGenerator.makeIcon(String.valueOf(cluster.getSize()));
+            markerOptions.icon(BitmapDescriptorFactory.fromBitmap(icon));
+        }
+
     }
 }
