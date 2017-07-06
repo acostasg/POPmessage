@@ -13,8 +13,20 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
-        android:layout_margin="10dp"
+        android:layout_margin="5dp"
         android:src="@drawable/ic_message_black_24dp" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/more_messages"
+        android:background="@color/colorPrimary"
+        android:backgroundTint="@color/colorPrimaryDark"
+        android:tint="@color/backgroundItem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_margin="5dp"
+        android:src="@drawable/ic_replay_10_black_24dp" />
     
     <fragment xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"

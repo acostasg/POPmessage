@@ -136,6 +136,11 @@ public class MyMessagesActivity extends AppCompatActivity implements ListActivit
                 startActivity(intent);
                 this.finish();
                 return true;
+            case R.id.map_messages:
+                intent = new Intent(this, MapActivity.class);
+                startActivity(intent);
+                this.finish();
+                return true;
             case R.id.refresh:
                 listMessagesService.resetPosition();
                 executeMessageByUserTask();

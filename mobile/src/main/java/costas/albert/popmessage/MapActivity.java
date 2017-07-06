@@ -1,35 +1,28 @@
 package costas.albert.popmessage;
 
 import android.Manifest;
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.maps.android.clustering.Cluster;
+import com.google.android.gms.maps.model.LatLngBounds;
+import com.google.maps.android.SphericalUtil;
 import com.google.maps.android.clustering.ClusterManager;
-import com.google.maps.android.clustering.view.DefaultClusterRenderer;
-import com.google.maps.android.ui.IconGenerator;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -37,6 +30,7 @@ import java.util.List;
 
 import costas.albert.popmessage.entity.Message;
 import costas.albert.popmessage.listener.FloatingButtonToPublishMessageListener;
+import costas.albert.popmessage.services.google.maps.CustomClusterRenderer;
 import costas.albert.popmessage.services.google.maps.GroupMessages;
 import costas.albert.popmessage.task.MapMessagesByLocationTask;
 import costas.albert.popmessage.task.UserLogOutTask;
@@ -44,27 +38,48 @@ import costas.albert.popmessage.wrapper.LocationManagerWrapper;
 
 public class MapActivity extends AppCompatActivity implements OnMapReadyCallback, LocationListener {
 
-    public static final int LAST = 0;
-    public static final float ZOOM = 13.5f;
+    public static final float ZOOM_MAX = 17f;
+    public static final float ZOOM_MIN = 13f;
+    public static final double RADIUS = 2500;
+
     private final FloatingButtonToPublishMessageListener floatingButtonToPublishMessageListener
             = new FloatingButtonToPublishMessageListener(this);
     private ClusterManager<GroupMessages> clusterManager;
     private GoogleMap mMap;
     private LocationManager mLocationManager;
     private LocationManagerWrapper locationManagerWrapper;
-    private int OFFSET = 268435456;
-    private double RADIUS = 85445659.4471;
-    private double pi = 3.1444;
+    private FloatingActionButton moreMessages;
+    private int LAST = 0;
+    private boolean isLoading = false;
+    private ArrayList<GroupMessages> clusterList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.map_messages);
+        this.setContentView(R.layout.map_messages);
+        this.initGoogleMaps();
+        this.floatingButtonToPublishMessageListener.createFloatingButtonToPublishMessage(R.id.new_message);
+        this.addListenerToButtonMoreMessages();
+        this.requestToPermissionsToAccessGPS();
+    }
+
+    private void initGoogleMaps() {
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-        this.floatingButtonToPublishMessageListener.createFloatingButtonToPublishMessage(R.id.new_message);
-        this.requestToPermissionsToAccessGPS();
+    }
+
+    private void addListenerToButtonMoreMessages() {
+        moreMessages
+                = (FloatingActionButton) this.findViewById(R.id.more_messages);
+        moreMessages.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                if (!isLoading) {
+                    isLoading = true;
+                    getLastKnownLocationAndRefreshMessages(LAST);
+                }
+            }
+        });
     }
 
     @Override
@@ -150,9 +165,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                     m.setAccessible(true);
                     m.invoke(menu, true);
                 } catch (Exception e) {
-                    Log.e(getClass().getSimpleName(),
-                            "onMenuOpened...unable to set icons for overflow menu",
-                            e);
+                    //TODO
                 }
             }
         }
@@ -162,11 +175,11 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     @Override
     public void onLocationChanged(Location location) {
         this.getLastKnownLocationAndRefreshMessages();
+        clusterManager.cluster();
     }
 
     @Override
     public void onStatusChanged(String provider, int status, Bundle extras) {
-        this.getLastKnownLocationAndRefreshMessages();
     }
 
     @Override
@@ -180,18 +193,24 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     }
 
     public void getLastKnownLocationAndRefreshMessages() {
+        this.clusterList = new ArrayList<>();
+        this.getLastKnownLocationAndRefreshMessages(0);
+    }
+
+
+    public void getLastKnownLocationAndRefreshMessages(int LAST) {
         if (this.locationManagerWrapper.hasAccessFineLocation()) {
             this.locationManagerWrapper.setMessageAccessLocationInvalid();
             return;
         }
         Location bestLocation = this.locationManagerWrapper.getBestLocation(mLocationManager);
         if (null != bestLocation) {
-            this.mMap.moveCamera(
-                    CameraUpdateFactory.newLatLngZoom(
-                            new LatLng(
-                                    bestLocation.getLatitude(),
-                                    bestLocation.getLongitude()),
-                            ZOOM
+            this.mMap.setLatLngBoundsForCameraTarget(this.toBounds(
+                    new LatLng(
+                            bestLocation.getLatitude(),
+                            bestLocation.getLongitude()
+                    ),
+                    RADIUS
                     )
             );
             MapMessagesByLocationTask.execute(
@@ -202,7 +221,14 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         }
     }
 
+    public LatLngBounds toBounds(LatLng center, double radius) {
+        LatLng southwest = SphericalUtil.computeOffset(center, radius * Math.sqrt(2.0), 225);
+        LatLng northeast = SphericalUtil.computeOffset(center, radius * Math.sqrt(2.0), 45);
+        return new LatLngBounds(southwest, northeast);
+    }
+
     public void initMapMessages(List<Message> messages) {
+        LAST = LAST + messages.size();
         this.clusterManager = new ClusterManager<GroupMessages>(this, mMap);
         final CustomClusterRenderer renderer = new CustomClusterRenderer(this, mMap, this.clusterManager);
 
@@ -210,63 +236,31 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         mMap.setOnCameraIdleListener(clusterManager);
         mMap.setOnMarkerClickListener(clusterManager);
         initMarkers(messages);
+        isLoading = false;
     }
 
     private void initMarkers(List<Message> messages) {
-
-        List<GroupMessages> clusters = clusters(messages);
-        clusterManager.addItems(clusters);
+        this.addMessagesToClusters(messages);
+        clusterManager.clearItems();
+        mMap.clear();
+        clusterManager.addItems(clusterList);
         clusterManager.cluster();
     }
 
-    private List<GroupMessages> clusters(List<Message> messagesList) {
-
-        ArrayList<GroupMessages> clusterList = new ArrayList<>();
+    private void addMessagesToClusters(List<Message> messagesList) {
         for (Message message : messagesList) {
             GroupMessages cluster = new GroupMessages(message);
             clusterList.add(cluster);
         }
-
-        return clusterList;
     }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
         this.mMap = googleMap;
-        //this.mMap.getUiSettings().setScrollGesturesEnabled(false);
         this.mMap.getUiSettings().setMapToolbarEnabled(false);
+        this.mMap.setMinZoomPreference(ZOOM_MIN);
+        this.mMap.setMaxZoomPreference(ZOOM_MAX);
+        this.mMap.setBuildingsEnabled(false);
     }
 
-    public class CustomClusterRenderer extends DefaultClusterRenderer<GroupMessages> {
-
-        private final Context mContext;
-        private final IconGenerator mClusterIconGenerator;
-
-        public CustomClusterRenderer(Context context, GoogleMap map,
-                                     ClusterManager<GroupMessages> clusterManager) {
-            super(context, map, clusterManager);
-            mClusterIconGenerator = new IconGenerator(context.getApplicationContext());
-            mContext = context;
-        }
-
-        @Override
-        protected void onBeforeClusterItemRendered(GroupMessages item,
-                                                   MarkerOptions markerOptions) {
-            markerOptions.icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_map_location))
-                    .snippet(item.message().userName())
-                    .title(item.message().getText());
-        }
-
-        @Override
-        protected void onBeforeClusterRendered(Cluster<GroupMessages> cluster, MarkerOptions markerOptions) {
-            super.onBeforeClusterRendered(cluster, markerOptions);
-
-            mClusterIconGenerator.setBackground(
-                    ContextCompat.getDrawable(mContext, R.drawable.background_circle));
-            mClusterIconGenerator.setTextAppearance(R.style.AppTheme_WhiteTextAppearance);
-            final Bitmap icon = mClusterIconGenerator.makeIcon(String.valueOf(cluster.getSize()));
-            markerOptions.icon(BitmapDescriptorFactory.fromBitmap(icon));
-        }
-
-    }
 }
